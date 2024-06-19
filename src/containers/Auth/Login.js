@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 import { handleLoginApi } from "../../services/userService";
 import * as actions from "../../store/actions";
-// import { FormattedMessage } from 'react-intl';
 import './Login.scss';
-
-
 
 class Login extends Component {
     constructor(props) {
@@ -22,15 +19,14 @@ class Login extends Component {
         this.setState({
             username: event.target.value
         })
-        // console.log(event.target.value)
     }
 
     handleOnChangePassword = (event) => {
         this.setState({
             password: event.target.value
         })
-        // console.log(event.target.value)
     }
+
     handleLogin = async () => {
         this.setState({
             errMessage: ''
@@ -45,6 +41,7 @@ class Login extends Component {
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user)
                 console.log('login succed')
+                // console.log('check user login succed:', data.user);
             }
         } catch (error) {
             if (error.response) {
@@ -62,6 +59,7 @@ class Login extends Component {
             isShowPassword: !this.state.isShowPassword
         })
     }
+
     render() {
         return (
             <div className='login-backround'>
@@ -122,7 +120,7 @@ const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
         // userLoginFail: () => dispatch(actions.adminLoginFail()),
-        userLoginSuccess: (userInFor) => dispatch(actions.userLoginSuccess(userInFor)),
+        userLoginSuccess: (userInFo) => dispatch(actions.userLoginSuccess(userInFo)),
     };
 };
 

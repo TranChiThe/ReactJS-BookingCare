@@ -16,9 +16,9 @@
         .menu-group-name {
             line-height: 40px;
             padding: 0 15px;
-            border-right: 1px solid $border;
+            // border-right: 1px solid $border;
             &:first-child {
-                border-left: 1px solid $border;
+                // border-left: 1px solid $border;
             }
         }
         .menu-list {
@@ -29,12 +29,21 @@
             color: $text-in-light;
             position: absolute;
             padding: 0;
+            // background-color: rgb(238, 234, 234);
             .menu {
                 width: 205px;
                 padding: 0 15px;
                 height: 35px;
                 line-height: 35px;
                 text-transform: none;
+
+                &.active {
+                    a {
+                        color: rgb(67, 67, 248);
+                    }
+                    background-color: rgb(204, 200, 200);
+
+                }
                 .menu-link {
                     text-decoration: none;
                     color: $text-in-light;
@@ -54,8 +63,7 @@
                         line-height: 35px;
                         white-space: nowrap;
                         &:hover {
-                            background-color: darken($bg-menu-color, 5);
-                        }
+                            background-color: darken($bg-menu-color, 5);                        }
                         .sub-menu-link {
                             text-decoration: none;
                             color: $text-in-light;
@@ -74,7 +82,8 @@
                     color: $colormain;
                 }
                 &:hover {
-                    background-color: darken($bg-menu-color, 3);
+                    // background-color: darken($bg-menu-color, 3);
+                    background-color: rgb(153, 151, 151);
                     .sub-menu-list {
                         display: block;
                     }
