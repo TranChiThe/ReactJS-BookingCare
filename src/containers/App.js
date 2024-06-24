@@ -7,18 +7,14 @@ import { ToastContainer } from 'react-toastify';
 
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
-
 import { path } from '../utils'
-
 import Home from '../routes/Home';
 // import Login from '../routes/Login';
 import Login from './Auth/Login';
 import Header from './Header/Header';
 import System from '../routes/System';
-
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js'
-
 import CustomScrollbars from '../components/CustomScrollbars.js';
 
 class App extends Component {
@@ -58,11 +54,25 @@ class App extends Component {
                             </CustomScrollbars>
                         </div>
 
-                        <ToastContainer
+                        {/* <ToastContainer
                             className="toast-container" toastClassName="toast-item" bodyClassName="toast-item-body"
                             autoClose={false} hideProgressBar={true} pauseOnHover={false}
                             pauseOnFocusLoss={true} closeOnClick={false} draggable={false}
                             closeButton={<CustomToastCloseButton />}
+                        /> */}
+
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={2000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="colored"
+                        //transition:Bounce,
                         />
                     </div>
                 </Router>

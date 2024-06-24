@@ -43,6 +43,7 @@ class ModalEditUser extends Component {
                 lastName: user.lastName,
                 address: user.address,
             })
+            console.log('check user props: ', user);
         }
     }
 

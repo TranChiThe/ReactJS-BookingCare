@@ -1,200 +1,171 @@
 import React, { Component } from 'react';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
-import { FormattedMessage } from 'react-intl';
+import 'react-image-lightbox/style.css';
 import { connect } from 'react-redux';
-import { LANGUAGES } from '../../../utils';
-import * as actions from '../../../store/actions'
-import UserManage from './UserManage';
-import './UserRedux.scss'
+import * as actions from '../../../store/actions';
 import UserModalRedux from './UserModalRedux';
+import { FormattedMessage } from 'react-intl';
+import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import './UserRedux.scss'
 
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+// import style manually
+import 'react-markdown-editor-lite/lib/index.css';
+
+// Register plugins if required
+// MdEditor.use(YOUR_PLUGINS_HERE);
+
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+// Finish!
+function handleEditorChange({ html, text }) {
+    console.log('handleEditorChange', html, text);
+}
+// export default props => {
+//     return (
+//   );
+// };
 class UserRedux extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            genderArr: [],
-            positionArr: [],
-            roleArr: [],
-            previewImgURL: '',
-            isOpen: false,
-            arrCheck: {
-                email: 'Email',
-                password: 'Mật khẩu',
-                firstName: 'Tên',
-                lastName: 'Họ và tên lót',
-                phoneNumber: 'Số điện thoại',
-                address: 'Địa chỉ'
-            },
-            arrUser: [],
-            isOpenModelUser: false,
-            isOpenModelEdit: false,
+            isOpenModalUser: false,
+            isOpenModalEdit: false,
+            action: '',
         }
-    }
-
-    onChangeInput = (event, id) => {
-        let copyState = { ...this.state }
-        copyState[id] = event.target.value;
-        this.setState({
-            ...copyState
-        })
     }
 
     async componentDidMount() {
-        this.props.getGenderStart();
-        this.props.getPositionStart();
-        this.props.getRoleStart();
-
+        this.props.fetchUserRedux();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.genderRedux !== this.props.genderRedux) {
-            let arrGender = this.props.genderRedux;
+        if (prevProps.listUsers !== this.props.listUsers) {
             this.setState({
-                genderArr: arrGender,
-                gender: arrGender && arrGender.length > 0 ? arrGender[0].key : ''
+                userRedux: this.props.listUsers,
             })
         }
-        if (prevProps.positionRedux !== this.props.positionRedux) {
-            let arrPosition = this.props.positionRedux;
-            this.setState({
-                positionArr: arrPosition,
-                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].key : ''
-            })
-        }
-        if (prevProps.roleRedux !== this.props.roleRedux) {
-            let arrRole = this.props.roleRedux;
-            this.setState({
-                roleArr: arrRole,
-                role: arrRole && arrRole.length > 0 ? arrRole[0].key : ''
-            })
-        }
-    };
-
-    handleOnChangeImage = (event) => {
-        let data = event.target.files;
-        let file = data[0];
-        if (file) {
-            let objectUrl = URL.createObjectURL(file);
-            this.setState({
-                previewImgURL: objectUrl,
-                avatar: file
-            })
-        }
-    }
-
-    openPreviewImage = () => {
-        if (!this.state.previewImgURL) {
-            return;
-        }
-        this.setState({
-            isOpen: true
-        })
-    }
-
-    checkValidateInput = () => {
-        let isValid = true;
-        if (this.props.language === 'en') {
-            this.setState({
-                arrCheck: { email: 'Email', password: 'Password', firstName: 'First name', lastName: 'Last name', phoneNumber: 'Phone number', address: 'Address' }
-            })
-        } else {
-            this.setState({
-                arrCheck: { email: 'Email', password: 'Mật khẩu', firstName: 'Tên', lastName: 'Họ và tên lót', phoneNumber: 'Số điện thoại', address: 'Địa chỉ' }
-            })
-        }
-        for (let i = 0; i < Object.keys(this.state.arrCheck).length; i++) {
-            let key = Object.keys(this.state.arrCheck)[i];
-            let regexEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-            let regexPassword = /^[@#][A-Za-z0-9]{7,13}$/;
-            let isPasswordValid = regexPassword.test(this.state.password);
-            let isEmailValid = regexEmail.test(this.state.email);
-            if (!this.state[key]) {
-                isValid = false;
-                if (this.props.language === 'en') {
-                    if (!isEmailValid) {
-                        alert('Invalid email');
-                    } else if (isEmailValid) {
-                        alert('This input is required: ' + this.state.arrCheck[key]);
-                    }
-                } else {
-                    if (!isEmailValid) {
-                        alert('Email không hợp lệ');
-                    } else {
-                        alert('Ô dữ liệu cần phải nhập vào: ' + this.state.arrCheck[key]);
-                    }
-                }
-                break;
-            }
-        }
-        return isValid;
-    }
-
-
-    // handleSaveUser = () => {
-    //     let isValid = this.checkValidateInput();
-    //     if (isValid === false) {
-    //         return;
-    //     } else {
-    //         // fire redux action
-    //         this.props.createNewUser({
-    //             email: this.state.email,
-    //             password: this.state.password,
-    //             firstName: this.state.firstName,
-    //             lastName: this.state.lastName,
-    //             address: this.state.address,
-    //             phoneNumber: this.state.phoneNumber,
-    //             gender: this.state.gender,
-    //             roleId: this.state.role,
-    //             positionId: this.state.position,
-    //         })
-    //     }
-    // }
-
-    handleAddNewUser = () => {
-        this.setState({
-            isOpenModelUser: true,
-        })
     }
 
     toggleUserModal = () => {
         this.setState({
-            isOpenModelUser: !this.state.isOpenModelUser
+            isOpenModalUser: !this.state.isOpenModalUser,
+        })
+    }
+
+    closeUserModal = () => {
+        this.setState({
+            isOpenModalUser: false,
+            isOpenModalEdit: false,
+        })
+    }
+
+    handleAddNewUser = () => {
+        this.setState({
+            isOpenModalUser: true,
+            action: CRUD_ACTIONS.CREATE,
+        })
+    }
+
+    handUserDelete = (user) => {
+        this.props.deleteUser(user.id);
+    }
+
+    handleUserEdit = (user) => {
+        this.setState({
+            isOpenModalUser: true,
+            userEdit: user,
+            action: CRUD_ACTIONS.EDIT
         })
     }
 
     render() {
-        let genders = this.state.genderArr;
-        let positions = this.state.positionArr;
-        let roles = this.state.roleArr;
-        let language = this.props.language;
-        let {
-            email, password, firstName, lastName, phoneNumber, address
-        } = this.state;
-        // let isLoadingGender = this.props.isLoadingGender;
+        let arrUsers = this.state.userRedux;
         return (
-            <div className='user-redux-container'>
-                <UserModalRedux
-                    isOpen={this.state.isOpenModelUser}
-                />
-                <div className='title'>
-                    CRUD with redux
-                </div>
-                <button className='btn btn-primary px-2 mx-3'
-                    onClick={() => this.handleAddNewUser()}
-                >
-                    <i className="fas fa-plus px-1"></i>
-                    Add new user
-                </button>
-                <div className='user-redux-body'>
-                    <div className='container'>
-                        <div className='col-12'>
-                            <UserManage />
+            <React.Fragment>
+                <div className='user-redux-container'>
+                    {
+                        this.state.action === CRUD_ACTIONS.EDIT &&
+                        this.state.isOpenModalUser &&
+                        <UserModalRedux
+                            isOpen={this.state.isOpenModalUser}
+                            toggleUserModal={this.toggleUserModal}
+                            currentUser={this.state.userEdit}
+                            closeUserModal={this.closeUserModal}
+                            action={this.state.action}
+                        />
+                    }
+                    {
+                        this.state.action === CRUD_ACTIONS.CREATE &&
+                        <UserModalRedux
+                            isOpen={this.state.isOpenModalUser}
+                            toggleUserModal={this.toggleUserModal}
+                            createNewUserModal={this.createNewUserModal}
+                            closeUserModal={this.closeUserModal}
+                            action={this.state.action}
+                        />
+                    }
+                    <div className='title'>
+                        CRUD with redux
+                    </div>
+                    <button className='btn btn-primary px-2 mx-3'
+                        onClick={() => this.handleAddNewUser()}
+                    >
+                        <i className="fas fa-plus px-1"></i>
+                        <FormattedMessage id="manage-user.save" />
+                    </button>
+                    <div className='user-redux-body'>
+                        <div className='user-manage-table'>
+                            <div className="users-container">
+                                <table id="customers">
+                                    <tbody>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Email</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Phone Number</th>
+                                            <th>Address</th>
+                                            <th>Gender</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        {arrUsers && arrUsers.length > 0 &&
+                                            arrUsers.map((item, index) => {
+                                                return (
+                                                    <tr className="" key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item.email}</td>
+                                                        <td>{item.firstName}</td>
+                                                        <td>{item.lastName}</td>
+                                                        <td>{item.phoneNumber}</td>
+                                                        <td>{item.address}</td>
+                                                        <td>{item.gender}</td>
+                                                        <td>
+                                                            <button className="btn-edit"
+                                                                onClick={() => this.handleUserEdit(item)}
+                                                            >
+                                                                <i className='fas fa-pencil-alt'></i>
+                                                            </button>
+                                                            <button className="btn-delete"
+                                                                onClick={() => this.handUserDelete(item)}
+                                                            >
+                                                                <i className='fas fa-trash'></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
+            </React.Fragment>
         )
     }
 
@@ -207,6 +178,7 @@ const mapStateToProps = state => {
         isLoadingGender: state.admin.isLoadingGender,
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
+        listUsers: state.admin.users,
     };
 };
 
@@ -216,6 +188,8 @@ const mapDispatchToProps = dispatch => {
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
+        deleteUser: (userId) => dispatch(actions.fetchDeleteUserStart(userId))
     };
 };
 

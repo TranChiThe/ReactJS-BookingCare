@@ -43,13 +43,16 @@
     }
 }
 
+.slick-disabled {
+    display: none !important;
+}
 
 .section-section {
     &.section-specialty{
         background: #f5f5f5;
     }
-    &.section-outstanding-doctor {
-        background: #f5f5f5;;
+    &.section-handbook {
+        background: #f5f5f5;
     }
     &.section-about {
         height: 500px;
@@ -61,9 +64,6 @@
 
         .section-customize {
             padding: 5px;
-            .customize-border{
-                // border: 1px solid red;
-            }
             .bg-img {
                 height: 200px;
                 width: 100%;
@@ -83,7 +83,7 @@
                 }
 
                 &.section-outstanding-doctor {
-                    background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
+                    // background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
@@ -146,7 +146,7 @@
     .section-customize {
         padding: 5px;
         .customize-border {
-            border: 1px solid rgb(184, 176, 176);
+            border: 1px solid rgb(219, 147, 13);
             padding: 20px;
         }
     }

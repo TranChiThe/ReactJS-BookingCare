@@ -12,7 +12,7 @@
         "welcome": "Welcome, "
     },
     "banner": {
-        "title1": "MEDICAL FOUNDATION",
+        "title1": "MEDICAL FLATFORM,",
         "title2": "COMPREHENSIVE HEALTH CARE",
         "child1": "Specialized examination",
         "child2": "General examination",
@@ -58,7 +58,7 @@
             "manage-doctor": "Manage doctors",
             "manage-admin": "Manage admins",
             "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud-redux": "Manage users",
             "clinic": "Clinic",
             "manage-clinic": "Manage clinic",
             "specialty": "Specialties",
@@ -79,6 +79,13 @@
         "position": "Position",
         "role": "Role",
         "avatar": "Avatar",
-        "save": "Add users "
+        "save": "Add users",
+        "edit": "Edit users",
+        "save-change": "Save changes",
+        "close": "Close"
+    },
+    "homepage": {
+        "outstanding-doctor": "Outstanding doctor last week",
+        "more-infor": "See more"
     }
 }

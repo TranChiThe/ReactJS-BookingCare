@@ -57,7 +57,7 @@
             "manage-doctor": "Quản lý bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",
-            "crud-redux": "CRUD redux",
+            "crud-redux": "Quản lý người dùng",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
@@ -78,6 +78,13 @@
         "position": "Chức danh",
         "role": "Vai trò",
         "avatar": "Ảnh đại diện",
-        "save": "Thêm người dùng"
+        "save": "Thêm người dùng",
+        "edit": "Chỉnh sửa người dùng",
+        "save-change": "Lưu thay đổi",
+        "close": "Thoát"
+    },
+    "homepage": {
+        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "more-infor": "Xem thêm"
     }
 }

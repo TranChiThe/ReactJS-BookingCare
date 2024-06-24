@@ -86,6 +86,8 @@ class UserManage extends Component {
             isOpenModalEditUser: true,
             userEdit: user,
         })
+        console.log('check user edit: ', this.state.userEdit);
+        console.log('check user: ', user);
     }
 
     doEditUser = async (user) => {

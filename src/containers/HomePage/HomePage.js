@@ -11,31 +11,38 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './HomePage.scss'
 
-
-
 class HomePage extends Component {
 
     render() {
         let setting = {
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 800,
             slidesToShow: 4,
             // autoplay: true,
             // autoplaySpeed: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
         };
+        let setting2 = {
+            dots: false,
+            infinite: true,
+            speed: 800,
+            slidesToShow: 2,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            slidesToScroll: 1,
+        }
         return (
             <div>
                 <HomeHeader />
                 <Specialty
                     setting={setting} />
-                <MedicalFacility
-                    setting={setting} />
+                {/* <MedicalFacility
+                    setting={setting} /> */}
                 <OutStandingDoctor
                     setting={setting} />
                 <HandBook
-                    setting={setting} />
+                    setting={setting2} />
                 <About />
                 <HomeFooter />
             </div >

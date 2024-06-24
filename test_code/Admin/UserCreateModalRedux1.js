@@ -5,10 +5,8 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
 import * as actions from '../../../store/actions';
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
-import _ from 'lodash';
 
-
-class UserModalRedux extends Component {
+class UserCreateModalRedux extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,34 +68,6 @@ class UserModalRedux extends Component {
         this.props.getGenderStart();
         this.props.getPositionStart();
         this.props.getRoleStart();
-        this.handleEditUser();
-    }
-
-    handleEditUser = () => {
-        let user = this.props.currentUser;
-        let imageBase64 = '';
-        if (this.props.action === CRUD_ACTIONS.EDIT) {
-            if (user && !_.isEmpty(user)) {
-                if (user.image) {
-                    imageBase64 = new Buffer(user.image, 'base64').toString('binary');
-                }
-                this.setState({
-                    id: user.id,
-                    email: user.email,
-                    password: '1111111Aa',
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    phoneNumber: user.phoneNumber,
-                    address: user.address,
-                    gender: user.gender,
-                    position: user.positionId,
-                    role: user.roleId,
-                    avatar: '',
-                    previewImgURL: imageBase64,
-                    action: CRUD_ACTIONS.EDIT,
-                })
-            }
-        }
     }
 
     toggle = () => {
@@ -117,21 +87,21 @@ class UserModalRedux extends Component {
             let arrGender = this.props.genderRedux;
             this.setState({
                 genderArr: arrGender,
-                gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : ''
+                gender: arrGender && arrGender.length > 0 ? arrGender[0].key : ''
             });
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             let arrPosition = this.props.positionRedux;
             this.setState({
                 positionArr: arrPosition,
-                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : ''
+                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].key : ''
             });
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRole = this.props.roleRedux;
             this.setState({
                 roleArr: arrRole,
-                role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : ''
+                role: arrRole && arrRole.length > 0 ? arrRole[0].key : ''
             });
         }
         // if (prevProps.listUsers !== this.props.listUsers) {
@@ -147,22 +117,21 @@ class UserModalRedux extends Component {
         //         lastName: '',
         //         phoneNumber: '',
         //         address: '',
-        //         gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : '',
-        //         position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : '',
-        //         role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : '',
+        //         gender: arrGender && arrGender.length > 0 ? arrGender[0].key : '',
+        //         position: arrPosition && arrPosition.length > 0 ? arrPosition[0].key : '',
+        //         role: arrRole && arrRole.length > 0 ? arrRole[0].key : '',
         //     });
         // }
     }
 
-    handleOnChangeImage = async (event) => {
+    handleOnChangeImage = (event) => {
         let data = event.target.files;
         let file = data[0];
         if (file) {
-            let base64 = await CommonUtils.getBase64(file);
             let objectUrl = URL.createObjectURL(file);
             this.setState({
                 previewImgURL: objectUrl,
-                avatar: base64
+                avatar: file
             });
         }
     }
@@ -222,7 +191,7 @@ class UserModalRedux extends Component {
         let isValid = this.checkValidInput();
         if (isValid === false) {
             return;
-        } else if (this.props.action === CRUD_ACTIONS.CREATE) {
+        } else {
             let data = this.props.createNewUser({
                 email: this.state.email,
                 password: this.state.password,
@@ -233,30 +202,11 @@ class UserModalRedux extends Component {
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
-                avatar: this.state.avatar,
             });
             if (data) {
                 this.props.closeUserModal();
                 this.props.fetchUserRedux();
                 emitter.emit('EVENT_CLEAR_MODAL_DATA');
-            }
-        }
-        else if (this.state.action === CRUD_ACTIONS.EDIT) {
-            let data = this.props.userEditRedux({
-                id: this.state.id,
-                email: this.state.email,
-                password: this.state.password,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                address: this.state.address,
-                phoneNumber: this.state.phoneNumber,
-                gender: this.state.gender,
-                roleId: this.state.role,
-                positionId: this.state.position,
-                avatar: this.state.avatar,
-            });
-            if (data) {
-                this.props.closeUserModal();
             }
         }
     }
@@ -286,7 +236,6 @@ class UserModalRedux extends Component {
                                         <input className='form-control' type='email'
                                             value={email}
                                             onChange={(event) => { this.handleOnChangeInput(event, 'email') }}
-                                            disabled={this.props.action === CRUD_ACTIONS.EDIT}
                                         />
                                     </div>
                                     <div className='col-3 my-3'>
@@ -294,7 +243,6 @@ class UserModalRedux extends Component {
                                         <input className='form-control' type='password'
                                             value={password}
                                             onChange={(event) => { this.handleOnChangeInput(event, 'password') }}
-                                            disabled={this.props.action === CRUD_ACTIONS.EDIT}
                                         />
                                     </div>
                                 </div>
@@ -334,29 +282,12 @@ class UserModalRedux extends Component {
                                     <div className='col-3 '>
                                         <label><FormattedMessage id="manage-user.gender" /></label>
                                         <select className="form-control"
-                                            value={gender}
                                             onChange={(event) => { this.handleOnChangeInput(event, 'gender') }}
                                         >
                                             {genders && genders.length > 0
                                                 && genders.map((item, index) => {
                                                     return (
-                                                        <option key={index} value={item.keyMap}>
-                                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                                        </option>
-                                                    )
-                                                })}
-                                        </select>
-                                    </div>
-                                    <div className='col-3'>
-                                        <label><FormattedMessage id="manage-user.role" /></label>
-                                        <select className="form-control"
-                                            value={role}
-                                            onChange={(event) => { this.handleOnChangeInput(event, 'role') }}
-                                        >
-                                            {roles && roles.length > 0
-                                                && roles.map((item, index) => {
-                                                    return (
-                                                        <option key={index} value={item.keyMap}>
+                                                        <option key={index} value={item.key}>
                                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                         </option>
                                                     )
@@ -366,13 +297,27 @@ class UserModalRedux extends Component {
                                     <div className='col-3'>
                                         <label><FormattedMessage id="manage-user.position" /></label>
                                         <select className="form-control"
-                                            value={position}
                                             onChange={(event) => { this.handleOnChangeInput(event, 'position') }}
                                         >
                                             {positions && positions.length > 0
                                                 && positions.map((item, index) => {
                                                     return (
-                                                        <option key={index} value={item.keyMap}>
+                                                        <option key={index} value={item.key}>
+                                                            {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                        </option>
+                                                    )
+                                                })}
+                                        </select>
+                                    </div>
+                                    <div className='col-3'>
+                                        <label><FormattedMessage id="manage-user.role" /></label>
+                                        <select className="form-control"
+                                            onChange={(event) => { this.handleOnChangeInput(event, 'role') }}
+                                        >
+                                            {roles && roles.length > 0
+                                                && roles.map((item, index) => {
+                                                    return (
+                                                        <option key={index} value={item.key}>
                                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                                         </option>
                                                     )
@@ -403,12 +348,9 @@ class UserModalRedux extends Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary"
-                        className={this.props.action === CRUD_ACTIONS.EDIT ? 'btn btn-warning' : 'btn btn-primary'}
+                        className="px-3"
                         onClick={() => { this.handleSaveUser() }}>
-                        {this.props.action === CRUD_ACTIONS.EDIT ?
-                            <FormattedMessage id="manage-user.save-change" /> :
-                            <FormattedMessage id="manage-user.save" />
-                        }
+                        <FormattedMessage id="manage-user.save" />
                     </Button>{' '}
                     <Button color="secondary" className="px-3"
                         onClick={() => { this.toggle() }}>
@@ -438,7 +380,6 @@ const mapDispatchToProps = dispatch => {
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
         fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
-        userEditRedux: (user) => dispatch(actions.fetchEditUserStart(user)),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(UserModalRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(UserCreateModalRedux);
