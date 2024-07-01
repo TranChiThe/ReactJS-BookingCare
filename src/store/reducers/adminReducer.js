@@ -10,6 +10,10 @@ const initialState = {
     positions: [],
     users: [],
     topDoctor: [],
+    allDoctors: [],
+    detailDoctor: [],
+    allScheduleTime: [],
+    bulkScheduleDoctor: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -34,6 +38,7 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
         case actionTypes.FETCH_POSITION_START:
             state.isLoadingPosition = true;
             return {
@@ -53,11 +58,13 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
         case actionTypes.FETCH_ROLE_START:
             state.isLoadingRole = true;
             return {
                 ...state
             }
+
         case actionTypes.FETCH_ROLE_SUCCESS:
             state.roles = action.data;
             state.isLoadingRole = false;
@@ -96,6 +103,53 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
+        case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+            state.allDoctors = action.dataDoctor;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALL_DOCTOR_FAILDED:
+            state.allDoctors = []
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_DETAIL_INFOR_DOCTOR_SUCCESS:
+            state.detailDoctor = action.dataDetailDoctor;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_DETAIL_INFOR_DOCTOR_FAILDED:
+            state.detailDoctor = []
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            state.allScheduleTime = action.dataTime
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED:
+            state.allScheduleTime = []
+            return {
+                ...state
+            }
+
+        case actionTypes.BULK_CREATE_SCHEDULE_DOCTOR_SUCCESS:
+            state.bulkScheduleDoctor = action.scheduleDoctor
+            return {
+                ...state
+            }
+
+        case actionTypes.BULK_CREATE_SCHEDULE_DOCTOR_FAILDED:
+            state.bulkScheduleDoctor = []
+            return {
+                ...state
+            }
         default:
             return state;
     }

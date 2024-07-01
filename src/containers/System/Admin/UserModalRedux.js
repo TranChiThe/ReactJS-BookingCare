@@ -5,6 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { emitter } from '../../../utils/emitter';
 import * as actions from '../../../store/actions';
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
+import { toast } from 'react-toastify'
 import _ from 'lodash';
 
 
@@ -79,7 +80,7 @@ class UserModalRedux extends Component {
         if (this.props.action === CRUD_ACTIONS.EDIT) {
             if (user && !_.isEmpty(user)) {
                 if (user.image) {
-                    imageBase64 = new Buffer(user.image, 'base64').toString('binary');
+                    imageBase64 = new Buffer.from(user.image, 'base64').toString('binary');
                 }
                 this.setState({
                     id: user.id,
@@ -97,6 +98,7 @@ class UserModalRedux extends Component {
                     action: CRUD_ACTIONS.EDIT,
                 })
             }
+            console.log('check user: ', this.state);
         }
     }
 
@@ -117,21 +119,21 @@ class UserModalRedux extends Component {
             let arrGender = this.props.genderRedux;
             this.setState({
                 genderArr: arrGender,
-                gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : ''
+                // gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : ''
             });
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             let arrPosition = this.props.positionRedux;
             this.setState({
                 positionArr: arrPosition,
-                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : ''
+                // position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : ''
             });
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRole = this.props.roleRedux;
             this.setState({
                 roleArr: arrRole,
-                role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : ''
+                // role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : ''
             });
         }
         // if (prevProps.listUsers !== this.props.listUsers) {
@@ -197,19 +199,19 @@ class UserModalRedux extends Component {
                 isValid = false;
                 if (this.props.language === 'en') {
                     if (!checkEmailValid) {
-                        alert('Invalid email');
+                        toast.error('Invalid email')
                     } else if (!checkPasswordValid) {
-                        alert('Invalid password');
+                        toast.error('Invalid password')
                     } else {
-                        alert('This input is required: ' + this.state.arrCheck[key]);
+                        toast.error('This input is required: ' + this.state.arrCheck[key])
                     }
                 } else {
                     if (!checkEmailValid) {
-                        alert('Email không hợp lệ');
+                        toast.error('Email không hợp lệ')
                     } else if (!checkPasswordValid) {
-                        alert('Mật khẩu không hợp lệ');
+                        toast.error('Mật khẩu không hợp lệ')
                     } else {
-                        alert('Ô dữ liệu cần phải nhập vào: ' + this.state.arrCheck[key]);
+                        toast.error('Ô dữ liệu cần phải nhập vào: ' + this.state.arrCheck[key])
                     }
                 }
                 break;
@@ -386,7 +388,7 @@ class UserModalRedux extends Component {
                                                 onChange={(event) => this.handleOnChangeImage(event)}
                                             />
                                             <label className='label-upload' htmlFor='priewImg'>
-                                                Tải ảnh
+                                                <FormattedMessage id="manage-user.image" />
                                                 <i className='fas fa-upload'></i>
                                             </label>
                                             <div className='preview-image'
