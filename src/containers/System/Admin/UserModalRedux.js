@@ -136,24 +136,24 @@ class UserModalRedux extends Component {
                 // role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : ''
             });
         }
-        // if (prevProps.listUsers !== this.props.listUsers) {
-        //     let arrGender = this.props.genderRedux;
-        //     let arrPosition = this.props.positionRedux;
-        //     let arrRole = this.props.roleRedux;
-        //     this.setState({
-        //         previewImgURL: '',
-        //         isOpen: false,
-        //         email: '',
-        //         password: '',
-        //         firstName: '',
-        //         lastName: '',
-        //         phoneNumber: '',
-        //         address: '',
-        //         gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : '',
-        //         position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : '',
-        //         role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : '',
-        //     });
-        // }
+        if (prevProps.listUsers !== this.props.listUsers) {
+            let arrGender = this.props.genderRedux;
+            let arrPosition = this.props.positionRedux;
+            let arrRole = this.props.roleRedux;
+            this.setState({
+                previewImgURL: '',
+                isOpen: false,
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : '',
+                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : '',
+                role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : '',
+            });
+        }
     }
 
     handleOnChangeImage = async (event) => {

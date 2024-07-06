@@ -14,6 +14,7 @@ const initialState = {
     detailDoctor: [],
     allScheduleTime: [],
     bulkScheduleDoctor: [],
+    allRequiredDoctorInfo: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -147,6 +148,24 @@ const adminReducer = (state = initialState, action) => {
 
         case actionTypes.BULK_CREATE_SCHEDULE_DOCTOR_FAILDED:
             state.bulkScheduleDoctor = []
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_START:
+            state.allRequiredDoctorInfo = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS:
+            state.allRequiredDoctorInfo = action.data;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILDED:
+            state.allRequiredDoctorInfo = [];
             return {
                 ...state
             }

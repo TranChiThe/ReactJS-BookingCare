@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { FormattedMessage } from 'react-intl';
-// import { LANGUAGES } from '../../utils/constant';
-// import { changeLanguageApp } from '../../store/actions/appActions';
-
-
 
 class HandBook extends Component {
-
     render() {
         return (
             <div className='section-section section-handbook'>
@@ -19,28 +14,28 @@ class HandBook extends Component {
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.setting}>
-                            <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                            <div className="section-customize ">
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title1" /></div>
                             </div>
-                            <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                            <div className="section-customize ">
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title2" /></div>
                             </div>
-                            <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                            <div className="section-customize ">
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title3" /></div>
                             </div>
-                            <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                            <div className="section-customize ">
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title4" /></div>
                             </div>
                             <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title5" /></div>
                             </div>
-                            <div className="section-customize">
-                                <div className='bg-img section-handbook'> </div>
+                            <div className="section-customize ">
+                                <div className='bg-img section-handbook img-handbook'> </div>
                                 <div className='title-images'><FormattedMessage id="specialty.specialty-title6" /></div>
                             </div>
                         </Slider>

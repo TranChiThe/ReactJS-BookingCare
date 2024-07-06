@@ -56,10 +56,19 @@
         "doctor": {
             "manage-schedule": "Manage doctor's schedule"
         },
-        "detail-doctor": {
+        "manage-doctor": {
+            "title": "Generate doctor details",
             "choose-doctor": "Choose doctor",
             "description": "Doctor referral information",
-            "content": "Doctor details"
+            "content": "Doctor details",
+            "save-infor": "Save information",
+            "create-infor": "Create information",
+            "price": "Medical examination price",
+            "payment": "Payment methods",
+            "province": "Province",
+            "name-clinic": "Clinic name",
+            "address-clinic": "Clinic address",
+            "note": "Note"
         }
     },
     "manage-user": {
@@ -98,6 +107,13 @@
             "notification": "The doctor does not have appointments scheduled during this time, please choose another time.",
             "choose": "Choose ",
             "book-free": " and book (free)"
+        },
+        "doctor-info": {
+            "text-address": "Address",
+            "price": "Examination price",
+            "note": "Patients can pay by method: ",
+            "detail-view": "See details",
+            "hidden-view": "Hide price list"
         }
     }
 }

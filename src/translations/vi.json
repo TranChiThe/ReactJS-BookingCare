@@ -56,10 +56,19 @@
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh"
         },
-        "detail-doctor": {
+        "manage-doctor": {
+            "title": "Thêm thông tin chi tiết bác sĩ",
             "choose-doctor": "Chọn bác sĩ",
             "description": "Thông tin giới thiệu bác sĩ",
-            "content": "Thông tin chi tiết bác sĩ"
+            "content": "Thông tin chi tiết bác sĩ",
+            "save-infor": "Lưu thông tin",
+            "create-infor": "Tạo thông tin",
+            "price": "Giá khám bệnh",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "name-clinic": "Tên phòng khám",
+            "address-clinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     },
     "manage-user": {
@@ -89,8 +98,7 @@
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
         "choose-doctor": "Chọn bác sĩ",
-        "choose-date": "Chọn ngày",
-        "save": "Lưu thông tin"
+        "choose-date": "Chọn ngày"
     },
     "patient": {
         "detail-doctor": {
@@ -98,6 +106,13 @@
             "notification": "Bác sĩ không có lịch khám trong thời gian này, vui lòng chọn thời gian khác.",
             "choose": "Chọn ",
             "book-free": " và đặt (miễn phí)"
+        },
+        "doctor-info": {
+            "text-address": "Địa chỉ",
+            "price": "Giá khám",
+            "note": "Bệnh nhân có thể thanh toán bằng phương thức: ",
+            "detail-view": "Xem chi tiết",
+            "hidden-view": "Ẩn bảng giá"
         }
     }
 }

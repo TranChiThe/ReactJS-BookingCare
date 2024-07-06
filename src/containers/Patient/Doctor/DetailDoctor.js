@@ -4,6 +4,8 @@ import HomeHeader from '../../HomePage/HomeHeader';
 import { getDetailInForDoctor } from '../../../services/userService'
 import { LANGUAGES } from '../../../utils';
 import DoctorSchedule from './DoctorSchedule';
+import HomeFooter from '../../HomePage/HomeFooter';
+import DoctorExtraInfo from './DoctorExtraInfo';
 import './DetailDoctor.scss'
 
 class DetailDoctor extends Component {
@@ -73,7 +75,9 @@ class DetailDoctor extends Component {
                             />
                         </div>
                         <div className='content-right'>
-
+                            <DoctorExtraInfo
+                                doctorIdFromParent={this.state.currentDoctorId}
+                            />
                         </div>
                     </div>
                     <div className='detail-infor-doctor'>
@@ -85,7 +89,9 @@ class DetailDoctor extends Component {
                     <div className='comment-doctor'>
 
                     </div>
+                    <HomeFooter />
                 </div>
+
             </React.Fragment >
         );
     }

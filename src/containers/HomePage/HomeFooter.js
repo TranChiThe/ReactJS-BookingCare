@@ -1,36 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Slider from 'react-slick';
 import { FormattedMessage } from 'react-intl';
-// import { LANGUAGES } from '../../utils/constant';
-// import { changeLanguageApp } from '../../store/actions/appActions';
-
-
 
 class HomeFooter extends Component {
-
     render() {
         return (
             <div className='home-footer'>
                 <div className='footer-info'>
                     <div className='footer-left'>
-                        <div className='footer-content'>
+                        <div className='footer-title'>
+                            <div className='logo'></div>
+                            <p className='logo-title'>HealthCare</p>
+                        </div>
+                        <div className='footer-content form-group'>
                             <i class="fas fa-map-marker-alt"></i>
                             <p>Xuan Khanh, Ninh Kieu, Can Tho, VietNam</p>
                         </div>
-                        <div className='footer-content'>
+                        <div className='footer-content form-group'>
                             <i class="fas fa-phone-volume"></i>
                             <p>1234567890</p>
                         </div>
-                        <div className='footer-content'>
+                        <div className='footer-content form-group'>
                             <i class="fas fa-envelope"></i>
                             <p>healthcare@gmail.com</p>
                         </div>
                     </div>
                     <div className='footer-center'>
-                        <div>
-                            <img src='../../' />
+                        <div className='center-title'>
+                            Dịch vụ y tế
                         </div>
+                        <div className='specialty'>Khám chuyên khoa</div>
+                        <div className='specialty'>Khám tổng quát</div>
+                        <div className='specialty'>Xét nghiệm y học</div>
+                        <div className='specialty'>Sức khỏe tinh thần</div>
+                        <div className='specialty'>Khám nha khoa</div>
                     </div>
                     <div className='footer-right'>
                         <div>

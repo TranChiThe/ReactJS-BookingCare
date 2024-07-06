@@ -1,9 +1,55 @@
+.slick-prev:before {
+    font-family: 'Glyphicons Halflings' !important;
+    color: red !important;
+    font-size: 30px !important;
+    content: "▶" !important;
+}
+.slick-prev {
+    left: 0 !important;
+    z-index: 1 !important;
+    width: 44px !important;
+    height: 38px !important; 
+    background: none !important;
+    opacity: 0.5;
+    border-radius: 10px;
+    
+    
+    &:hover {
+        background: #ece9e9 !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+}
+
+.slick-next:before {
+    font-family: 'Glyphicons Halflings' !important;
+    // color: red !important;
+    font-size: 30px !important;
+    content: "◀" !important;
+}
+.slick-next {
+    right: 0  !important;
+    width: 44px !important;
+    height: 38px !important; 
+    opacity: 0.5;
+    border-radius: 10px;
+    background: none !important;
+
+    &:hover {
+        background: #ece9e9 !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+}
+
+
 .home-header-container {
     height: 65px;
     padding-left: 50px;
     position: sticky;
     top: 0;
-    background: white;
+    background: rgb(230,230,242);
+    background: linear-gradient(90deg, rgba(230,230,242,0.8631090487238979) 0%, rgba(177,208,227,0.9443155452436195) 51%, rgba(234,234,244,0.9373549883990719) 100%);
     z-index: 1000;
     font-weight: 500;
     font-size: 15px;
@@ -18,9 +64,9 @@
             align-items: center;
 
             .header-logo {
-                background: url('../../assets/images-logo.png') left center no-repeat;
+                background: url('../../assets/logo-image.png') left center no-repeat;
                 height: 100%;
-                width: 25%;
+                width: 100%;
                 cursor: pointer;
                 background-size: contain;
 
@@ -43,10 +89,10 @@
 
         .center-content {
             width: 50%;
+            min-width: 100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             .child-content{
                 .subs-title {
                     font-weight: 400;
@@ -68,6 +114,10 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            transition: transform .2s;
+            &:hover {
+                transform: scale(1.2);
+            }
 
             i {
                 font-size: 15px;
@@ -80,6 +130,7 @@
             padding-right: 10px;
             font-weight: 700;
             opacity: 0.3;
+            transition: transform .2s;
             &.active {
                 opacity: 1;
                 span {
@@ -90,6 +141,7 @@
             }
             &:hover {
                 opacity: 0.9;
+                transform: scale(1.2);
             }
             
         }
@@ -99,6 +151,7 @@
             font-weight: 700;
             padding-right: 10px;
             opacity: 0.3;
+            transition: transform .2s;
             &.active {
                 opacity: 1;
                 span {
@@ -109,13 +162,15 @@
             }
             &:hover {
                 opacity: 0.9;
+                transform: scale(1.2);
             } 
         }
     }
 }
 
 .home-header-banner {
-    background: url('../../assets/header-background.jpg') center center no-repeat;
+    background: url('../../assets/banner-image.webp') center center no-repeat;
+    min-width: 700px;
     height: 635px;
     background-size: cover;
     background-position: center;
@@ -125,8 +180,6 @@
     flex-direction: column;
 
     .content-up {
-        // border: 1px solid red;
-        background-image: linear-gradient(rgba(126, 126, 126, 0.25), rgba(255, 255, 255, 0.1));
         height: 60%;
         .title1 {
             text-align:  center;
@@ -134,7 +187,7 @@
             color: white;
             text-shadow: 1px 1px 1px #333;
             margin-bottom: 10px;
-            margin-top: 60px;
+            padding-top: 120px;
         }
         
         .title2 {
@@ -146,23 +199,22 @@
     }
 
     .content-down {
-        // border: 1px solid green;
         height: 40%;
         display: flex;
         justify-content: center;
-        background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
-
-
         .home-option {
-            //width: 100px;
             text-align: center;
             display: flex;
             gap: 50px;
             justify-content: center;
             padding-top: 80px;
             
-
             .child-option {
+                transition: transform .3s; /* Animation */  
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.1);
+                }
                 .child-icon {
                     background: white;
                     width: 45px;
@@ -181,7 +233,6 @@
                     font-size: 17px;
                     font-weight: 530;
                     width: 98px;
-                    cursor: pointer;
                     &:hover {
                         color: rgb(17, 82, 221);
                     }
@@ -199,7 +250,7 @@
         padding: 10px;
         border-radius: 30px;
         background: rgb(238, 250, 216);
-        margin-top: 30px;
+        margin-top: 50px;
         i {
             margin: 0 5px;
         }

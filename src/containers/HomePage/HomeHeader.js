@@ -6,6 +6,7 @@ import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { FaTooth } from "react-icons/fa";
 import { withRouter } from 'react-router-dom';
+import Slider from 'react-slick';
 
 class HomeHeader extends Component {
 
@@ -21,6 +22,15 @@ class HomeHeader extends Component {
     }
 
     render() {
+        let settings = {
+            dots: true,
+            infinite: true,
+            speed: 1000,
+            autoplay: true,
+            autoplaySpeed: 3500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+        };
         let language = this.props.language;
         let placeholder = <FormattedMessage id="specialty.specialty-title6" />
         return (
@@ -29,9 +39,7 @@ class HomeHeader extends Component {
                     <div className='home-header-content'>
                         <div className='left-content'>
                             <i className="fas fa-bars"></i>
-                            <div className='header-logo' onClick={() => this.returnToHome()}>
-
-                            </div>
+                            <div className='header-logo' onClick={() => this.returnToHome()}></div>
                             <div className='logo-text' onClick={() => this.returnToHome()}>HealthCare</div>
                         </div>
                         <div className='center-content'>
@@ -64,53 +72,56 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
-                {this.props.isShowBanner === true &&
-                    <div className='home-header-banner'>
-                        <div className='content-up'>
-                            <div className='title1'><FormattedMessage id="banner.title1" /></div>
-                            <div className='title2'><FormattedMessage id="banner.title2" /></div>
-                            <div className='search' >
-                                <i class="fas fa-search"></i>
-                                <input type='text' placeholder='Tìm bác sĩ theoc chuyên khoa...' />
-                            </div>
-                        </div>
-                        <div className='content-down'>
-                            <div className='home-option'>
-                                <div className='child-option'>
-                                    <div className='child-icon'>
-                                        <i class="far fa-hospital"></i>
-                                    </div>
-                                    <div className='child-text'><FormattedMessage id="banner.child1" /></div>
-                                </div>
-                                <div className='child-option'>
-                                    <div className='child-icon'>
-                                        <i class="fas fa-notes-medical"></i>
-                                    </div>
-                                    <div className='child-text'><FormattedMessage id="banner.child2" /></div>
-                                </div>
-                                <div className='child-option'>
-                                    <div className='child-icon'>
-                                        <i className="fas fa-flask"></i>
-                                    </div>
-                                    <div className='child-text'><FormattedMessage id="banner.child3" /></div>
-                                </div>
-                                <div className='child-option'>
-                                    <div className='child-icon'>
-                                        <i class="fas fa-user-md"></i>
-                                    </div>
-                                    <div className='child-text'><FormattedMessage id="banner.child4" /></div>
-                                </div>
-                                <div className='child-option'>
-                                    <div className='child-icon'>
-                                        <i ><FaTooth /></i>
-                                    </div>
-                                    <div className='child-text'><FormattedMessage id="banner.child5" /></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
 
+
+                {this.props.isShowBanner === true &&
+                    <Slider {...settings}>
+                        <div className='home-header-banner'>
+                            <div className='content-up'>
+                                <div className='title1'><FormattedMessage id="banner.title1" /></div>
+                                <div className='title2'><FormattedMessage id="banner.title2" /></div>
+                                <div className='search' >
+                                    <i class="fas fa-search"></i>
+                                    <input type='text' placeholder='Tìm bác sĩ theo chuyên khoa...' />
+                                </div>
+                            </div>
+                            <div className='content-down'>
+                                <div className='home-option'>
+                                    <div className='child-option'>
+                                        <div className='child-icon'>
+                                            <i class="far fa-hospital"></i>
+                                        </div>
+                                        <div className='child-text'><FormattedMessage id="banner.child1" /></div>
+                                    </div>
+                                    <div className='child-option'>
+                                        <div className='child-icon'>
+                                            <i class="fas fa-notes-medical"></i>
+                                        </div>
+                                        <div className='child-text'><FormattedMessage id="banner.child2" /></div>
+                                    </div>
+                                    <div className='child-option'>
+                                        <div className='child-icon'>
+                                            <i className="fas fa-flask"></i>
+                                        </div>
+                                        <div className='child-text'><FormattedMessage id="banner.child3" /></div>
+                                    </div>
+                                    <div className='child-option'>
+                                        <div className='child-icon'>
+                                            <i class="fas fa-user-md"></i>
+                                        </div>
+                                        <div className='child-text'><FormattedMessage id="banner.child4" /></div>
+                                    </div>
+                                    <div className='child-option'>
+                                        <div className='child-icon'>
+                                            <i ><FaTooth /></i>
+                                        </div>
+                                        <div className='child-text'><FormattedMessage id="banner.child5" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Slider>
+                }
             </React.Fragment >
         );
     }

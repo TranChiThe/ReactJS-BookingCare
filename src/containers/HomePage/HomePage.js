@@ -19,8 +19,6 @@ class HomePage extends Component {
             infinite: false,
             speed: 800,
             slidesToShow: 4,
-            // autoplay: true,
-            // autoplaySpeed: 1,
             slidesToScroll: 1,
         };
         let setting2 = {
@@ -34,7 +32,8 @@ class HomePage extends Component {
         }
         return (
             <div>
-                <HomeHeader isShowBanner={true} />
+                <HomeHeader
+                    isShowBanner={true} />
                 <Specialty
                     setting={setting} />
                 {/* <MedicalFacility

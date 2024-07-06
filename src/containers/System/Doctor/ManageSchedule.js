@@ -125,8 +125,8 @@ class ManageSchedule extends Component {
                 return;
             }
         }
-        let res = this.props.createBulkScheduleDoctor({
-            // let res = await saveBulkScheduleDoctor({
+        // let res = this.props.createBulkScheduleDoctor({
+        let res = await saveBulkScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.value,
             formatedDate: formatedDate,
@@ -143,6 +143,7 @@ class ManageSchedule extends Component {
         let { language } = this.props;
         let { rangeTime } = this.state;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+        console.log('check schedule: ', this.state)
         return (
             <div className='manage-schedule-container'>
                 <div className='manage-schedule-title'>
@@ -155,6 +156,7 @@ class ManageSchedule extends Component {
                                 <FormattedMessage id="manage-schedule.choose-doctor" />
                             </label>
                             <Select
+                                placeholder={'Chon bac si'}
                                 value={this.state.selectedDoctor}
                                 onChange={this.handleChangeSelect}
                                 options={this.state.arrDoctor}
@@ -165,6 +167,7 @@ class ManageSchedule extends Component {
                                 <FormattedMessage id="manage-schedule.choose-date" />
                             </label>
                             <DatePicker
+                                placeholder={'Chon ngay'}
                                 onChange={this.handleOnchangeDatePicker}
                                 className='form-control'
                                 selected={this.state.currentDate}
