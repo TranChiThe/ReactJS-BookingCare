@@ -58,9 +58,7 @@ class ManageSchedule extends Component {
     }
     handleChangeSelect = async (selectedDoctor) => {
         this.setState({ selectedDoctor });
-        // let response = this.props.getDetailInforDoctor(selectedDoctor.value);
         let response = await getDetailInForDoctor(selectedDoctor.value);
-        console.log(`Option selected:`, response)
     };
 
     buildDataInputSelect = (inputData) => {
@@ -156,7 +154,7 @@ class ManageSchedule extends Component {
                                 <FormattedMessage id="manage-schedule.choose-doctor" />
                             </label>
                             <Select
-                                placeholder={'Chon bac si'}
+                                placeholder={<FormattedMessage id="manage-schedule.choose-doctor" />}
                                 value={this.state.selectedDoctor}
                                 onChange={this.handleChangeSelect}
                                 options={this.state.arrDoctor}
@@ -167,7 +165,7 @@ class ManageSchedule extends Component {
                                 <FormattedMessage id="manage-schedule.choose-date" />
                             </label>
                             <DatePicker
-                                placeholder={'Chon ngay'}
+                                placeholder={''}
                                 onChange={this.handleOnchangeDatePicker}
                                 className='form-control'
                                 selected={this.state.currentDate}

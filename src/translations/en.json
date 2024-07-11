@@ -114,6 +114,22 @@
             "note": "Patients can pay by method: ",
             "detail-view": "See details",
             "hidden-view": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Information on scheduling medical examinations",
+            "booking": "Set it for someone",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "reason": "Reason for medical examination",
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "btnConfirm": "Confirm",
+            "btnCancel": "Cancel",
+            "priceBooking": "Examination price",
+            "scheduleBook": "Schedule a free examination"
         }
     }
 }

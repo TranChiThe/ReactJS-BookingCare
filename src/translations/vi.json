@@ -113,6 +113,22 @@
             "note": "Bệnh nhân có thể thanh toán bằng phương thức: ",
             "detail-view": "Xem chi tiết",
             "hidden-view": "Ẩn bảng giá"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch khám bệnh",
+            "booking": "Đặt cho ai",
+            "firstName": "Họ ",
+            "lastName": "Tên và chữ lót",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "address": "Địa chỉ liên hệ",
+            "reason": "Lý do khám bệnh",
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "btnConfirm": "Xác nhận",
+            "btnCancel": "Hủy",
+            "priceBooking": "Giá khám",
+            "scheduleBook": "Đặt lịch khám miễn phí"
         }
     }
 }
