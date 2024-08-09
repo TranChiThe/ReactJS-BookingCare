@@ -28,7 +28,7 @@ class HomePage extends Component {
             slidesToShow: 2,
             autoplay: true,
             autoplaySpeed: 3000,
-            slidesToScroll: 1,
+            slidesToScroll: 1
         }
         return (
             <div>
@@ -36,8 +36,8 @@ class HomePage extends Component {
                     isShowBanner={true} />
                 <Specialty
                     setting={setting} />
-                {/* <MedicalFacility
-                    setting={setting} /> */}
+                <MedicalFacility
+                    setting={setting} />
                 <OutStandingDoctor
                     setting={setting} />
                 <HandBook

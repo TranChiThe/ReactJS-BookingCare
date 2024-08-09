@@ -1,6 +1,6 @@
 .preview-img-container {
     .label-upload {
-        padding: 5px;
+        padding: 5px 15px;
         border-radius: 5px;
         background: #ddd;
         cursor: pointer;
@@ -12,7 +12,7 @@
     .preview-image {
         width: 120px;
         border: 1px solid #ddd;
-        height: 60px;
+        height: 80px;
         background-size: contain;
         background-repeat: no-repeat;
         cursor: pointer;

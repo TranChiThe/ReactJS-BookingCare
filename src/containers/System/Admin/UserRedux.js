@@ -64,8 +64,13 @@ class UserRedux extends Component {
         })
     }
 
+    confirmUserDelete = () => {
+
+    }
+
     render() {
         let arrUsers = this.state.userRedux;
+        console.log('check arr Users: ', arrUsers);
         return (
             <div className='user-redux-container'>
                 {
@@ -106,8 +111,8 @@ class UserRedux extends Component {
                                     <tr>
                                         <th></th>
                                         <th><FormattedMessage id="manage-user.email" /></th>
-                                        <th><FormattedMessage id="manage-user.first-name" /></th>
-                                        <th><FormattedMessage id="manage-user.last-name" /></th>
+                                        <th><FormattedMessage id="manage-user.position" /></th>
+                                        <th><FormattedMessage id="manage-user.full-name" /></th>
                                         <th><FormattedMessage id="manage-user.phone-number" /></th>
                                         <th><FormattedMessage id="manage-user.address" /></th>
                                         <th><FormattedMessage id="manage-user.gender" /></th>
@@ -115,15 +120,22 @@ class UserRedux extends Component {
                                     </tr>
                                     {arrUsers && arrUsers.length > 0 &&
                                         arrUsers.map((item, index) => {
+                                            let nameVi = item.lastName + ' ' + item.firstName
+                                            let nameEn = item.firstName + ' ' + item.lastName
+                                            let positionVi = item && item.positionData ? item.positionData.valueVi : '';
+                                            let positionEn = item && item.positionData ? item.positionData.valueEn : '';
+                                            let genderVi = item && item.genderData ? item.genderData.valueVi : '';
+                                            let genderEn = item && item.genderData ? item.genderData.valueEn : '';
+
                                             return (
                                                 <tr className="" key={index}>
                                                     <td>{index + 1}</td>
                                                     <td>{item.email}</td>
-                                                    <td>{item.firstName}</td>
-                                                    <td>{item.lastName}</td>
+                                                    <td>{this.props.language === LANGUAGES.VI ? positionVi : positionEn}</td>
+                                                    <td>{this.props.language === LANGUAGES.VI ? nameVi : nameEn}</td>
                                                     <td>{item.phoneNumber}</td>
                                                     <td>{item.address}</td>
-                                                    <td>{item.gender}</td>
+                                                    <td>{this.props.language === LANGUAGES.VI ? genderVi : genderEn}</td>
                                                     <td>
                                                         <button className="btn-edit"
                                                             onClick={() => this.handleUserEdit(item)}
@@ -132,6 +144,7 @@ class UserRedux extends Component {
                                                         </button>
                                                         <button className="btn-delete"
                                                             onClick={() => { this.handUserDelete(item) }}
+                                                            onSubmit={() => { this.confirmUserDelete() }}
                                                         >
                                                             <i className='fas fa-trash'></i>
                                                         </button>

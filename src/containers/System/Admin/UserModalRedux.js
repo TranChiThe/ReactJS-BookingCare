@@ -34,7 +34,7 @@ class UserModalRedux extends Component {
                 firstName: 'Tên',
                 lastName: 'Họ và tên lót',
                 phoneNumber: 'Số điện thoại',
-                address: 'Địa chỉ'
+                address: 'Địa chỉ',
             }
         }
         this.listenToEmitter();
@@ -98,8 +98,8 @@ class UserModalRedux extends Component {
                     action: CRUD_ACTIONS.EDIT,
                 })
             }
-            console.log('check user: ', this.state);
         }
+        console.log('check user: ', user)
     }
 
     toggle = () => {
@@ -115,25 +115,26 @@ class UserModalRedux extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        let user = this.props.currentUser;
         if (prevProps.genderRedux !== this.props.genderRedux) {
             let arrGender = this.props.genderRedux;
             this.setState({
                 genderArr: arrGender,
-                // gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : ''
+                gender: arrGender && arrGender.length > 0 && !user ? arrGender[0].keyMap : user.gender
             });
         }
         if (prevProps.positionRedux !== this.props.positionRedux) {
             let arrPosition = this.props.positionRedux;
             this.setState({
                 positionArr: arrPosition,
-                // position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : ''
+                position: arrPosition && arrPosition.length > 0 && !user ? arrPosition[0].keyMap : user.positionId
             });
         }
         if (prevProps.roleRedux !== this.props.roleRedux) {
             let arrRole = this.props.roleRedux;
             this.setState({
                 roleArr: arrRole,
-                // role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : ''
+                role: arrRole && arrRole.length > 0 && !user ? arrRole[0].keyMap : user.roleId
             });
         }
         if (prevProps.listUsers !== this.props.listUsers) {
@@ -271,6 +272,7 @@ class UserModalRedux extends Component {
         let {
             email, password, firstName, lastName, phoneNumber, address, role, gender, position
         } = this.state;
+        console.log('check state', this.state);
         return (
             <Modal isOpen={this.props.isOpen}
                 toggle={() => { this.toggle() }}

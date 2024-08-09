@@ -34,12 +34,13 @@ class OutStandingDoctor extends Component {
     render() {
         let arrDoctors = this.state.arrDoctors;
         let { language } = this.props;
+        console.log('check arrDoctor: ', arrDoctors);
         return (
             <div className='section-section section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'><FormattedMessage id="homepage.outstanding-doctor" /></span>
-                        <button className='btn-section'><FormattedMessage id="homepage.more-infor"></FormattedMessage></button>
+                        <button className='btn-section'><FormattedMessage id="homepage.more-info"></FormattedMessage></button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.setting}>
@@ -47,7 +48,7 @@ class OutStandingDoctor extends Component {
                                 && arrDoctors.map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
-                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                                        imageBase64 = new Buffer.from(item.image, 'base64').toString('binary');
                                     }
                                     let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`
                                     let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`
@@ -64,7 +65,9 @@ class OutStandingDoctor extends Component {
                                                     <div className=''>
                                                         {language === LANGUAGES.VI ? nameVi : nameEn}
                                                     </div>
-                                                    <div className='title-images'><FormattedMessage id="medicalFacility.medical-title1" /></div>
+                                                    <div className='title-images'>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

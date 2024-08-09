@@ -7,8 +7,9 @@ import Select from 'react-select';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify'
-import _ from 'lodash'
-import { getDetailInForDoctor, saveBulkScheduleDoctor } from '../../../services/userService'
+import _, { values } from 'lodash'
+import { getDetailInForDoctor, saveBulkScheduleDoctor, getScheduleDoctorByDate, getAllDoctorSchedule } from '../../../services/userService'
+import ManageListDoctorSchedule from './ManageListDoctorSchedule';
 import './ManageSchedule.scss'
 
 class ManageSchedule extends Component {
@@ -58,7 +59,8 @@ class ManageSchedule extends Component {
     }
     handleChangeSelect = async (selectedDoctor) => {
         this.setState({ selectedDoctor });
-        let response = await getDetailInForDoctor(selectedDoctor.value);
+
+
     };
 
     buildDataInputSelect = (inputData) => {
@@ -77,7 +79,7 @@ class ManageSchedule extends Component {
         return result;
     }
 
-    handleOnchangeDatePicker = (date) => {
+    handleOnchangeDatePicker = async (date) => {
         this.setState({
             currentDate: date[0],
         })
@@ -123,7 +125,6 @@ class ManageSchedule extends Component {
                 return;
             }
         }
-        // let res = this.props.createBulkScheduleDoctor({
         let res = await saveBulkScheduleDoctor({
             arrSchedule: result,
             doctorId: selectedDoctor.value,
@@ -131,75 +132,109 @@ class ManageSchedule extends Component {
         });
         if (res) {
             toast.success('Save schedule succeed!')
+            this.setState({
+                selectedDoctor: {},
+                currentDate: '',
+            })
         } else {
             toast.error('Unable to save information')
         }
-        console.log('check res:', res);
+    }
+
+    handleScheduleSearch = async () => {
+        let data = {};
+        let { currentDate, rangeTime, selectedDoctor } = this.state;
+        let date = new Date(currentDate).getTime();
+        if (selectedDoctor.value && date) {
+            let res = await getScheduleDoctorByDate(selectedDoctor.value, date)
+            if (res && res.errCode === 0) {
+                data = res.data.map(item => {
+                    this.setState({
+                        isSelected: item.isSelected
+                    })
+                    console.log('check item: ', item, this.state.isSelected);
+                    return item
+                })
+                console.log('check data: ', data);
+            }
+        }
+    }
+
+    getAllDoctorSchedule = async () => {
+        let data = await getAllDoctorSchedule();
+        console.log('check data: ', data);
     }
 
     render() {
         let { language } = this.props;
         let { rangeTime } = this.state;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
-        console.log('check schedule: ', this.state)
+        // console.log('check schedule: ', this.state)
         return (
-            <div className='manage-schedule-container'>
-                <div className='manage-schedule-title'>
-                    <FormattedMessage id="manage-schedule.title" />
-                </div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-4 form-group'>
-                            <label>
-                                <FormattedMessage id="manage-schedule.choose-doctor" />
-                            </label>
-                            <Select
-                                placeholder={<FormattedMessage id="manage-schedule.choose-doctor" />}
-                                value={this.state.selectedDoctor}
-                                onChange={this.handleChangeSelect}
-                                options={this.state.arrDoctor}
-                            />
-                        </div>
-                        <div className='col-2'>
-                            <label>
-                                <FormattedMessage id="manage-schedule.choose-date" />
-                            </label>
-                            <DatePicker
-                                placeholder={''}
-                                onChange={this.handleOnchangeDatePicker}
-                                className='form-control'
-                                selected={this.state.currentDate}
-                                minDate={yesterday}
-                            />
-                        </div>
-                        <div className={language === LANGUAGES.VI ? 'col-8 pick-hour-container' : 'col-8 pick-hour-container'}>
-                            {rangeTime && rangeTime.length > 0 &&
-                                rangeTime.map((item, index) => {
-                                    return (
-                                        <div className=''>
-                                            <button className={item.isSelected === true ?
-                                                'btn btn-schedule active' : 'btn btn-schedule'}
-                                                key={index}
-                                                onClick={() => this.handleClickButtonTime(item)}
-                                            >
-                                                {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
-                                            </button>
-                                        </div>
-
-                                    )
-                                })
-                            }
-                        </div>
-                        <div className='col-12'>
-                            <button className='btn btn-primary btn-save-schedule'
-                                onClick={() => this.handleSaveSchedule()}
+            <React.Fragment>
+                <div className='manage-schedule-container'>
+                    <div className='manage-schedule-title'>
+                        <FormattedMessage id="manage-schedule.title" />
+                    </div>
+                    <div className='container'>
+                        <div className='row'>
+                            <div className='col-4 form-group'>
+                                <label>
+                                    <FormattedMessage id="manage-schedule.choose-doctor" />
+                                </label>
+                                <Select
+                                    placeholder={<FormattedMessage id="manage-schedule.choose-doctor" />}
+                                    value={this.state.selectedDoctor}
+                                    onChange={this.handleChangeSelect}
+                                    options={this.state.arrDoctor}
+                                />
+                            </div>
+                            <div className='col-2'>
+                                <label>
+                                    <FormattedMessage id="manage-schedule.choose-date" />
+                                </label>
+                                <DatePicker
+                                    placeholder={''}
+                                    onChange={this.handleOnchangeDatePicker}
+                                    className='form-control'
+                                    selected={this.state.currentDate}
+                                    minDate={yesterday}
+                                />
+                            </div>
+                            <button className='schedule-search'
+                                onClick={() => this.handleScheduleSearch()}
                             >
-                                <FormattedMessage id="manage-schedule.save" />
+                                Tim
                             </button>
+                            <div className={language === LANGUAGES.VI ? 'col-8 pick-hour-container' : 'col-8 pick-hour-container'}>
+                                {rangeTime && rangeTime.length > 0 &&
+                                    rangeTime.map((item, index) => {
+                                        return (
+                                            <div className=''>
+                                                <button className={item.isSelected === true ?
+                                                    'btn btn-schedule active' : 'btn btn-schedule'}
+                                                    key={index}
+                                                    onClick={() => this.handleClickButtonTime(item)}
+                                                >
+                                                    {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
+                                                </button>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className='col-12'>
+                                <button className='btn btn-primary btn-save-schedule'
+                                    onClick={() => this.handleSaveSchedule()}
+                                >
+                                    <FormattedMessage id="manage-schedule.save" />
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div >
+                </div >
+                {/* <ManageListDoctorSchedule /> */}
+            </React.Fragment>
         )
     }
 }

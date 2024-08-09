@@ -6,11 +6,12 @@ import NumberFormat from 'react-number-format'
 import { LANGUAGES } from '../../../../utils'
 import { Modal } from 'reactstrap';
 import ProfileDoctor from '../ProfileDoctor';
-import _, { times } from 'lodash'
+import _ from 'lodash'
 import DatePicker from '../../../../components/Input/DatePicker';
 import * as actions from '../../../../store/actions'
 import { postPatientBookAppointment } from '../../../../services/userService';
 import { toast } from 'react-toastify';
+import moment from 'moment';
 import './BookingModal.scss'
 
 class BookingModal extends Component {
@@ -89,32 +90,65 @@ class BookingModal extends Component {
         this.setState({ selectedGender });
     }
 
+    buildTimeBooking = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let time = language === LANGUAGES.VI ?
+                dataTime.timeTypeData.valueVi :
+                dataTime.timeTypeData.valueEn
+            let date = language === LANGUAGES.VI ?
+                moment.unix(+ dataTime.date / 1000).format('dddd - DD/MM/YYYY')
+                :
+                moment.unix(+ dataTime.date / 1000).locale('en').format('ddd - MM/DD/YYYY')
+            return `${time} - ${date}`;
+
+        }
+        return ``;
+    }
+
+    buildDoctorName = (dataTime) => {
+        let { language } = this.props;
+        if (dataTime && !_.isEmpty(dataTime)) {
+            let name = language === LANGUAGES.VI ?
+                `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+                :
+                `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`
+            return name;
+        }
+        return ''
+    }
+
     handleConfirmBooking = async () => {
-        let date = new Date(this.state.birthday).getTime();
+        let date = new Date().getTime();
+        let birthday = (new Date(this.state.birthday).getTime())
+        let timeString = this.buildTimeBooking(this.props.dataTime)
+        let doctorName = this.buildDoctorName(this.props.dataTime)
         let res = await postPatientBookAppointment({
+            email: this.state.email,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             phoneNumber: this.state.phoneNumber,
-            email: this.state.email,
             address: this.state.address,
             reason: this.state.reason,
-            date: date,
+            birthday: birthday,
+            scheduleTime: date,
             doctorId: this.state.doctorId,
-            selectedGender: this.state.selectedGender.value,
+            genders: this.state.selectedGender.value,
             timeType: this.state.timeType,
+            language: this.props.language,
+            timeString: timeString,
+            doctorName: doctorName,
         })
-        console.log('check response: ', this.state)
         if (res && res.errCode === 0) {
             toast.success('You have successfully scheduled your appointment');
             this.setState({
+                email: '',
                 firstName: '',
                 lastName: '',
                 phoneNumber: '',
-                email: '',
                 address: '',
                 reason: '',
                 birthday: '',
-                genders: '',
                 selectedGender: '',
             })
             this.props.closeBookingModal();
@@ -124,11 +158,11 @@ class BookingModal extends Component {
     }
 
     render() {
-        let { isOpenModal, closeBookingModal, dataTime } = this.props;
+        let { isOpenModal, closeBookingModal, dataTime, isShowPrice } = this.props;
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : ''
         return (
             <Modal isOpen={isOpenModal} className={'booking-modal-container'}
-                size='lg'
+                size='xl'
             >
                 <div className='booking-modal-content'>
                     <div className='booking-modal-header'>
@@ -145,12 +179,16 @@ class BookingModal extends Component {
                                 doctorId={doctorId}
                                 isShowDescriptionDoctor={false}
                                 dataTime={dataTime}
+                                isShowPrice={true}
                             />
                         </div>
                         <div className='row'>
                             <div className='col-12 form-group'>
                                 <label><FormattedMessage id="patient.booking-modal.booking" /></label>
-                                <input className='form-control' />
+                                <input className='form-control'
+                                // value={this.state.reason}
+                                // onChange={(event) => this.handleOnchangeInput(event, 'reason')}
+                                />
                             </div>
                             <div className='col-6 form-group'>
                                 <label><FormattedMessage id="patient.booking-modal.firstName" /></label>
@@ -200,13 +238,14 @@ class BookingModal extends Component {
                                     onChange={this.handleOnchangeDatePicker}
                                     className='form-control'
                                     selected={this.state.birthday}
+                                    maxDate={new Date()}
                                 />
                             </div>
                             <div className='col-6 form-group'>
                                 <label><FormattedMessage id="patient.booking-modal.gender" /></label>
                                 <Select
                                     placeholder={<FormattedMessage id="patient.booking-modal.gender" />}
-                                    value={() => this.state.selectedGender}
+                                    value={this.state.selectedGender}
                                     onChange={this.handleChangeSelect}
                                     options={this.state.genders}
                                 />

@@ -16,7 +16,8 @@
         color: $common-text-color;
         line-height: 40px;
         height: 40px;
-        padding: 0 10px;
+        padding: 0px 10px;
+        margin: 5px 0;
         &:hover {
             background-color: darken($colormain, 5);
         }

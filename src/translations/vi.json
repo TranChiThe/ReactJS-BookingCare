@@ -23,17 +23,6 @@
     "search": {
         "search": "Tìm chuyên khoa khám bệnh"
     },
-    "specialty": {
-        "specialty": "Chuyên khoa phổ biến",
-        "see-more": "Xem thêm",
-        "specialty-title1": "Cơ xương khớp",
-        "specialty-title2": "Thần kinh",
-        "specialty-title3": "Tiêu hóa",
-        "specialty-title4": "Tim mạch",
-        "specialty-title5": "Tai mũi họng",
-        "specialty-title6": "Y học cổ truyền",
-        "specialty-title7": "Châm cứu"
-    },
     "medicalFacility": {
         "medical": "Cơ sở y tế nổi bật",
         "see-more": "Xem thêm",
@@ -42,10 +31,10 @@
     "menu": {
         "admin": {
             "user": "Người dùng",
-            "manage-doctor": "Quản lý bác sĩ",
+            "manage-doctor": "Quản lý thông tin bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",
-            "crud-redux": "Quản lý người dùng",
+            "crud-redux": "Quản lý tài khoản bác sĩ",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
             "specialty": "Chuyên khoa",
@@ -68,16 +57,19 @@
             "province": "Tỉnh thành",
             "name-clinic": "Tên phòng khám",
             "address-clinic": "Địa chỉ phòng khám",
-            "note": "Ghi chú"
+            "note": "Ghi chú",
+            "specialty": "Chọn chuyên khoa",
+            "clinic": "Chọn phòng khám"
         }
     },
     "manage-user": {
-        "title": "Quản lý người dùng hệ thống",
-        "add": "Thêm mới người dùng",
+        "title": "Quản lý tài khoản bác sĩ",
+        "add": "Thêm mới tài khoản",
         "email": "Email",
         "password": "Mật khẩu",
-        "first-name": "Tên",
-        "last-name": "Họ và tên lót",
+        "full-name": "Họ và Tên",
+        "first-name": "Tên ",
+        "last-name": "Họ và tên đệm",
         "phone-number": "Số điện thoại",
         "address": "Địa chỉ",
         "gender": "Giới tính",
@@ -86,19 +78,29 @@
         "avatar": "Ảnh đại diện",
         "actions": "Hành động",
         "image": "Tải ảnh",
-        "save": "Thêm người dùng",
-        "edit": "Chỉnh sửa người dùng",
+        "save": "Thêm tài khoản",
+        "edit": "Chỉnh sửa bác sĩ",
         "save-change": "Lưu thay đổi",
         "close": "Thoát"
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
-        "more-infor": "Xem thêm"
+        "more-info": "Xem thêm",
+        "specialty-popular": "Chuyên khoa phổ biến"
+    },
+    "homefooter": {
+        "medical-service": "Dịch vụ y tế",
+        "specialized-examination": "Khám chuyên khoa",
+        "general-examination": "Khám tổng quát",
+        "mental-health": "Sức khỏe tinh thần",
+        "medical-tests": "Xét nghiệm y học",
+        "dental-examination": "Khám nha khoa"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
         "choose-doctor": "Chọn bác sĩ",
-        "choose-date": "Chọn ngày"
+        "choose-date": "Chọn ngày",
+        "save": "Lưu thông tin"
     },
     "patient": {
         "detail-doctor": {
@@ -117,8 +119,8 @@
         "booking-modal": {
             "title": "Thông tin đặt lịch khám bệnh",
             "booking": "Đặt cho ai",
-            "firstName": "Họ ",
-            "lastName": "Tên và chữ lót",
+            "firstName": "Tên ",
+            "lastName": "Họ và tên đệm",
             "phoneNumber": "Số điện thoại",
             "email": "Email",
             "address": "Địa chỉ liên hệ",

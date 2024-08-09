@@ -76,6 +76,10 @@
         background: rgb(152,152,232);
         background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(102,150,187,1) 0%, rgba(202,222,226,1) 0%, rgba(114,171,241,0.9443155452436195) 38%, rgba(187,214,218,0.9052871148459384) 56%);
     }
+    &.section-medical-facility {
+        background: rgb(152,152,232);
+        background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(102,150,187,1) 0%, rgba(202,222,226,1) 0%, rgba(114,171,241,0.9443155452436195) 38%, rgba(187,214,218,0.9052871148459384) 56%);
+    }
     .section-body {
         margin: 0 90px;
         .section-customize {
@@ -101,7 +105,7 @@
                 }     
                 
                 &.section-medical-facility{
-                    background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
+                    // background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
                 }
 
                 &.section-outstanding-doctor {

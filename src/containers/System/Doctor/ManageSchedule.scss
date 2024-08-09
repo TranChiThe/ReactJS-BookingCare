@@ -35,4 +35,18 @@
     .btn-save-schedule {
         margin-top: 20px;
     }
+
+    .schedule-search {
+        border: none;
+        outline: none;
+        height: 30px;
+        margin-top: 30px;
+        margin-left: 20px;
+        padding: 0 10px;
+        border-radius: 5px;
+
+        &:hover{
+            color: red;
+        }
+    }
 }

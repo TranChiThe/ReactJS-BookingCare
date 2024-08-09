@@ -91,7 +91,6 @@ class DetailDoctor extends Component {
                     </div>
                     <HomeFooter />
                 </div>
-
             </React.Fragment >
         );
     }

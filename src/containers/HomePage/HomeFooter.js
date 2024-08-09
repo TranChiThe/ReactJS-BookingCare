@@ -22,22 +22,22 @@ class HomeFooter extends Component {
                         </div>
                         <div className='footer-content form-group'>
                             <i class="fas fa-envelope"></i>
-                            <p>healthcare@gmail.com</p>
+                            <p>healthcarecantho@gmail.com</p>
                         </div>
                     </div>
                     <div className='footer-center'>
                         <div className='center-title'>
-                            Dịch vụ y tế
+                            <FormattedMessage id="homefooter.medical-service" />
                         </div>
-                        <div className='specialty'>Khám chuyên khoa</div>
-                        <div className='specialty'>Khám tổng quát</div>
-                        <div className='specialty'>Xét nghiệm y học</div>
-                        <div className='specialty'>Sức khỏe tinh thần</div>
-                        <div className='specialty'>Khám nha khoa</div>
+                        <div className='specialty'><FormattedMessage id="homefooter.specialized-examination" /></div>
+                        <div className='specialty'><FormattedMessage id="homefooter.general-examination" /></div>
+                        <div className='specialty'><FormattedMessage id="homefooter.dental-examination" /></div>
+                        <div className='specialty'><FormattedMessage id="homefooter.mental-health" /></div>
+                        <div className='specialty'><FormattedMessage id="homefooter.medical-tests" /></div>
                     </div>
                     <div className='footer-right'>
                         <div>
-                            <p>hello</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>

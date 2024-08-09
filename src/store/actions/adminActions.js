@@ -4,7 +4,8 @@ import {
     getAllUsers, deleteUserService,
     editUserService, getTopDoctorHomeService,
     getAllDoctors, saveDetailDoctorService,
-    getDetailInForDoctor, saveBulkSacheduleDoctor
+    getDetailInForDoctor, saveBulkSacheduleDoctor,
+    getAllSpecialty,
 } from '../../services/userService';
 import { toast } from 'react-toastify';
 
@@ -114,7 +115,7 @@ export const fetchAllUserStart = () => {
             // dispatch({ type: actionTypes. })
             let res = await getAllUsers("All");
             if (res && res.errCode === 0) {
-                dispatch(fetchAllUserSuccess(res.users.reverse()));
+                dispatch(fetchAllUserSuccess(res.users));
             } else {
                 toast.error("Fetch all user error!")
                 dispatch(fetchAllUserFaided());
@@ -328,13 +329,16 @@ export const fetchAllRequiredDoctorStart = () => {
             let resPrice = await getAllCodeService("PRICE");
             let resPayment = await getAllCodeService("PAYMENT");
             let resProvince = await getAllCodeService("PROVINCE");
+            let resSpecialty = await getAllSpecialty();
             if (resPrice && resPrice.errCode === 0 &&
                 resPayment && resPayment.errCode === 0 &&
-                resProvince && resProvince.errCode === 0) {
+                resProvince && resProvince.errCode === 0 &&
+                resSpecialty && resSpecialty.errCode === 0) {
                 let data = {
                     resPrice: resPrice.data,
                     resPayment: resPayment.data,
-                    resProvince: resProvince.data
+                    resProvince: resProvince.data,
+                    resSpecialty: resSpecialty.data
                 }
                 dispatch(fetchRequiredDoctorInfoSuccess(data));
             } else {

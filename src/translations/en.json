@@ -23,17 +23,6 @@
     "search": {
         "search": "Find a medical specialist"
     },
-    "specialty": {
-        "specialty": "Popular specialties",
-        "see-more": "See more",
-        "specialty-title1": "Musculoskeletal",
-        "specialty-title2": "Nerve",
-        "specialty-title3": "Digest",
-        "specialty-title4": "Heart",
-        "specialty-title5": "Ear, nose and throat",
-        "specialty-title6": "Traditional medicine",
-        "specialty-title7": "Acupuncture"
-    },
     "medicalFacility": {
         "medical": "Outstanding medical facilities",
         "see-more": "See more",
@@ -42,10 +31,10 @@
     "menu": {
         "admin": {
             "user": "Users system",
-            "manage-doctor": "Manage doctors",
+            "manage-doctor": "Manage doctor information",
             "manage-admin": "Manage admins",
             "crud": "CRUD user",
-            "crud-redux": "Manage users",
+            "crud-redux": "Manage doctor accounts",
             "clinic": "Clinic",
             "manage-clinic": "Manage clinic",
             "specialty": "Specialties",
@@ -68,15 +57,18 @@
             "province": "Province",
             "name-clinic": "Clinic name",
             "address-clinic": "Clinic address",
-            "note": "Note"
+            "note": "Note",
+            "specialty": "Choose a specialty",
+            "clinic": "Choose a clinic"
         }
     },
     "manage-user": {
-        "title": "Manage system users",
-        "add": "Add new user",
+        "title": "Manage doctor accounts",
+        "add": "Create account",
         "email": "Email",
         "password": "Password",
-        "first-name": "First Name",
+        "full-name": "Full Name",
+        "first-name": "First Name ",
         "last-name": "Last Name",
         "phone-number": "Phone Number",
         "address": "Address",
@@ -86,14 +78,23 @@
         "avatar": "Avatar",
         "actions": "Actions",
         "image": "Upload images",
-        "save": "Add users",
-        "edit": "Edit users",
+        "save": "Create account",
+        "edit": "Edit doctors",
         "save-change": "Save changes",
         "close": "Close"
     },
     "homepage": {
         "outstanding-doctor": "Outstanding doctor last week",
-        "more-infor": "See more"
+        "more-info": "See more",
+        "specialty-popular": "Popular specialties"
+    },
+    "homefooter": {
+        "medical-service": "Health services",
+        "specialized-examination": "Specialized examination",
+        "general-examination": "General examination",
+        "mental-health": "Mental health",
+        "medical-tests": "Medical tests",
+        "dental-examination": "Dental examination"
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",

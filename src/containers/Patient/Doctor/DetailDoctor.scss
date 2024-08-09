@@ -1,11 +1,11 @@
 .doctor-detail-container {
     height: 500px;
+    background: rgb(231,231,238);
+    background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
     .intro-doctor {
         display: flex;
         padding-top: 30px;
         padding: 30px 100px;
-        background: rgb(231,231,238);
-        background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
         border-bottom: 1px solid #d3d3d3;
         .content-left {
             width: 30%;
@@ -32,12 +32,12 @@
     }
 
     .schedule-doctor {
-    padding-left: 100px;    
-    display: flex;
-    padding-bottom: 10px;    
-    padding-top: 10px;
-        background: rgb(231,231,238);
-        background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
+        padding-left: 100px;    
+        display: flex;
+        padding-bottom: 10px;    
+        padding-top: 10px;
+        // background: rgb(231,231,238);
+        // background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
         .content-left {
             width: 50%;
             .schedule-selected {

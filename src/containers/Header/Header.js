@@ -26,7 +26,6 @@ class Header extends Component {
         let { userInFo } = this.props;
         if (userInFo && !_.isEmpty(userInFo)) {
             let role = userInFo.roleId;
-            console.log('check role: ', role);
             if (role === USER_ROLE.ADMIN) {
                 menu = adminMenu;
             }
@@ -63,6 +62,7 @@ class Header extends Component {
                     {/* nút logout */}
                     <div className="btn btn-logout" onClick={processLogout} title='Log out'>
                         <i className="fas fa-sign-out-alt"></i>
+                        LOG OUT
                     </div>
                 </div>
             </div>
