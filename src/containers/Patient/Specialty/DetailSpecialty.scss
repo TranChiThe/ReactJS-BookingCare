@@ -1,11 +1,15 @@
 .detail-specialty-container {
     background: rgb(231,231,238);
     background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     .description-specialty {
         h1, h2, h3 {
             font-size: 16px;
             font-weight: 600;
         }
+        width: 900px;
+        text-align: justify;
     }
     .detail-specialty-body {
         margin: 0 100px;

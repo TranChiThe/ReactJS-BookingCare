@@ -1,12 +1,41 @@
 import axios from "../axios"
+import storeRedux from '../redux'
+import instance from "../axios";
 
-const handleLoginApi = (email, password) => {
-    return axios.post('/api/login', { email, password });
+const handleLoginApi = async (email, password) => {
+    try {
+        let response = await axios.post('/api/login', { email, password });
+        // console.log('logged in successfully', response)
+        return response
+
+    } catch (err) {
+        console.log('error during login')
+    }
+
 }
 
-const getAllUsers = (userId) => {
-    return axios.get(`/api/get-all-users?id=${userId}`)
-}
+const getAllUsers = async (userId) => {
+    try {
+        // Validate userId
+        if (!userId) {
+            throw new Error('Invalid userId');
+        }
+        // Lấy token từ Redux store
+        const state = storeRedux.getState();
+        const token = state.auth.accessToken;
+        let response = await axios.get('/api/get-all-users', {
+            params: {
+                id: userId
+            },
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}  // Thêm token vào headers nếu có
+        });
+        return response;  // Trả về dữ liệu từ phản hồi
+    } catch (error) {
+        console.error('Error fetching users:', error.message);
+        throw error;  // Ném lỗi để xử lý ở nơi gọi hàm
+    }
+};
+
 
 const createNewUserService = (data) => {
     return axios.post(`/api/create-new-user`, data);
@@ -80,8 +109,44 @@ const getAllSpecialty = () => {
     return axios.get(`/api/get-all-specialty`)
 }
 
+const getSpecialtyById = (data) => {
+    return axios.get(`/api/get-specialty-by-id?id=${data.name}`)
+}
+
 const getAllDetailSpecialtyById = (data) => {
-    return axios.get(`/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
+    return axios.get(`/api/get-detail-specialty-by-id?id=${data.name}&location=${data.location}`)
+}
+
+const deleteDoctorSchedule = (data) => {
+    return axios.delete(`api/delete-doctor-schedule?id=${data}`)
+}
+
+const createNewClinic = (data) => {
+    return axios.post(`/api/create-new-clinic`, data);
+}
+
+const getAllClinic = () => {
+    return axios.get(`/api/get-all-clinic`)
+}
+
+const getAllDetailClinicById = (data) => {
+    return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`)
+}
+
+const getAllDoctorSeeMore = () => {
+    return axios.get(`/api/get-all-doctor-see-more`)
+}
+
+const filterDoctor = (specialtyId, clinicId) => {
+    return axios.post(`/api/filter-doctor?specialtyId=${specialtyId}&clinicId=${clinicId}`)
+}
+
+const doctorSearch = (searchTerm, specialtyId, clinicId) => {
+    return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}`)
+}
+
+const getHomeSearch = (type, searchTerm) => {
+    return axios.post(`/api/home-search?type=${type}&searchTerm=${searchTerm}`)
 }
 export {
     handleLoginApi,
@@ -103,5 +168,14 @@ export {
     postVerifyBookAppointment,
     createNewSpecialty,
     getAllSpecialty,
-    getAllDetailSpecialtyById
+    getSpecialtyById,
+    getAllDetailSpecialtyById,
+    deleteDoctorSchedule,
+    createNewClinic,
+    getAllClinic,
+    getAllDetailClinicById,
+    getAllDoctorSeeMore,
+    filterDoctor,
+    doctorSearch,
+    getHomeSearch
 }

@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
-import NumberFormat from 'react-number-format'
 import HomeHeader from '../../HomePage/HomeHeader';
 import HomeFooter from '../../HomePage/HomeFooter';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
-import { getAllDetailSpecialtyById, getAllCodeService, getInforDoctor } from '../../../services/userService';
+import { getAllDetailSpecialtyById, getAllCodeService } from '../../../services/userService';
 import _ from 'lodash'
-
 import './DetailSpecialty.scss'
 
 class DetailSpecialty extends Component {
@@ -39,7 +36,7 @@ class DetailSpecialty extends Component {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id;
             let res = await getAllDetailSpecialtyById({
-                id: id,
+                name: id,
                 location: 'ALL'
             });
             let resProvince = await getAllCodeService('PROVINCE');
@@ -79,7 +76,7 @@ class DetailSpecialty extends Component {
             let id = this.props.match.params.id;
             let location = event.target.value;
             let res = await getAllDetailSpecialtyById({
-                id: id,
+                name: id,
                 location: location
             });
             if (res && res.errCode === 0) {

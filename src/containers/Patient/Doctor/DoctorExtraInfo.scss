@@ -1,5 +1,9 @@
+.name-title {
+    margin-top: 10px;
+}
 .doctor-extra-info-container {
     padding-left: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     .content-up {
         .address-text {
             text-transform: uppercase;
@@ -9,10 +13,14 @@
         .clinic-name {
             font-weight: 600;
             color: black;
+            margin-left: 15px;
+            padding-bottom: 3px;
         }
         .detail-address {
             font-weight: 600;
             color: black;
+            margin-left: 15px;
+            padding-bottom: 10px;
         }
     }
     .content-down {

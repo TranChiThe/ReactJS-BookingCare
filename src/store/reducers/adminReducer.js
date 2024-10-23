@@ -8,6 +8,8 @@ const initialState = {
     genders: [],
     roles: [],
     positions: [],
+    specialties: [],
+    filterSearch: [],
     users: [],
     topDoctor: [],
     allDoctors: [],
@@ -169,6 +171,42 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+
+
+        case actionTypes.FETCH_SPECIALTY_START:
+            state.specialties = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_SPECIALTY_SUCCESS:
+            state.specialties = action.data;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_SPECIALTY_FAILDED:
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_FILTER_SEARCH_START:
+            state.filterSearch = [];
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_FILTER_SEARCH_SUCCESS:
+            state.filterSearch = action.data;
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_FILTER_SEARCH_FAILED:
+            return {
+                ...state
+            }
+
         default:
             return state;
     }

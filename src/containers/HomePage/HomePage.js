@@ -19,7 +19,7 @@ class HomePage extends Component {
             infinite: false,
             speed: 800,
             slidesToShow: 4,
-            slidesToScroll: 1,
+            slidesToScroll: 2,
         };
         let setting2 = {
             dots: false,
@@ -42,7 +42,7 @@ class HomePage extends Component {
                     setting={setting} />
                 <HandBook
                     setting={setting2} />
-                <About />
+                {/* <About /> */}
                 <HomeFooter />
             </div >
         );

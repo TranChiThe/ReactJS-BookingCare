@@ -1,3 +1,5 @@
+// import Kommunicate from "@kommunicate/kommunicate-chatbot-plugin";
+
 const express = require('express');
 const path = require('path');
 
@@ -28,6 +30,11 @@ app.get('*', (req, res) => {
     }
     res.sendFile(path.join(buildDir, 'index.html'));
 });
+
+// Kommunicate.init("3f7a51ba898c7d7824085063d115b6d86", {
+//     automaticChatOpenOnNavigation: true,
+//     popupWidget: true
+// });
 
 const port = process.env.PORT || 3000;
 app.listen(port);

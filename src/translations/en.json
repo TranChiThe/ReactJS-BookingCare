@@ -1,4 +1,13 @@
 {
+    "swal": {
+        "confirmTitle": "Are you sure?",
+        "confirmText": "You won't be able to revert this!",
+        "confirm": "Yes, delete it!",
+        "cancel": "Cancel",
+        "deleteTitle": "Deleted!",
+        "deleteText": "Your file has been deleted.",
+        "ok": "OK"
+    },
     "homeheader": {
         "specialty": "Medical specialty",
         "search-doctor": "Find a doctor by specialty",
@@ -43,10 +52,15 @@
             "manage-handbook": "Manage handbook"
         },
         "doctor": {
-            "manage-schedule": "Manage doctor's schedule"
+            "manage-schedule": "Manage doctor's schedule",
+            "schedule": "Schedule",
+            "patient": "Patient",
+            "manage-patient-appointment": "Manage patient appointments",
+            "manage-patient-record": "Patient record management",
+            "see-more": "See more"
         },
         "manage-doctor": {
-            "title": "Generate doctor details",
+            "title": "Manage doctor details",
             "choose-doctor": "Choose doctor",
             "description": "Doctor referral information",
             "content": "Doctor details",
@@ -61,6 +75,21 @@
             "specialty": "Choose a specialty",
             "clinic": "Choose a clinic"
         }
+    },
+    "manage-specialty": {
+        "title": "Specialized management",
+        "choose-specialty": "Choose specialty",
+        "specialty-image:": "Add image",
+        "upload-image": "Upload image",
+        "specialty-detail": "Detailed specialist information"
+    },
+    "manage-clinic": {
+        "clinic-name": "Clinic name",
+        "description": "Introduction",
+        "pro-strength": "Professional strengths",
+        "equipment": "Equipment",
+        "upload-image": "Upload image",
+        "address": "Address"
     },
     "manage-user": {
         "title": "Manage doctor accounts",
@@ -100,7 +129,12 @@
         "title": "Manage doctor's examination plan",
         "choose-doctor": "Choose doctor",
         "choose-date": "Choose date",
-        "save": "Save infor"
+        "save": "Save infor",
+        "search": "Search",
+        "full-name": "Full Name",
+        "schedule": "Schedule",
+        "maxNumber": "Maximum number of patients",
+        "currentNumber": "Current patient population"
     },
     "patient": {
         "detail-doctor": {
@@ -131,6 +165,33 @@
             "btnCancel": "Cancel",
             "priceBooking": "Examination price",
             "scheduleBook": "Schedule a free examination"
+        },
+        "detail-clinic": {
+            "introduction": "Introduction",
+            "doctor": "Doctor",
+            "proStrength": "Professional strengths",
+            "equipment": "Equipment"
+        },
+        "see-more-specialty": {
+            "title": "Specialties for you"
+        },
+        "see-more-doctors": {
+            "title": "Doctor for you"
+        },
+        "doctor-search": {
+            "doctor": "Find a doctor...",
+            "specialty": "Select a specialty...",
+            "clinic": "Select medical facility...",
+            "doctor-notify": "Doctor information not found!"
+        },
+        "home-search": {
+            "search": "What information are you looking for?",
+            "doctor": "Doctor",
+            "specialty": "Specialty",
+            "medical-facility": "Medical Facility",
+            "none-doctor": "Doctor not found!",
+            "none-specialty": "No specialty found!",
+            "none-facility": "No medical facility found!"
         }
     }
 }

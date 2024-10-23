@@ -4,6 +4,7 @@ import { push } from "connected-react-router";
 import { handleLoginApi } from "../../services/userService";
 import * as actions from "../../store/actions";
 import './Login.scss';
+import { toast } from 'react-toastify';
 
 class Login extends Component {
     constructor(props) {
@@ -28,26 +29,34 @@ class Login extends Component {
     }
 
     handleLogin = async () => {
-        this.setState({
-            errMessage: ''
-        })
         try {
             let data = await handleLoginApi(this.state.username, this.state.password);
+            console.log('', data)
             if (data && data.errCode !== 0) {
                 this.setState({
-                    errMessage: data.message
+                    errMessage: 'Invalid Email or Password'
                 })
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user)
-                console.log('login succed')
-                // console.log('check user login succed:', data.user);
+                // Điều hướng dựa trên vai trò của người dùng
+                if (data.user.roleId === 'R1') {
+                    this.props.navigate('/system/manage-user');
+                } else if (data.user.roleId === 'R2') {
+                    this.props.navigate('/doctor-manage/manage-schedule');
+                } else if (data.user.roleId === 'R4') {
+                    this.props.navigate('/staff-manage/manage-doctor');
+                } else {
+                    this.setState({
+                        errMessage: 'Role not recognized'
+                    });
+                }
             }
         } catch (error) {
             if (error.response) {
                 if (error.response.data) {
                     this.setState({
-                        errMessage: error.response.data.message
+                        // errMessage: error.response.data.message
                     })
                 }
             }
@@ -77,7 +86,9 @@ class Login extends Component {
                             <input type='text' className='form-control '
                                 placeholder='Enter your username'
                                 value={this.state.username}
-                                onChange={(event) => this.handleOnChangeUsername(event)} />
+                                onChange={(event) => this.handleOnChangeUsername(event)}
+                                onKeyDown={(event) => this.handelOnKeyDown(event)}
+                            />
                         </div>
                         <div className='col-12 form group login-input'>
                             <label>Password:</label>

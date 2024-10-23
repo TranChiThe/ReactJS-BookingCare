@@ -12,6 +12,7 @@ import '@formatjs/intl-relativetimeformat/locale-data/vi';
 
 import { LanguageUtils } from '../utils'
 
+// Lấy tất cả thông điệp đã dịch theo cấu trúc ngôn ngữ.
 const messages = LanguageUtils.getFlattenedMessages();
 
 class IntlProviderWrapper extends Component {

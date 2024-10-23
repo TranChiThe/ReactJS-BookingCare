@@ -4,9 +4,9 @@ import Slider from 'react-slick';
 import { FormattedMessage } from 'react-intl';
 import { getAllSpecialty } from '../../../services/userService';
 import { dateFilter } from 'react-bootstrap-table2-filter';
-import './Specialty.scss'
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from 'react-router';
+import './Specialty.scss'
 
 
 class Specialty extends Component {
@@ -28,7 +28,12 @@ class Specialty extends Component {
 
     handleViewDetailSpecialty = (specialty) => {
         if (this.props.history) {
-            this.props.history.push(`/detail-specialty/${specialty.id}`)
+            this.props.history.push(`/detail-specialty/${specialty.name}`)
+        }
+    }
+    handelShowMore = () => {
+        if (this.props.history) {
+            this.props.history.push(`/all-specialty`)
         }
     }
 
@@ -40,7 +45,11 @@ class Specialty extends Component {
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'><FormattedMessage id="homepage.specialty-popular"></FormattedMessage></span>
-                        <button className='btn-section'><FormattedMessage id="homepage.more-info"></FormattedMessage></button>
+                        <div className='btn-section'
+                            onClick={() => this.handelShowMore()}
+                        ><FormattedMessage id="homepage.more-info"></FormattedMessage>
+
+                        </div>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.setting}>
@@ -55,7 +64,7 @@ class Specialty extends Component {
                                                 >
 
                                                 </div>
-                                                <div className='specialty-name'>{language === LANGUAGES.VI ? item.nameVi : item.nameEn}</div>
+                                                <div className='specialty-name'>{language === LANGUAGES.VI ? item.specialtyData.valueVi : item.specialtyData.valueEn}</div>
                                             </div>
                                         </div>
                                     )
@@ -70,14 +79,12 @@ class Specialty extends Component {
 
 }
 
-// Connect state redux to react
 const mapStateToProps = state => {
     return {
         language: state.app.language
     };
 };
 
-// Fire event redux
 const mapDispatchToProps = dispatch => {
     return {
     };

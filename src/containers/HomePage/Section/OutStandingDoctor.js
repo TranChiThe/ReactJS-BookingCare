@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import * as actions from '../../../store/actions'
 import { LANGUAGES } from '../../../utils';
 import { withRouter } from 'react-router-dom';
+import SpecialtyInfo from '../../Patient/Specialty/SpecialtyInfo';
 
 class OutStandingDoctor extends Component {
 
@@ -31,16 +32,25 @@ class OutStandingDoctor extends Component {
         this.props.history.push(`/detail-doctor/${doctor.id}`);
     }
 
+    handelShowMore = () => {
+        if (this.props.history) {
+            this.props.history.push(`/all-doctors`)
+        }
+    }
+
     render() {
         let arrDoctors = this.state.arrDoctors;
         let { language } = this.props;
-        console.log('check arrDoctor: ', arrDoctors);
         return (
             <div className='section-section section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
                         <span className='title-section'><FormattedMessage id="homepage.outstanding-doctor" /></span>
-                        <button className='btn-section'><FormattedMessage id="homepage.more-info"></FormattedMessage></button>
+                        <div className='btn-section'
+                            onClick={() => this.handelShowMore()}
+                        >
+                            <FormattedMessage id="homepage.more-info" />
+                        </div>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.setting}>
@@ -66,7 +76,9 @@ class OutStandingDoctor extends Component {
                                                         {language === LANGUAGES.VI ? nameVi : nameEn}
                                                     </div>
                                                     <div className='title-images'>
-
+                                                        <SpecialtyInfo
+                                                            specialtyIdFromParent={item && item.Doctor_Infor ? item.Doctor_Infor.specialtyId : '11'}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>

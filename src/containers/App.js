@@ -6,18 +6,23 @@ import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 import { path } from '../utils'
-import Home from '../routes/Home';
-// import Login from '../routes/Login';
+import Home from '../routes/Admin/Home.js';
 import Login from './Auth/Login';
 import Header from './Header/Header';
-import System from '../routes/System';
+import System from '../routes/Admin/System.js';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js'
 import CustomScrollbars from '../components/CustomScrollbars.js';
 import DetailDoctor from '../containers/Patient/Doctor/DetailDoctor.js'
-import Doctor from '../routes/Doctor.js';
+import Doctor from '../routes/Admin/Doctor.js';
 import DetailSpecialty from './Patient/Specialty/DetailSpecialty.js';
-import VerifyEmail from './Patient/VerifyEmail.js';
+import VerifyEmail from './Patient/EmailVerify/VerifyEmail.js';
+import Schedule from '../routes/Doctor/Schedule.js'
+import Staff from '../routes/Staff/Doctor.js';
+import DetailClinic from './Patient/Clinic/DetailClinic.js';
+import AllSpecialty from './Patient/Specialty/AllSpecialty.js'
+import SearchBar from './Patient/SearchBar/SearchBar.js';
+import HomeSearch from './Patient/HomePage/HomeSearch.js'
 
 class App extends Component {
 
@@ -48,14 +53,28 @@ class App extends Component {
                         <div className="content-container">
                             <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
                                 <Switch>
+                                    {/* Admin router */}
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
+
+                                    {/* Doctor router */}
+                                    <Route path={path.DOCTOR_MANAGE} component={userIsAuthenticated(Schedule)} />
+
+                                    {/* Staff router */}
+                                    <Route path={path.STAFF_MANAGE} component={userIsAuthenticated(Staff)} />
+
+                                    {/* User router */}
                                     <Route path={path.HOMEPAGE} component={(HomePage)} />
                                     <Route path={path.DETAIL_DOCTOR} component={(DetailDoctor)} />
                                     <Route path={path.DETAIL_SPECIALTY} component={(DetailSpecialty)} />
                                     <Route path={path.VERIFY_EMAIL_BOOKING} component={(VerifyEmail)} />
+                                    <Route path={path.DETAIL_CLINIC} component={(DetailClinic)} />
+                                    <Route path={path.ALL_SPECIALTY} component={(AllSpecialty)} />
+                                    <Route path={path.ALL_DOCTORS} component={(SearchBar)} />
+                                    <Route path={path.HOME_SEARCH} component={(HomeSearch)} />
+
                                 </Switch>
                             </CustomScrollbars>
                         </div>
@@ -99,3 +118,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+

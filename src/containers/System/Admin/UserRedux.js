@@ -5,7 +5,10 @@ import * as actions from '../../../store/actions';
 import UserModalRedux from './UserModalRedux';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
-import ConfirmModal from '../../../components/ConfirmModal';
+import Swal from 'sweetalert2';
+import { SwalConfig } from '../../../components/NotificationConfig/notificationSwal';
+import { notificationEn } from '../../../components/NotificationConfig/notificationEn';
+import { notificationVi } from '../../../components/NotificationConfig/notificationVi';
 import './UserRedux.scss'
 
 
@@ -51,10 +54,29 @@ class UserRedux extends Component {
             action: CRUD_ACTIONS.CREATE,
         })
     }
+    // this.props.deleteUser(user.id);
+    handleUserDelete = (user) => {
+        let { language } = this.props;
+        if (language === LANGUAGES.EN) {
+            Swal.fire(SwalConfig.confirmDialog(notificationEn.title, notificationEn.text, notificationEn.confirm, notificationEn.cancel))
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.props.deleteUser(user.id);
+                        Swal.fire(SwalConfig.successNotification(notificationEn.deleteTitle, notificationEn.deleteText));
+                    }
+                });
+        } else if (language === LANGUAGES.VI) {
+            Swal.fire(SwalConfig.confirmDialog(notificationVi.title, notificationVi.text, notificationVi.confirm, notificationVi.cancel))
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.props.deleteUser(user.id);
+                        Swal.fire(SwalConfig.successNotification(notificationVi.deleteTitle, notificationVi.deleteText));
+                    }
+                });
+        }
 
-    handUserDelete = (user) => {
-        this.props.deleteUser(user.id);
-    }
+    };
+
 
     handleUserEdit = (user) => {
         this.setState({
@@ -70,7 +92,6 @@ class UserRedux extends Component {
 
     render() {
         let arrUsers = this.state.userRedux;
-        console.log('check arr Users: ', arrUsers);
         return (
             <div className='user-redux-container'>
                 {
@@ -143,7 +164,7 @@ class UserRedux extends Component {
                                                             <i className='fas fa-pencil-alt'></i>
                                                         </button>
                                                         <button className="btn-delete"
-                                                            onClick={() => { this.handUserDelete(item) }}
+                                                            onClick={() => { this.handleUserDelete(item) }}
                                                             onSubmit={() => { this.confirmUserDelete() }}
                                                         >
                                                             <i className='fas fa-trash'></i>

@@ -33,7 +33,19 @@ class DetailDoctor extends Component {
         }
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.currentDoctorId !== this.state.currentDoctorId) {
+            let id = this.props.match.params.id;
+            this.setState({
+                currentDoctorId: id,
+            })
+            let res = await getDetailInForDoctor(id);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    detailDoctor: res.data,
+                })
+            }
+        }
 
     }
 
@@ -46,6 +58,7 @@ class DetailDoctor extends Component {
             nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`
             nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`
         }
+        console.log('check state: ', this.state)
         return (
             <React.Fragment>
                 <HomeHeader isShowBanner={false} />

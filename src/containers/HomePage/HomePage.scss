@@ -4,8 +4,12 @@
     color: blue !important;
     font-size: 30px !important;
     content: "▶" !important;
-    // content: "" !important;
     outline: none !important;
+    // content: '';
+    // background: url('../../assets/images/flags/en.png') no-repeat center; // Thay thế bằng đường dẫn tới icon SVG của bạn
+    // width: 20px; // Kích thước icon
+    // height: 20px; // Kích thước icon
+    // background-size: cover;
 
 }
 .slick-prev {
@@ -57,7 +61,10 @@
     display: none !important;
 }
 
+
+
 .section-section {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     &.section-specialty{
         background: #f5f5f5;
         background: rgb(231,231,238);
@@ -95,21 +102,12 @@
                 background-color: #eee;
                 margin: 0 auto ;
                 max-height: 300px; 
+                border-radius: 5px;
 
                 &.img-handbook{
                     height: 400px;
                 } 
-                &.section-specialty {
-                    // background-image: url('../../assets/images/specialtyImg/co-xuong-khop.jpeg');
-                    
-                }     
-                
-                &.section-medical-facility{
-                    // background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
-                }
-
                 &.section-outstanding-doctor {
-                    // background-image: url('../../assets/images/medical-facility/dakhoacantho.jpeg');
                     width: 120px;
                     height: 120px;
                     border-radius: 50%;
@@ -126,7 +124,7 @@
 
 .section-section {
     height: 330px;
-    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     .section-container {
         margin: 0 20px;
         // padding: 0 70px;
@@ -136,7 +134,7 @@
         .section-header {
             height: 60px;
             padding-top: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             
             .title-section {
                 font-size: 22px;
@@ -168,6 +166,7 @@
 .section-outstanding-doctor {
     background: rgb(209,209,221);
     background: linear-gradient(90deg, rgba(209,209,221,0.8631090487238979) 0%, rgba(117,186,227,0.9443155452436195) 51%, rgba(198,201,207,0.9373549883990719) 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     .outer-bg {
         margin-bottom: 10px;
     }
@@ -190,101 +189,112 @@
     }
 }
 
+
 .home-footer {
-    font-family: Roboto, sans-serif !important;
-    text-align: center;
-    padding-top: 8px;
-    height: 300px;
-    font-size: 20px;
-    background-image: url('../../assets/footer-image.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color: #232324; /* Màu nền tối */
+    color: #fff; /* Màu chữ sáng */
+    padding: 40px 0;
+    font-family: 'Roboto', sans-serif;
+
     .footer-info {
         display: flex;
-        width: 100%;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #444;
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+            padding: 0 15px;
+        }
+
         .footer-left {
-            width: 33%;
             .footer-title {
-                .logo-title{
-                    font-size: 35px;
-                    text-decoration: underline;
-                    color: #ece9e9;
-                }
-                // .logo {
-                    // background: url('../../assets/logo-image.png')  center no-repeat;
-                    // height: 100%;
-                    // width: 100%;
-                    // cursor: pointer;     
-                // }
-            }
-            .footer-content {
                 display: flex;
-                padding: 0 20px;
-                margin-top: 10px;
-                font-size: 17px;
-                color: white;
-                p {
-                    margin: 0 10px;
+                align-items: center;
+
+                .logo {
+                    width: 80px;
+                    height: 50px;
+                    background: url('../../assets//logo-image.png') no-repeat center center;
+                    background-size: contain;
                 }
-                
+
+                .logo-title {
+                    font-size: 28px;
+                    font-weight: bold;
+                    margin-left: 0px;
+                    color: #fff;
+                }
+            }
+
+            .footer-content {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                color: #ddd;
+
+                i {
+                    margin-right: 10px;
+                    font-size: 18px;
+                    color: #007bff;
+                }
+
+                p {
+                    margin: 0;
+                }
             }
         }
 
         .footer-center {
-            width: 33%;
-            color: white;
             .center-title {
-                font-size: 20px;
-                padding-bottom: 10px;
-            }
-            .specialty {
-                font-family: Roboto, sans-serif !important;
-                font-weight: 300;
-                font-size: 14px;
-                line-height: 148.51%;
-                padding-top: 5px;
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 20px;
             }
 
+            .specialty {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #ddd;
+                cursor: pointer;
+                transition: color 0.3s;
+
+                &:hover {
+                    color: #007bff; /* Hiệu ứng hover */
+                }
+            }
         }
 
         .footer-right {
-            width: 33%;
-        }
-    }
-    .footer-end {
-        padding-top: 20px;
-        margin-top: 107px;
-        height: 80px;
-        background-color: #ccbcbc;
-    }
-}
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 20px;
 
-.section-about {
-    padding: 0 110px;
-    font-family: 'Times New Roman', Times, serif;
-    max-height: 550px;
-    .section-about-header {
-        padding: 20px 10px;
-        font-size: 22px;
-        font-weight: 600;
-    }
-    .section-about-content {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        .content-left {
-            width: 60%;
-            min-width: 300px;
-        }
-        .content-right {
-            width: 40%;
-
-            p{
-                text-align: justify;
-                font-style: italic;
-                padding-top: 20px;
-                font-size: 17px;
+            div {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #ddd;
             }
+        }
+    }
+
+    .footer-end {
+        background-color: #181818;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+        font-size: 15px;
+        color: #777;
+        p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
         }
     }
 }

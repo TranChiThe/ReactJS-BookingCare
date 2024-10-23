@@ -1,10 +1,14 @@
 .login-backround {
-    // background: rgb(34, 193, 195);
-    background: linear-gradient(135deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-    );
+    // background: linear-gradient(135deg,
+    // rgba(34, 193, 195, 1) 0%,
+    // rgba(253, 187, 45, 1) 100%
+    // );
+    // height: 100vh;
+    background-image: url('../../assets/banner-image.webp');
     height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     .login-container {
         width: 400px;
@@ -49,10 +53,11 @@
                 border-radius: 15px;
                 outline: none;
                 border: none;
-                background: linear-gradient(135deg,
-                rgba(34, 193, 195, 1) 0%,
-                rgba(253, 187, 45, 1) 100%
-                );
+                background: rgb(152,152,232);
+                background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, 
+                rgba(8,96,164,1) 0%, 
+                rgba(197,208,235,1) 0%, rgba(10,84,176,0.9443155452436195) 50%,
+                rgba(81,182,237,0.9052871148459384) 100%);
                 color: white;
                 font-size: 16px;
             }

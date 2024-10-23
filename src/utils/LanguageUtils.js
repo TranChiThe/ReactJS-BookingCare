@@ -1,6 +1,7 @@
 import messages_vi from '../translations/vi.json';
 import messages_en from '../translations/en.json';
 
+// Chuyển đổi cấu trúc dạng lồng nhau thành cấu trúc dạng đối tượng
 const flattenMessages = ((nestedMessages, prefix = '') => {
     if (nestedMessages == null) {
         return {}
@@ -10,7 +11,7 @@ const flattenMessages = ((nestedMessages, prefix = '') => {
         const prefixedKey = prefix ? `${prefix}.${key}` : key;
 
         if (typeof value === 'string') {
-            Object.assign(messages, {[prefixedKey]: value})
+            Object.assign(messages, { [prefixedKey]: value })
         } else {
             Object.assign(messages, flattenMessages(value, prefixedKey))
         }

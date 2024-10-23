@@ -7,7 +7,14 @@ export const path = {
     DOCTOR: '/doctor',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     DETAIL_SPECIALTY: '/detail-specialty/:id',
-    VERIFY_EMAIL_BOOKING: '/verify-booking'
+    VERIFY_EMAIL_BOOKING: '/verify-booking',
+    DOCTOR_MANAGE: '/doctor-manage',
+    STAFF_MANAGE: '/staff-manage',
+    DETAIL_CLINIC: '/detail-clinic/:id',
+    ALL_SPECIALTY: '/all-specialty',
+    ALL_DOCTORS: '/all-doctors',
+    HOME_SEARCH: '/home-search'
+
 };
 
 export const LANGUAGES = {
@@ -35,4 +42,5 @@ export const USER_ROLE = {
     ADMIN: 'R1',
     DOCTOR: 'R2',
     USER: 'R3',
+    STAFF: 'R4',
 }

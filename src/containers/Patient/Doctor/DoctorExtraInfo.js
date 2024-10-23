@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
-import { FaHandPointer } from "react-icons/fa";
 import { getExtraInfoDoctorById } from '../../../services/userService'
 import NumberFormat from 'react-number-format'
 import './DoctorExtraInfo.scss'
@@ -53,98 +52,101 @@ class DoctorExtraInfo extends Component {
         let { isShowDetailInfo, extraInfo } = this.state;
         let { language } = this.props;
         return (
-            <div className='doctor-extra-info-container'>
-                <div className='content-up'>
-                    <div className='address-text'><FormattedMessage id="patient.doctor-info.text-address" /></div>
-                    <div className='clinic-name'>
-                        {extraInfo && extraInfo.nameClinic ?
-                            extraInfo.nameClinic : ''
+            <>
+                <div className='name-title'></div>
+                <div className='doctor-extra-info-container'>
+                    <div className='content-up'>
+                        <div className='address-text'><FormattedMessage id="patient.doctor-info.text-address" /></div>
+                        <div className='clinic-name'>
+                            {extraInfo && extraInfo.Clinic ?
+                                extraInfo.Clinic.name : ''
+                            }
+                        </div>
+                        <div className='detail-address'>
+                            {extraInfo && extraInfo.Clinic ?
+                                extraInfo.Clinic.address : ''}
+                        </div>
+                    </div>
+                    <div className='content-down'>
+                        {isShowDetailInfo === false ?
+                            <div className='short-info'>
+                                <FormattedMessage id="patient.doctor-info.price" />
+                                {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI &&
+                                    <NumberFormat
+                                        className='currency'
+                                        value={extraInfo.priceTypeData.valueVi}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        suffix={'đ'}
+                                    />
+                                }
+                                {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN &&
+                                    <NumberFormat
+                                        className='currency'
+                                        value={extraInfo.priceTypeData.valueEn}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        prefix={'$'}
+                                    />
+                                }
+                                <span onClick={() => this.showHideDetailInfo(true)}>
+                                    <FormattedMessage id="patient.doctor-info.detail-view" />
+                                </span>
+
+                            </div>
+                            :
+                            <React.Fragment>
+                                <div className='title-price'>
+                                    <FormattedMessage id="patient.doctor-info.price" />
+                                </div>
+                                <div className='detail-info'>
+                                    <div className='price'>
+                                        <span className='left'>
+                                            <FormattedMessage id="patient.doctor-info.price" />
+                                        </span>
+                                        <span className='right'>
+                                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI &&
+                                                <NumberFormat
+                                                    className='currency'
+                                                    value={extraInfo.priceTypeData.valueVi}
+                                                    displayType={'text'}
+                                                    thousandSeparator={true}
+                                                    suffix={'đ'}
+                                                />
+                                            }
+                                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN &&
+                                                <NumberFormat
+                                                    className='currency'
+                                                    value={extraInfo.priceTypeData.valueEn}
+                                                    displayType={'text'}
+                                                    thousandSeparator={true}
+                                                    prefix={'$'}
+                                                />
+                                            }
+                                        </span>
+                                    </div>
+                                    <div className='note'>
+                                        {extraInfo && extraInfo.nameClinic ?
+                                            extraInfo.note : ''}
+                                    </div>
+                                </div>
+                                <div className='payment'>
+                                    <FormattedMessage id="patient.doctor-info.note" />
+                                    {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI ?
+                                        extraInfo.paymentTypeData.valueVi : ''}
+                                    {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.EN ?
+                                        extraInfo.paymentTypeData.valueEn : ''}
+                                </div>
+                                <div className='hide-Price'>
+                                    <span onClick={() => this.showHideDetailInfo(false)}>
+                                        <FormattedMessage id="patient.doctor-info.hidden-view" />
+                                    </span>
+                                </div>
+                            </React.Fragment>
                         }
                     </div>
-                    <div className='detail-address'>
-                        {extraInfo && extraInfo.addressClinic ?
-                            extraInfo.addressClinic : ''}
-                    </div>
                 </div>
-                <div className='content-down'>
-                    {isShowDetailInfo === false ?
-                        <div className='short-info'>
-                            <FormattedMessage id="patient.doctor-info.price" />
-                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI &&
-                                <NumberFormat
-                                    className='currency'
-                                    value={extraInfo.priceTypeData.valueVi}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={'đ'}
-                                />
-                            }
-                            {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN &&
-                                <NumberFormat
-                                    className='currency'
-                                    value={extraInfo.priceTypeData.valueEn}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    prefix={'$'}
-                                />
-                            }
-                            <span onClick={() => this.showHideDetailInfo(true)}>
-                                <FormattedMessage id="patient.doctor-info.detail-view" />
-                            </span>
-
-                        </div>
-                        :
-                        <React.Fragment>
-                            <div className='title-price'>
-                                <FormattedMessage id="patient.doctor-info.price" />
-                            </div>
-                            <div className='detail-info'>
-                                <div className='price'>
-                                    <span className='left'>
-                                        <FormattedMessage id="patient.doctor-info.price" />
-                                    </span>
-                                    <span className='right'>
-                                        {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.VI &&
-                                            <NumberFormat
-                                                className='currency'
-                                                value={extraInfo.priceTypeData.valueVi}
-                                                displayType={'text'}
-                                                thousandSeparator={true}
-                                                suffix={'đ'}
-                                            />
-                                        }
-                                        {extraInfo && extraInfo.priceTypeData && language === LANGUAGES.EN &&
-                                            <NumberFormat
-                                                className='currency'
-                                                value={extraInfo.priceTypeData.valueEn}
-                                                displayType={'text'}
-                                                thousandSeparator={true}
-                                                prefix={'$'}
-                                            />
-                                        }
-                                    </span>
-                                </div>
-                                <div className='note'>
-                                    {extraInfo && extraInfo.nameClinic ?
-                                        extraInfo.note : ''}
-                                </div>
-                            </div>
-                            <div className='payment'>
-                                <FormattedMessage id="patient.doctor-info.note" />
-                                {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.VI ?
-                                    extraInfo.paymentTypeData.valueVi : ''}
-                                {extraInfo && extraInfo.paymentTypeData && language === LANGUAGES.EN ?
-                                    extraInfo.paymentTypeData.valueEn : ''}
-                            </div>
-                            <div className='hide-Price'>
-                                <span onClick={() => this.showHideDetailInfo(false)}>
-                                    <FormattedMessage id="patient.doctor-info.hidden-view" />
-                                </span>
-                            </div>
-                        </React.Fragment>
-                    }
-                </div>
-            </div>
+            </>
         );
     }
 }

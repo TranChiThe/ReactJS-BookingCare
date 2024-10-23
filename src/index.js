@@ -15,7 +15,7 @@ const renderApp = () => {
     ReactDOM.render(
         <Provider store={reduxStore}>
             <IntlProviderWrapper>
-                <App persistor={persistor}/>
+                <App persistor={persistor} />
             </IntlProviderWrapper>
         </Provider>,
         document.getElementById('root')
@@ -27,3 +27,4 @@ renderApp();
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+

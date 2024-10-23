@@ -1,23 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { FaTooth } from "react-icons/fa";
 import { withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
+import * as actions from '../../store/actions';
+
 
 class HomeHeader extends Component {
-
-    changeLanguage = (language) => {
-        // fire redux event: actions
+    constructor(props) {
+        super(props);
+        this.state = {
+            showLanguageList: false,
+        };
+    }
+    handleChangeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
+        this.setState({ showLanguageList: false }); // Đóng danh sách sau khi chọn ngôn ngữ
+    }
+
+    toggleLanguageList = () => {
+        this.setState({ showLanguageList: !this.state.showLanguageList });
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClickOutside, true);
+    }
+
+    handleClickOutside = (event) => {
+        const dropdown = document.querySelector('.language-dropdown');
+        if (dropdown && !dropdown.contains(event.target)) {
+            this.setState({ showLanguageList: false });
+        }
     }
 
     returnToHome = () => {
         if (this.props.history) {
             this.props.history.push('/home');
+        }
+    }
+    handleClickSearch = () => {
+        if (this.props.history) {
+            this.props.history.push('/home-search');
         }
     }
 
@@ -32,7 +59,7 @@ class HomeHeader extends Component {
             slidesToScroll: 1,
         };
         let language = this.props.language;
-        let placeholder = <FormattedMessage id="specialty.specialty-title6" />
+        let { darkMode } = this.props
         return (
             <React.Fragment>
                 <div className='home-header-container'>
@@ -65,16 +92,61 @@ class HomeHeader extends Component {
                                 <i className="fas fa-question-circle"></i>
                                 <FormattedMessage id="homeheader.support" />
                             </div>
-                            <div className={language === LANGUAGES.VI ? 'language-vi active' : 'language-vi'}><span
-                                onClick={() => this.changeLanguage(LANGUAGES.VI)}>VI</span></div>
-                            <div className={language === LANGUAGES.EN ? 'language-en active' : 'language-en'}><span
-                                onClick={() => this.changeLanguage(LANGUAGES.EN)}>EN</span></div>
+
+                            {this.state.showLanguageList && (
+                                <div className={`language-list ${darkMode ? 'dark-mode' : ''}`}>
+                                    <div
+                                        className={`language-item ${language === LANGUAGES.VI ? 'active' : ''}`}
+                                        onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
+                                    >
+                                        <span className="flag-icon flag-icon-vi"></span>
+                                    </div>
+                                    <div
+                                        className={`language-item ${language === LANGUAGES.EN ? 'active' : ''}`}
+                                        onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
+                                    >
+                                        <span className="flag-icon flag-icon-en"></span>
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className='languages'>
+                                <div className="language-dropdown">
+                                    <div className="selected-language" onClick={this.toggleLanguageList}>
+                                        <span className={`flag-icon ${language === LANGUAGES.VI ? 'flag-icon-vi' : 'flag-icon-en'}`}></span>
+                                        <i className="fas fa-chevron-down"></i>
+                                    </div>
+                                    {this.state.showLanguageList && (
+                                        <div className={`language-list ${darkMode ? 'dark-mode' : ''}`}>
+                                            <div
+                                                className={`language-item ${language === LANGUAGES.VI ? 'active' : ''}`}
+                                                onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
+                                            >
+                                                <span className="flag-icon flag-icon-vi"></span>
+                                            </div>
+                                            <div
+                                                className={`language-item ${language === LANGUAGES.EN ? 'active' : ''}`}
+                                                onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
+                                            >
+                                                <span className="flag-icon flag-icon-en"></span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div
+                                    className={`btn-dark-mode ${this.props.darkMode ? 'dark-mode' : ''}`}
+                                    onClick={this.toggleDarkMode}
+                                    title='Toggle Dark Mode'
+                                >
+                                    <i className={this.props.darkMode === true ? 'fas fa-moon' : 'fas fa-sun'}></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
-                {this.props.isShowBanner === true &&
+                {
+                    this.props.isShowBanner === true &&
                     <Slider {...settings}>
                         <div className='home-header-banner'>
                             <div className='content-up'>
@@ -82,7 +154,10 @@ class HomeHeader extends Component {
                                 <div className='title2'><FormattedMessage id="banner.title2" /></div>
                                 <div className='search' >
                                     <i class="fas fa-search"></i>
-                                    <input type='text' placeholder='Tìm bác sĩ theo chuyên khoa...' />
+                                    <input type='text'
+                                        placeholder={this.props.intl.formatMessage({ id: "patient.home-search.search" })}
+                                        onClick={() => this.handleClickSearch()}
+                                    />
                                 </div>
                             </div>
                             <div className='content-down'>
@@ -113,7 +188,7 @@ class HomeHeader extends Component {
                                     </div>
                                     <div className='child-option'>
                                         <div className='child-icon'>
-                                            <i ><FaTooth /></i>
+                                            <i className='fa-tooth'><FaTooth /></i>
                                         </div>
                                         <div className='child-text'><FormattedMessage id="banner.child5" /></div>
                                     </div>
@@ -132,7 +207,8 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
+        language: state.app.language,
+        darkMode: state.darkMode.isDarkMode,
     };
 };
 
@@ -140,7 +216,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         changeLanguageAppRedux: (laguage) => dispatch(changeLanguageApp(laguage)),
+        toggleDarkMode: () => dispatch(actions.toggleDarkMode()), // Dispatch action để thay đổi dark mode
+
     };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(injectIntl(HomeHeader)));
+
