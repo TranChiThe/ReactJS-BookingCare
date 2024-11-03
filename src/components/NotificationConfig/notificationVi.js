@@ -42,4 +42,11 @@ export const notificationVi = {
     editScheduleSuccessText: 'Lịch khám đã được cập nhật thành công',
     editScheduleFailTitle: 'Có lỗi xãy ra',
     editScheduleFailText: 'Không thể cập nhật lịch khám, vui lòng thử lại sau!',
+
+    //---------- Busy Schedule ----------
+
+    addBusyScheduleSuccessTitle: 'Thành công',
+    addBusyScheduleSuccessText: 'Lịch bận đã được tạo thành công',
+    addBusyScheduleFailTitle: 'Có lỗi xãy ra',
+    addBusyScheduleFailText: 'Không thể tạo lịch bận, vui lòng thử lại sau!',
 }

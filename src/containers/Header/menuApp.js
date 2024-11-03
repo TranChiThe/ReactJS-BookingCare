@@ -1,5 +1,17 @@
 export const adminMenu = [
     {
+        name: 'menu.admin.home',
+        menus: [
+            {
+                name: 'menu.home.dashboard', link: '/system/overview'
+            },
+            {
+                name: 'menu.home.statistical-chart', link: '/system/statistical-chart'
+            },
+
+        ]
+    },
+    {
         // Quản lý người dùng
         name: 'menu.admin.user',
         menus: [
@@ -28,6 +40,9 @@ export const adminMenu = [
         menus: [
             {
                 name: 'menu.admin.manage-clinic', link: '/system/manage-clinic'
+            },
+            {
+                name: 'menu.admin.manage-clinic-list', link: '/system/manage-clinic-information'
             },
         ]
     },
@@ -59,6 +74,11 @@ export const doctorMenu = [
                 // Quản lý lịch khám bệnh
                 name: 'menu.doctor.manage-schedule', link: '/doctor-manage/manage-schedule'
             },
+            {
+                // Quản lý lịch bận
+                name: 'menu.doctor.busy-schedule', link: '/doctor-manage/manage-busy-schedule'
+            },
+
         ],
 
     },

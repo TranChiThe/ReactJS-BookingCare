@@ -10,6 +10,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist'; // Lưu trữ và khôi phục trạng thái redux
 import authReducer from './authReducer';
 import darkModeReducer from './darkModeReducer';
+import messageReducer from './messageReducer'
 
 const persistCommonConfig = {
     storage: storage,
@@ -40,12 +41,20 @@ const darkModePersistConfig = {
     whitelist: ['isDarkMode']
 }
 
+const addMessagePersistConfig = {
+    ...persistCommonConfig,
+    key: 'chat',
+    whitelist: ['messages']
+}
+
 export default (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
     admin: adminReducer,
     auth: persistReducer(authPersistConfig, authReducer),  // Add authReducer to combineReducers
-    darkMode: persistReducer(darkModePersistConfig, darkModeReducer)
+    darkMode: persistReducer(darkModePersistConfig, darkModeReducer),
+    chat: persistReducer(addMessagePersistConfig, messageReducer)
+
 
 })

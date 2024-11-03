@@ -1,5 +1,3 @@
-
-
 import React, { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -168,6 +166,48 @@ class Navigator extends Component {
         }
     };
 
+    // render() {
+    //     const { menus, location, onLinkClick, darkMode } = this.props;
+    //     return (
+    //         <Fragment>
+    //             <ul className={`navigator-menu list-unstyled ${darkMode ? 'dark-mode' : ''}`}>
+    //                 {menus.map((group, groupIndex) => (
+    //                     <Fragment key={groupIndex}>
+    //                         <MenuGroupWithRouter name={group.name}>
+    //                             {group.menus && group.menus.map((menu, menuIndex) => {
+    //                                 const isMenuHasSubMenuActive = this.isMenuHasSubMenuActive(location, menu.subMenus, menu.link);
+    //                                 const isSubMenuOpen = this.state.expandedMenu[`${groupIndex}_${menuIndex}`] === true;
+    //                                 return (
+    //                                     <MenuWithRouter
+    //                                         key={menuIndex}
+    //                                         active={isMenuHasSubMenuActive}
+    //                                         name={menu.name}
+    //                                         link={menu.link}
+    //                                         hasSubMenu={menu.subMenus}
+    //                                         isOpen={isSubMenuOpen}
+    //                                         onClick={() => this.toggle(groupIndex, menuIndex)}
+    //                                         onLinkClick={onLinkClick}
+    //                                         darkMode={darkMode}
+    //                                     >
+    //                                         {menu.subMenus && menu.subMenus.map((subMenu, subMenuIndex) => (
+    //                                             <SubMenuWithRouter
+    //                                                 key={subMenuIndex}
+    //                                                 name={subMenu.name}
+    //                                                 link={subMenu.link}
+    //                                                 onLinkClick={onLinkClick}
+    //                                                 darkMode={darkMode}
+    //                                             />
+    //                                         ))}
+    //                                     </MenuWithRouter>
+    //                                 );
+    //                             })}
+    //                         </MenuGroupWithRouter>
+    //                     </Fragment>
+    //                 ))}
+    //             </ul>
+    //         </Fragment>
+    //     );
+    // }
     render() {
         const { menus, location, onLinkClick, darkMode } = this.props;
         return (
@@ -175,7 +215,10 @@ class Navigator extends Component {
                 <ul className={`navigator-menu list-unstyled ${darkMode ? 'dark-mode' : ''}`}>
                     {menus.map((group, groupIndex) => (
                         <Fragment key={groupIndex}>
-                            <MenuGroupWithRouter name={group.name}>
+                            <MenuGroupWithRouter
+                                name={group.name}
+                                className={group.menus.some(menu => this.isMenuHasSubMenuActive(location, menu.subMenus, menu.link)) ? 'active' : ''}
+                            >
                                 {group.menus && group.menus.map((menu, menuIndex) => {
                                     const isMenuHasSubMenuActive = this.isMenuHasSubMenuActive(location, menu.subMenus, menu.link);
                                     const isSubMenuOpen = this.state.expandedMenu[`${groupIndex}_${menuIndex}`] === true;
@@ -213,7 +256,7 @@ class Navigator extends Component {
 }
 
 const mapStateToProps = state => ({
-    darkMode: state.darkMode.isDarkMode // Lấy trạng thái dark mode từ Redux
+    darkMode: state.darkMode.isDarkMode
 });
 
 const mapDispatchToProps = dispatch => ({

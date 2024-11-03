@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
 import Navigator from '../../components/Navigator';
 import { adminMenu, doctorMenu, staffMenu } from './menuApp';
-import './Header.scss';
 import { LANGUAGES, USER_ROLE } from '../../utils';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
+import './Header.scss';
 
 class Header extends Component {
     constructor(props) {
@@ -44,7 +44,6 @@ class Header extends Component {
             if (role === USER_ROLE.STAFF) {
                 menu = staffMenu;
             }
-
         }
         this.setState({
             menuApp: menu,

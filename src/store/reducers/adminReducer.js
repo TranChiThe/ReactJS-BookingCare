@@ -1,3 +1,4 @@
+import { flatMap } from 'lodash';
 import actionTypes from '../actions/actionTypes';
 
 
@@ -5,6 +6,9 @@ const initialState = {
     isLoadingGender: false,
     isLoadingPosition: false,
     isLoadingRole: false,
+    loading: false,
+    success: 1,
+    error: false,
     genders: [],
     roles: [],
     positions: [],
@@ -35,7 +39,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_GENDER_FAILDED:
+        case actionTypes.FETCH_GENDER_FAILED:
             state.isLoadingGender = false;
             state.isLoadingGender = [];
             return {
@@ -55,7 +59,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_POSITION_FAILDED:
+        case actionTypes.FETCH_POSITION_FAILED:
             state.positions = [];
             state.isLoadingPosition = false;
             return {
@@ -75,7 +79,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ROLE_FAILDED:
+        case actionTypes.FETCH_ROLE_FAILED:
             state.roles = [];
             state.isLoadingRole = false;
             return {
@@ -88,7 +92,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_USER_FAILDED:
+        case actionTypes.FETCH_ALL_USER_FAILED:
             state.users = [];
             return {
                 ...state
@@ -100,7 +104,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_TOP_DOCTOR_FAILDED:
+        case actionTypes.FETCH_TOP_DOCTOR_FAILED:
             state.topDoctor = []
             return {
                 ...state
@@ -112,7 +116,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ALL_DOCTOR_FAILDED:
+        case actionTypes.FETCH_ALL_DOCTOR_FAILED:
             state.allDoctors = []
             return {
                 ...state
@@ -124,7 +128,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_DETAIL_INFOR_DOCTOR_FAILDED:
+        case actionTypes.FETCH_DETAIL_INFOR_DOCTOR_FAILED:
             state.detailDoctor = []
             return {
                 ...state
@@ -136,7 +140,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED:
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
             state.allScheduleTime = []
             return {
                 ...state
@@ -148,7 +152,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.BULK_CREATE_SCHEDULE_DOCTOR_FAILDED:
+        case actionTypes.BULK_CREATE_SCHEDULE_DOCTOR_FAILED:
             state.bulkScheduleDoctor = []
             return {
                 ...state
@@ -166,7 +170,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILDED:
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAILED:
             state.allRequiredDoctorInfo = [];
             return {
                 ...state
@@ -185,7 +189,7 @@ const adminReducer = (state = initialState, action) => {
                 ...state
             }
 
-        case actionTypes.FETCH_SPECIALTY_FAILDED:
+        case actionTypes.FETCH_SPECIALTY_FAILED:
             return {
                 ...state
             }
@@ -205,6 +209,26 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.FETCH_FILTER_SEARCH_FAILED:
             return {
                 ...state
+            }
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS:
+            state.success = 0
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING:
+            state.success = 1
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START:
+            state.success = 1
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILED:
+            state.success = 2
+            return {
+                ...state,
             }
 
         default:

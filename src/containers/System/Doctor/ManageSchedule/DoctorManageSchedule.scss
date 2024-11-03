@@ -1,18 +1,35 @@
-.manage-schedule-container {
+.doctor-manage-schedule-container {
     font-size: 15px;
-    padding: 0 20px; // Điều chỉnh padding cho phù hợp
+    padding: 0 20px; 
     background: #f2f2f2;
-    // height: 500px;
+    min-height: 700px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .doctor-schedule-body {
+        padding: 0 100px;
+        padding-top: 20px;
+
+        #customers th, #customers td {
+            padding: 12px 0px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+    .information{
+        color: red;
+        font-size: 18px;
+        text-align: center;
+        padding: 15px 0;
+    }
 
     .manage-schedule-title {
         text-align: center;
         padding: 15px 0;
         text-transform: uppercase;
-        font-weight: 600;
-        font-size: 24px; // Kích thước tiêu đề
-        border-bottom: 2px solid #007bff; // Đường gạch phân cách
-        margin-bottom: 20px; // Khoảng cách giữa tiêu đề và nội dung
+        font-weight: 700;
+        font-size: 24px; 
+        border-bottom: 2px solid #007bff; 
+        margin-bottom: 20px; 
     }
 
     .container {
@@ -22,7 +39,7 @@
     .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px; // Khoảng cách giữa các phần tử
+        gap: 20px; 
     }
 
     .form-group {
@@ -30,13 +47,13 @@
     }
 
     .col-4, .col-2, .col-8, .col-12 {
-        padding: 0 15px; // Padding cho các cột
+        padding: 0 15px; 
     }
 
     .pick-hour-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px; // Khoảng cách giữa các nút giờ
+        gap: 10px; 
     }
 
     .btn-schedule {
@@ -51,7 +68,7 @@
         width: 170px;
 
         &:hover {
-            background-color: #ccc; // Hiệu ứng hover cho nút giờ
+            background-color: #ccc; 
         }
     }
 
@@ -90,20 +107,20 @@
     }
 
     .btn-save-schedule:hover {
-        background-color: #0056b3; // Hiệu ứng hover cho nút lưu
+        background-color: #0056b3; 
     }
 
     @media (max-width: 768px) {
         .manage-schedule-title {
-            font-size: 20px; // Kích thước tiêu đề trên màn hình nhỏ
+            font-size: 20px; 
         }
 
         .btn-schedule {
-            font-size: 12px; // Kích thước chữ trên nút giờ
+            font-size: 12px; 
         }
 
         .schedule-search, .btn-save-schedule {
-            width: 100%; // Nút chiếm toàn bộ chiều rộng trên màn hình nhỏ
+            width: 100%; 
         }
     }
 }

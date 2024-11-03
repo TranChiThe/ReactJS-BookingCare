@@ -246,14 +246,21 @@ export const fetchDetailInforDoctorStart = (doctorId) => {
 
 export const saveDetailInforDoctor = (data) => {
     return async (dispatch, getState) => {
+        dispatch({
+            type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START,
+        })
         try {
             let res = await saveDetailDoctorService(data);
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS,
                 })
-            } else if (res && res.errCode === 1) {
-                toast.error('Missing parameter!')
+                console.log('FETCH_SAVE_DETAIL_DOCTOR_SUCCESS: ')
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING,
+                })
+                console.log('FETCH_SAVE_DETAIL_DOCTOR_MISSING: ')
             }
         } catch (e) {
             console.log('FETCH_SAVE_DETAIL_DOCTOR_FAILED: ', e)

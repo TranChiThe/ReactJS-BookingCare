@@ -13,7 +13,8 @@ export const path = {
     DETAIL_CLINIC: '/detail-clinic/:id',
     ALL_SPECIALTY: '/all-specialty',
     ALL_DOCTORS: '/all-doctors',
-    HOME_SEARCH: '/home-search'
+    HOME_SEARCH: '/home-search',
+    SUPPORT: '/user-support'
 
 };
 

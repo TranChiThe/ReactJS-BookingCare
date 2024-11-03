@@ -32,10 +32,9 @@
         border-radius: 8px;
         padding: 10px;
         .specialty-content-left {
-            width: 50%;
+            width: 35%;
             .profile-doctor {
                 .profile-doctor-container  {
-                    // display: flex;
                     padding-top: 30px;
                     padding: 30px 10px;
                     background: #e7e7ee;
@@ -48,7 +47,7 @@
             }
         }
         .specialty-content-right {
-            width: 50%;
+            width: 65%;
             padding: 10px;
             .doctor-schedule {
                 .doctor-schedule-container {
@@ -56,8 +55,6 @@
                 }
             }
             .doctor-extra-info {
-                // margin-top: 10px;
-                // padding-top: 10px;
                 .doctor-extra-info-container {
                     padding-left: 0 !important;
                 }

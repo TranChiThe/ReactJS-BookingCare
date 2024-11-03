@@ -1,0 +1,48 @@
+.patient-support-container {
+    min-height: 650px;
+    background: linear-gradient(
+        102deg,
+        rgba(152, 152, 232, 0.8631090487238979) 0%,
+        rgba(65, 151, 217, 1) 0%,
+        rgba(197, 208, 235, 1) 0%,
+        rgba(207, 223, 242, 0.9443155452436195) 50%,
+        rgba(220, 236, 245, 0.9052871148459384) 100%
+    );
+    .support-tile {
+        text-align: center;
+        padding: 15px 0;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 24px;
+        color: #333;
+        border-bottom: 2px solid #007bff;
+        margin-bottom: 20px;
+    }
+    .support-body-container {
+        .search-container {
+            background: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            .search-item-support {
+                input {
+                    width: 400px;
+                    padding: 10px 15px;
+                    border: 2px solid #ddd;
+                    border-radius: 25px;
+                    font-size: 16px;
+                    transition:
+                        border-color 0.3s ease,
+                        box-shadow 0.3s ease;
+                    margin-top: 10px;
+                    &:focus {
+                        border-color: #6c63ff;
+                        box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+}

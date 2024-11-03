@@ -5,9 +5,13 @@ import { connect } from 'react-redux';
 class Home extends Component {
 
     render() {
-        const { isLoggedIn } = this.props;
-        let linkToRedirect = isLoggedIn ? '/system/manage-user' : '/home';
-
+        const { isLoggedIn, roleId } = this.props;
+        let linkToRedirect;
+        if (isLoggedIn && roleId === 'R1') {
+            linkToRedirect = isLoggedIn ? '/system/overview' : '/home';
+        } else if (isLoggedIn && roleId === 'R2') {
+            linkToRedirect = isLoggedIn ? '/doctor-manage/manage-schedule' : '/home';
+        }
         return (
             <Redirect to={linkToRedirect} />
         );
@@ -17,12 +21,14 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        roleId: state.auth.role
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+
     };
 };
 

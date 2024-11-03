@@ -34,19 +34,23 @@ class Login extends Component {
             console.log('', data)
             if (data && data.errCode !== 0) {
                 this.setState({
-                    errMessage: 'Invalid Email or Password'
+                    errMessage: data.message
                 })
+                setTimeout(() => {
+                    this.setState({ errMessage: null });
+                }, 1000);
             }
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user)
                 // Điều hướng dựa trên vai trò của người dùng
                 if (data.user.roleId === 'R1') {
-                    this.props.navigate('/system/manage-user');
+                    this.props.navigate('/system/overview');
                 } else if (data.user.roleId === 'R2') {
                     this.props.navigate('/doctor-manage/manage-schedule');
                 } else if (data.user.roleId === 'R4') {
                     this.props.navigate('/staff-manage/manage-doctor');
                 } else {
+                    this.props.navigate('/home');
                     this.setState({
                         errMessage: 'Role not recognized'
                     });

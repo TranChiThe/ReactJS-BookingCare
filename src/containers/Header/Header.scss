@@ -1,4 +1,3 @@
-
 @import "../../styles/common.scss";
 
 // Background colors
@@ -21,25 +20,28 @@ $button-bg-dark: #0056b3;
 $button-hover-color: #0056b3;
 $button-hover-dark: #003d7a;
 
-// Header container
 .header-container {
-    z-index: 99;
+    z-index: 100000;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $light-bg-color; // Light mode background
-    color: $light-text-color; // Light mode text color
-    height: 80px; // Increased height for better visibility
-    padding: 0 40px; // Added padding for balance
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); // Softer shadow for modern look
-    position: relative;
+    background-color: $light-bg-color; 
+    color: $light-text-color; 
+    height: 80px; 
+    padding: 0 40px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+    position: sticky; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
     transition: background-color 0.3s ease, color 0.3s ease;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #d9dadb;
 
     &.dark-mode {
-        background-color: $dark-bg-color; // Dark mode background
-        color: $dark-text-color; // Dark mode text color
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); // Deeper shadow for dark mode
+        background-color: $dark-bg-color; 
+        color: $dark-text-color; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
     }
 
     .header-tabs-container {
@@ -52,24 +54,29 @@ $button-hover-dark: #003d7a;
             align-items: center;
             height: 100%;
             .nav-item {
-                margin-right: 30px; // Increased spacing between items
+                margin-right: 30px; 
                 cursor: pointer;
-                font-weight: 500; // Slightly bolder for emphasis
-                font-size: 16px; // Enhanced readability
+                font-weight: 500; 
+                font-size: 16px; 
                 color: inherit;
                 transition: color 0.3s ease;
-                
+
                 &:hover {
-                    color: $button-bg-color; // Hover color change
+                    color: $button-bg-color; 
                 }
             }
         }
     }
 
     .languages {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
+        display: flex; 
+        align-items: center; 
+        margin-left: auto; 
+
+        .welcome {
+            margin-right: 5px; 
+            font-size: 15px; 
+        }
 
         .language-dropdown {
             position: relative;
@@ -78,10 +85,10 @@ $button-hover-dark: #003d7a;
             .selected-language {
                 display: flex;
                 align-items: center;
-                background-color: $language-bg-color; // Light mode background
+                background-color: $language-bg-color; 
                 padding: 8px 12px;
                 margin: 0 8px;
-                border-radius: 6px; // Softer corners for modern feel
+                border-radius: 6px; 
                 border: 1px solid rgba(0, 0, 0, 0.1);
                 transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -97,7 +104,7 @@ $button-hover-dark: #003d7a;
                 }
 
                 &.dark-mode {
-                    background-color: $language-bg-dark; // Dark mode background
+                    background-color: $language-bg-dark; 
                     color: $dark-text-color;
                 }
             }
@@ -108,7 +115,7 @@ $button-hover-dark: #003d7a;
                 left: 0;
                 background-color: $dropdown-bg-color;
                 border-radius: 6px;
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); // Softer, wider shadow
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); 
                 margin-top: 10px;
                 z-index: 100;
 
@@ -143,72 +150,118 @@ $button-hover-dark: #003d7a;
                 }
             }
         }
-    }
 
-    .btn-dark-mode {
-        margin-left: 15px;
-        padding: 8px 12px;
-        border-radius: 6px;
-        cursor: pointer;
-        background-color: $button-bg-color; // Light mode background
-        color: $light-text-color;
-        display: flex;
-        align-items: center;
-        transition: background-color 0.3s ease;
-
-        i {
-            margin-right: 8px;
-            font-size: 18px;
+        .btn-dark-mode {
+            margin-left: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: $button-bg-color; 
+            color: $light-text-color;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            
+            i {
+                margin-right: 8px;
+                font-size: 18px;
+            }
+            
+            &:hover {
+                background-color: $button-hover-color;
+            }
+            
+            &.dark-mode {
+                background-color: $button-bg-dark; 
+                color: $dark-text-color;
+            
+                &:hover {
+                    background-color: $button-hover-dark;
+                }
+            }
         }
 
-        &:hover {
-            background-color: $button-hover-color;
-        }
-
-        &.dark-mode {
-            background-color: $button-bg-dark; // Dark mode background
-            color: $dark-text-color;
+        .btn-logout {
+            margin-left: 20px; 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: $light-text-color;
+            padding: 8px 16px;
+            margin: 0 8px;
+            border-radius: 6px;
+            background-color: $button-bg-color; 
+            transition: background-color 0.3s ease;
+            cursor: pointer;
 
             &:hover {
-                background-color: $button-hover-dark;
+                background-color: $button-hover-color;
+            }
+
+            i {
+                font-size: 18px;
+                margin-right: 8px;
+            }
+
+        }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+        padding: 0 20px; 
+
+        .header-tabs-container {
+            .nav-item {
+                margin-right: 15px; 
+                font-size: 14px; 
+            }
+        }
+
+        .languages {
+            .welcome {
+                font-size: 14px; 
+            }
+
+            .language-dropdown {
+                .selected-language {
+                    padding: 6px 10px;
+                }
+            }
+
+            .btn-dark-mode,
+            .btn-logout {
+                padding: 6px 10px;
+                font-size: 14px;
             }
         }
     }
 
-    .btn-logout {
-        color: $light-text-color;
-        padding: 8px 16px;
-        margin: 0 8px;
-        border-radius: 6px;
-        background-color: $button-bg-color; // Light mode background
-        transition: background-color 0.3s ease;
-        cursor: pointer;
+    @media (max-width: 480px) {
+        height: 60px; 
 
-        &:hover {
-            background-color: $button-hover-color;
+        .header-tabs-container {
+            .nav-item {
+                font-size: 12px; 
+                margin-right: 10px; 
+            }
         }
 
-        i {
-            font-size: 18px;
-            margin-right: 8px;
-        }
+        .languages {
+            .welcome {
+                font-size: 12px; 
+            }
 
-        &.dark-mode {
-            background-color: $button-bg-dark; // Dark mode background
-            color: $dark-text-color;
+            .language-dropdown {
+                .selected-language {
+                    padding: 4px 8px;
+                }
+            }
 
-            &:hover {
-                background-color: $button-hover-dark;
+            .btn-dark-mode,
+            .btn-logout {
+                padding: 4px 8px;
+                font-size: 12px;
             }
         }
     }
-}
-
-// Flag Icons for languages
-.flag-icon-vi {
-    background-image: url('../../assets/images/flags/vi.png'); // Vietnam flag
-}
-
-.flag-icon-en {
-    background-image: url('../../assets/images/flags/en.png'); // English flag
 }

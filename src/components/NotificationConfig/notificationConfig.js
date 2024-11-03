@@ -85,3 +85,20 @@ export const notificationEditUserFailed = (language) => {
         Swal.fire(SwalConfig.errorNotification(notificationEn.editAccountTitleFail, notificationEn.editAccountTextFail));
     }
 }
+
+////////////////////////////// -- manage schedule -- ////////////////////////////////////////
+
+export const saveBusyScheduleInfoSuccess = (language) => {
+    if (language === LANGUAGES.VI) {
+        Swal.fire(SwalConfig.successNotification(notificationVi.addBusyScheduleSuccessTitle, notificationVi.addBusyScheduleSuccessText));
+    } else if (language === LANGUAGES.EN) {
+        Swal.fire(SwalConfig.successNotification(notificationEn.addBusyScheduleSuccessTitle, notificationEn.addBusyScheduleSuccessText));
+    }
+}
+export const saveBusyScheduleInfoFail = (language) => {
+    if (language === LANGUAGES.VI) {
+        Swal.fire(SwalConfig.errorNotification(notificationVi.addBusyScheduleFailTitle, notificationVi.addBusyScheduleFailText));
+    } else if (language === LANGUAGES.EN) {
+        Swal.fire(SwalConfig.errorNotification(notificationEn.addBusyScheduleFailTitle, notificationEn.addBusyScheduleFailText));
+    }
+}

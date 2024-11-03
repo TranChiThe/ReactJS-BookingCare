@@ -38,7 +38,12 @@
         "medical-title1": "sèdgfsdf"
     },
     "menu": {
+        "home": {
+            "dashboard": "Dash board",
+            "statistical-chart": "Statistical chart"
+        },
         "admin": {
+            "home": "Home",
             "user": "Users system",
             "manage-doctor": "Manage doctor information",
             "manage-admin": "Manage admins",
@@ -46,6 +51,7 @@
             "crud-redux": "Manage doctor accounts",
             "clinic": "Clinic",
             "manage-clinic": "Manage clinic",
+            "manage-clinic-list": "Clinic information",
             "specialty": "Specialties",
             "manage-specialty": "Manage specialties",
             "handbook": "Handbook",
@@ -57,7 +63,8 @@
             "patient": "Patient",
             "manage-patient-appointment": "Manage patient appointments",
             "manage-patient-record": "Patient record management",
-            "see-more": "See more"
+            "see-more": "See more",
+            "busy-schedule": "Register busy schedule"
         },
         "manage-doctor": {
             "title": "Manage doctor details",
@@ -74,6 +81,19 @@
             "note": "Note",
             "specialty": "Choose a specialty",
             "clinic": "Choose a clinic"
+        },
+        "manage-statistical": {
+            "manage-statistical": "Managing reports and statistics"
+        }
+    },
+    "admin": {
+        "doctor": {
+            "notification-schedule-doctor": "The doctor is not available during this time, please check back!"
+        },
+        "admin": {
+            "notification-schedule": "Doctor's appointment has not been created!",
+            "edit-clinic": "Update information",
+            "create-clinic": "Create information"
         }
     },
     "manage-specialty": {
@@ -130,11 +150,15 @@
         "choose-doctor": "Choose doctor",
         "choose-date": "Choose date",
         "save": "Save infor",
-        "search": "Search",
+        "search": "View calendar",
         "full-name": "Full Name",
         "schedule": "Schedule",
         "maxNumber": "Maximum number of patients",
-        "currentNumber": "Current patient population"
+        "currentNumber": "Current patient population",
+        "schedule-information": "Doctor's appointment information: ",
+        "busy-schedule-title": "Manage your busy schedule",
+        "reason": "Reason busy",
+        "save-schedule": "Save appointment"
     },
     "patient": {
         "detail-doctor": {
@@ -153,8 +177,8 @@
         "booking-modal": {
             "title": "Information on scheduling medical examinations",
             "booking": "Set it for someone",
-            "firstName": "First name",
-            "lastName": "Last name",
+            "firstName": "First name (Patient)",
+            "lastName": "Last name (Patient)",
             "phoneNumber": "Phone number",
             "email": "Email",
             "address": "Address",
@@ -164,7 +188,10 @@
             "btnConfirm": "Confirm",
             "btnCancel": "Cancel",
             "priceBooking": "Examination price",
-            "scheduleBook": "Schedule a free examination"
+            "scheduleBook": "Schedule a free examination",
+            "option1": "Book for yourself",
+            "option2": "Book for family",
+            "fullName": "Name of person making appointment"
         },
         "detail-clinic": {
             "introduction": "Introduction",

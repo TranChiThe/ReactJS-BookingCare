@@ -215,7 +215,8 @@ $button-hover-dark: #003d7a;
                 transition: transform .2s;
                 padding-left: 120px;
                 &:hover {
-                    transform: scale(1.2);
+                    transform: scale(1.1);
+                    color: #007bff;
                 }
                 i {
                     font-size: 15px;

@@ -7,23 +7,25 @@ import Select from 'react-select';
 import DatePicker from '../../../../components/Input/DatePicker';
 import { toast } from 'react-toastify'
 import _ from 'lodash'
-import { saveBulkScheduleDoctor, getScheduleDoctorByDate, getAllDoctorSchedule } from '../../../../services/userService'
-import ManageListDoctorSchedule from './ManageListDoctorSchedule';
-import { saveScheduleInfoSuccess, saveScheduleInfoFail } from '../../../../components/NotificationConfig/notificationConfig'
-import './ManageSchedule.scss'
+import { getScheduleDoctorByDate, doctorBusySchedule } from '../../../../services/userService'
+import { saveBusyScheduleInfoFail, saveBusyScheduleInfoSuccess } from '../../../../components/NotificationConfig/notificationConfig'
+// import './AdminScheduleManage.scss'
 
 
-class ManageSchedule extends Component {
+class ManageBusySchedule extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             arrDoctor: [],
-            selectedDoctor: {},
+            selectedDoctor: '',
             currentDate: '',
             dataSchedule: [],
-            isShowTable: false,
+            isOpenModal: false,
+            rangeTime: [],
+            reason: '',
         }
+        this.handleTextareaChange = this.handleTextareaChange.bind(this);
     }
 
     componentDidMount() {
@@ -57,9 +59,6 @@ class ManageSchedule extends Component {
             this.setState({
                 arrDoctor: dataSelect,
             })
-        }
-        if (prevState.currentDate !== this.state.currentDate) {
-            this.handleScheduleSearch()
         }
     }
 
@@ -103,17 +102,9 @@ class ManageSchedule extends Component {
     }
 
     handleSaveSchedule = async () => {
-        let { rangeTime, selectedDoctor, currentDate } = this.state;
+        let { rangeTime, currentDate } = this.state;
         let { language } = this.props
         let result = [];
-        if (selectedDoctor && _.isEmpty(selectedDoctor)) {
-            if (language === LANGUAGES.EN) {
-                toast.error('Please select the doctor you want to schedule an appointment with!')
-            } else if (language === LANGUAGES.VI) {
-                toast.error('Vui lòng chọn bác sĩ cần tạo lịch khám!')
-            }
-            return;
-        }
         if (!currentDate) {
             if (language === LANGUAGES.EN) {
                 toast.error('Invalid date!')
@@ -128,33 +119,37 @@ class ManageSchedule extends Component {
             if (selectedTime && selectedTime.length > 0) {
                 selectedTime.map(item => {
                     let object = {};
-                    object.doctorId = selectedDoctor.value;
+                    object.doctorId = this.props.userInFo ? this.props.userInFo.id : '';
                     object.date = formatedDate;
                     object.timeType = item.keyMap;
+                    object.reason = this.state.reason
                     result.push(object);
                 })
-                console.log('check selected time:', selectedTime)
             } else {
                 if (language === LANGUAGES.EN) {
-                    toast.error('Please select an appointment time!')
+                    toast.error('Please select a busy time slot!')
                 } else if (language === LANGUAGES.VI) {
-                    toast.error('Vui lòng chọn khung giờ khám bệnh!')
+                    toast.error('Vui lòng chọn khung giờ bận!')
                 }
                 return;
             }
         }
-        let res = await saveBulkScheduleDoctor({
+        let res = await doctorBusySchedule({
             arrSchedule: result,
-            doctorId: selectedDoctor.value,
+            doctorId: this.props.userInFo ? this.props.userInFo.id : '',
             formatedDate: formatedDate,
+            reason: this.state.reason
         });
         if (res) {
-            saveScheduleInfoSuccess(this.props.language);
-            this.setState({
-                selectedDoctor: {},
-            })
+            saveBusyScheduleInfoSuccess(this.props.language);
+            this.setState(prevState => ({
+                rangeTime: prevState.rangeTime.map(item => ({
+                    ...item,
+                    isSelected: false
+                }))
+            }));
         } else {
-            saveScheduleInfoFail(this.props.language);
+            saveBusyScheduleInfoFail(this.props.language);
         }
     }
 
@@ -167,11 +162,11 @@ class ManageSchedule extends Component {
                 if (res.data !== '') {
                     this.setState({
                         dataSchedule: res.data,
-                        isShowTable: true
+                        isOpenModal: true
                     })
                 } else {
                     this.setState({
-                        isShowTable: false
+                        isOpenModal: false
                     })
                 }
 
@@ -179,34 +174,41 @@ class ManageSchedule extends Component {
         }
     }
 
-    getAllDoctorSchedule = async () => {
-        let data = await getAllDoctorSchedule();
+    handleChangeToggle = () => {
+        this.setState({
+            isOpenModal: !this.state.isOpenModal
+        })
+    }
+
+    handleTextareaChange(event) {
+        this.setState({ reason: event.target.value });
     }
 
     render() {
         let { language } = this.props;
         let { rangeTime } = this.state;
-        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+        console.log('check date: ', this.state);
         return (
             <React.Fragment>
                 <div className='manage-schedule-container'>
                     <div className='manage-schedule-title'>
-                        <FormattedMessage id="manage-schedule.title" />
+                        <FormattedMessage id="manage-schedule.busy-schedule-title" />
                     </div>
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-4 form-group'>
+                            <div className='col-6 form-group'>
                                 <label>
-                                    <FormattedMessage id="manage-schedule.choose-doctor" />
+                                    <FormattedMessage id="manage-schedule.reason" />
                                 </label>
-                                <Select
-                                    placeholder={<FormattedMessage id="manage-schedule.choose-doctor" />}
-                                    value={this.state.selectedDoctor}
-                                    onChange={this.handleChangeSelect}
-                                    options={this.state.arrDoctor}
+                                <textarea
+                                    className="form-control reason-textarea"
+                                    rows="2"
+                                    placeholder="Nhập lý do..."
+                                    value={this.state.reason}
+                                    onChange={this.handleTextareaChange}
                                 />
                             </div>
-                            <div className='col-2'>
+                            <div className='col-2 form-group'>
                                 <label>
                                     <FormattedMessage id="manage-schedule.choose-date" />
                                 </label>
@@ -215,24 +217,23 @@ class ManageSchedule extends Component {
                                     onChange={this.handleOnchangeDatePicker}
                                     className='form-control'
                                     selected={this.state.currentDate}
-                                    minDate={yesterday}
+                                    minDate={new Date()}
                                 />
                             </div>
-                            <div className='col-2'>
+                            <div className='col-2 form-group'>
                                 <button className='schedule-search'
                                     onClick={() => this.handleScheduleSearch()}
                                 >
                                     <FormattedMessage id="manage-schedule.search" />
                                 </button>
                             </div>
-                            <div className={language === LANGUAGES.VI ? 'col-8 pick-hour-container' : 'col-8 pick-hour-container'}>
+                            <div className={language === LANGUAGES.VI ? 'col-12 pick-hour-container' : 'col-12 pick-hour-container'}>
                                 {rangeTime && rangeTime.length > 0 &&
                                     rangeTime.map((item, index) => {
                                         return (
-                                            <div className=''>
+                                            <div className='' key={index}>
                                                 <button className={item.isSelected === true ?
                                                     'btn btn-schedule active' : 'btn btn-schedule'}
-                                                    key={index}
                                                     onClick={() => this.handleClickButtonTime(item)}
                                                 >
                                                     {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
@@ -252,15 +253,9 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div >
-                {this.state.isShowTable &&
-                    <ManageListDoctorSchedule
-                        dataSchedule={this.state.dataSchedule}
-                        handleScheduleSearch={this.handleScheduleSearch}
-                    />
-                }
-
 
             </React.Fragment>
+
         )
     }
 }
@@ -274,6 +269,8 @@ const mapStateToProps = state => {
         detailDoctor: state.admin.detailDoctor,
         allScheduleTime: state.admin.allScheduleTime,
         bulkScheduleDoctor: state.admin.bulkScheduleDoctor,
+        roleId: state.auth.role,
+        userInFo: state.user.userInFo,
     };
 };
 
@@ -286,4 +283,5 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedule);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageBusySchedule);
+

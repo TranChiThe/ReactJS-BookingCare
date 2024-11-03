@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './HomeHeader.scss';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { LANGUAGES } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
@@ -8,6 +7,7 @@ import { FaTooth } from "react-icons/fa";
 import { withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
 import * as actions from '../../store/actions';
+import './HomeHeader.scss';
 
 
 class HomeHeader extends Component {
@@ -19,7 +19,7 @@ class HomeHeader extends Component {
     }
     handleChangeLanguage = (language) => {
         this.props.changeLanguageAppRedux(language);
-        this.setState({ showLanguageList: false }); // Đóng danh sách sau khi chọn ngôn ngữ
+        this.setState({ showLanguageList: false });
     }
 
     toggleLanguageList = () => {
@@ -45,6 +45,11 @@ class HomeHeader extends Component {
     handleClickSearch = () => {
         if (this.props.history) {
             this.props.history.push('/home-search');
+        }
+    }
+    handleSupport = () => {
+        if (this.props.history) {
+            this.props.history.push('/user-support');
         }
     }
 
@@ -88,7 +93,9 @@ class HomeHeader extends Component {
                             </div>
                         </div>
                         <div className='right-content'>
-                            <div className='support'>
+                            <div className='support'
+                                onClick={() => this.handleSupport()}
+                            >
                                 <i className="fas fa-question-circle"></i>
                                 <FormattedMessage id="homeheader.support" />
                             </div>

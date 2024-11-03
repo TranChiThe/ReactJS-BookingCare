@@ -19,20 +19,27 @@ class DoctorSchedule extends Component {
             allAvailableTime: [],
             isOpenModalBooking: false,
             dataScheduleTimeModal: {},
+            selectedDate: ''
         }
     }
 
+    // async componentDidMount() {
+    //     let allDays = this.getArrDays(this.props.language);
+    //     this.setState({
+    //         allDays: allDays,
+    //     })
+    //     if (this.props.doctorIdFromParent) {
+    //         let allDays = this.getArrDays(this.props.language)
+    //         let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value);
+    //         this.setState({
+    //             allAvailableTime: res.data ? res.data : []
+    //         })
+    //     }
+    // }
     async componentDidMount() {
-        let allDays = this.getArrDays(this.props.language);
-        this.setState({
-            allDays: allDays,
-        })
+        this.updateDays();
         if (this.props.doctorIdFromParent) {
-            let allDays = this.getArrDays(this.props.language)
-            let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value);
-            this.setState({
-                allAvailableTime: res.data ? res.data : []
-            })
+            await this.fetchSchedule();
         }
     }
 
@@ -51,6 +58,26 @@ class DoctorSchedule extends Component {
             })
         }
     }
+
+    fetchSchedule = async () => {
+        const { doctorIdFromParent, language } = this.props;
+        const allDays = this.getArrDays(language);
+        const firstDay = allDays[0]?.value;
+        try {
+            const res = await getScheduleDoctorByDate(doctorIdFromParent, firstDay);
+            this.setState({
+                allAvailableTime: res.data || [],
+                selectedDate: firstDay // Gán ngày đầu tiên làm giá trị mặc định
+            });
+        } catch (error) {
+            console.error("Error fetching schedule:", error);
+        }
+    };
+
+    updateDays = () => {
+        const allDays = this.getArrDays(this.props.language);
+        this.setState({ allDays });
+    };
 
     capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -86,14 +113,17 @@ class DoctorSchedule extends Component {
     }
 
     handleOnchangeSelect = async (event) => {
-        if (this.props.doctorIdFromParent && this.props.doctorIdFromParent !== -1) {
-            let doctorId = this.props.doctorIdFromParent;
-            let date = event.target.value;
-            let res = await getScheduleDoctorByDate(doctorId, date);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    allAvailableTime: res.data ? res.data : []
-                })
+        let doctorId = this.props.doctorIdFromParent;
+        let date = event.target.value;
+        this.setState({
+            selectedDate: date
+        })
+        if (doctorId && doctorId !== -1) {
+            try {
+                const res = await getScheduleDoctorByDate(doctorId, date);
+                this.setState({ allAvailableTime: res.data || [] });
+            } catch (error) {
+                console.error("Error fetching selected date schedule:", error);
             }
         }
     }
@@ -114,6 +144,7 @@ class DoctorSchedule extends Component {
     render() {
         let { allDays, allAvailableTime, isOpenModalBooking, dataScheduleTimeModal } = this.state;
         let { language } = this.props;
+        console.log('check state:', this.state)
         return (
             <React.Fragment>
                 <div className='doctor-schedule-container'>
@@ -176,6 +207,7 @@ class DoctorSchedule extends Component {
                     isOpenModal={isOpenModalBooking}
                     closeBookingModal={this.closeBookingModal}
                     dataTime={dataScheduleTimeModal}
+                    selectedDate={this.state.selectedDate}
                 />
             </React.Fragment>
         );

@@ -1,18 +1,23 @@
+.list-doctor-schedule {
+  padding-top: 100px;
+}
 .doctor-container {
   padding: 20px;
   background-color: #f4f4f4;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  // padding-top: 100px;
 
   .user-doctor-body {
     margin: 0 auto;
     max-width: 1200px;
-    padding: 20px;
+    padding: 20px 0;
 
     .doctor-manage-table {
       background-color: #fff;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      margin-top: 10px;
 
       .users-container {
         overflow-x: auto;

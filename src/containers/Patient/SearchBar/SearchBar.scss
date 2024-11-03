@@ -106,3 +106,36 @@
         }
     }
 }
+
+.pagination {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    margin: 20px 0; 
+    button {
+        background-color: #009688; 
+        color: white; 
+        border: none; 
+        border-radius: 5px; 
+        padding: 10px 15px; 
+        margin: 0 5px; 
+        cursor: pointer; 
+        transition: background-color 0.3s ease; 
+
+        &.active {
+            // background-color: #00796b; 
+            font-weight: bold; 
+            background-color: red;
+        }
+
+        &:hover {
+            background-color: #00695c; 
+        }
+
+        &:disabled {
+            background-color: #b2dfdb; 
+            cursor: not-allowed; 
+            color: #757575; 
+        }
+    }
+}

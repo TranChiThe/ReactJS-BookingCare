@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Select from 'react-select';
 import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
-import NumberFormat from 'react-number-format'
 import DatePicker from '../../../../components/Input/DatePicker';
 import { getScheduleDoctorByDate } from '../../../../services/userService'
-import './ManageSchedule.scss'
-
+import './DoctorManageSchedule.scss'
 
 class ManageSchedule extends Component {
 
@@ -28,9 +25,10 @@ class ManageSchedule extends Component {
 
         }
         if (prevState.currentDate !== this.state.currentDate) {
+            let doctorId = this.props.userInFo ? this.props.userInFo.id : ''
             let { currentDate } = this.state;
             let dateSchedule = new Date(currentDate).getTime();
-            let res = await getScheduleDoctorByDate('14', dateSchedule)
+            let res = await getScheduleDoctorByDate(doctorId, dateSchedule)
             if (res && res.errCode === 0) {
                 this.setState({
                     arrSchedule: res.data
@@ -42,10 +40,11 @@ class ManageSchedule extends Component {
     handleOnchangeDatePicker = async (date) => {
         let { currentDate } = this.state;
         let dateSchedule = new Date(currentDate).getTime();
+        let doctorId = this.props.userInFo ? this.props.userInFo.id : ''
         this.setState({
             currentDate: date[0],
         })
-        let res = await getScheduleDoctorByDate('14', dateSchedule)
+        let res = await getScheduleDoctorByDate(doctorId, dateSchedule)
         if (res && res.errCode === 0) {
             this.setState({
                 arrSchedule: res.data
@@ -58,7 +57,7 @@ class ManageSchedule extends Component {
         let { arrSchedule } = this.state
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
         return (
-            <div className='doctor-container'>
+            <div className='doctor-manage-schedule-container'>
                 <div className='manage-schedule-title'>
                     <FormattedMessage id="manage-schedule.title" />
                 </div>
@@ -78,7 +77,7 @@ class ManageSchedule extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='user-doctor-body'>
+                <div className='doctor-schedule-body'>
                     <div className='doctor-manage-table'>
                         <div className="users-container">
                             <table id="customers">
@@ -103,25 +102,31 @@ class ManageSchedule extends Component {
                                             let timeDataVi = item && item.timeTypeData ? item.timeTypeData.valueVi : ''
                                             return (
                                                 <tr key={index}>
-                                                    <td>{index + 1}</td>
+                                                    <td style={{ paddingLeft: 10 }}>{index + 1}</td>
                                                     <td>{language === LANGUAGES.VI ? nameVi : nameEn}</td>
                                                     <td>{language === LANGUAGES.VI ? timeDataVi : timeDataEn}</td>
                                                     <td style={{ padding: '0 100px' }}>{item.currentNumber ? item.currentNumber : 0}</td>
                                                     <td style={{ padding: '0 100px' }}>{item.maxNumber}</td>
 
-                                                    <td>
+                                                    {/* <td>
                                                         <button className="btn-edit" onClick={() => this.handleUserEdit(item)}>
                                                             <i className='fas fa-pencil-alt'></i>
                                                         </button>
                                                         <button className="btn-delete" onClick={() => this.handleUserDelete(item.id)}>
                                                             <i className='fas fa-trash'></i>
                                                         </button>
-                                                    </td>
+                                                    </td> */}
                                                 </tr>
                                             );
                                         })}
+
                                 </tbody>
                             </table>
+                            {(arrSchedule && arrSchedule.length === 0 || this.state.currentDate === '') &&
+                                <div className='information'>
+                                    <FormattedMessage id="admin.doctor.notification-schedule-doctor" />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -133,7 +138,8 @@ class ManageSchedule extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInFo: state.user.userInFo
     };
 };
 

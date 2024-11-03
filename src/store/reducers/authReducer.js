@@ -2,7 +2,7 @@ import actionTypes from '../actions/actionTypes';
 
 const initialState = {
     accessToken: null,
-    role: 'R2',
+    role: '',
 };
 
 const authReducer = (state = initialState, action) => {

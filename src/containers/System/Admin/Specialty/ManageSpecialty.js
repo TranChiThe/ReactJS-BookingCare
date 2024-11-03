@@ -18,8 +18,8 @@ class ManageSpecialty extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedSpecialty: {},
-            selectedClinic: {},
+            selectedSpecialty: '',
+            selectedClinic: '',
             arrClinic: [],
             arrSpecialty: [],
             imageBase64: '',
@@ -150,55 +150,59 @@ class ManageSpecialty extends Component {
         let { hasOldData, arrSpecialty } = this.state
         return (
             <div className='manage-specialty-container'>
-                <div className='manage-specialty-title'><FormattedMessage id="manage-specialty.title" /></div>
-                <div className='add-new-specialty row'>
-                    <div className='col-4 form-group'>
-                        <label><FormattedMessage id="manage-specialty.choose-specialty" /></label>
-                        <Select
-                            placeholder={<FormattedMessage id="manage-specialty.choose-specialty" />}
-                            value={this.state.selectedSpecialty}
-                            onChange={this.handleChangeSelectSpecialty}
-                            options={arrSpecialty}
-                        />
-                    </div>
-
-                    <div className='col-4'>
-                        <label className='upload'>
-                        </label>
-                        <div className='preview-img-container'>
-                            <input id='priewImg' type='file' hidden
-                                onChange={(event) => this.handleOnChangeImage(event)}
+                <div className='manage-specialty-title'>
+                    <FormattedMessage id="manage-specialty.title" />
+                </div>
+                <div className='manage-specialty-content'>
+                    <div className='add-new-specialty row'>
+                        <div className='col-4 form-group'>
+                            <label><FormattedMessage id="manage-specialty.choose-specialty" /></label>
+                            <Select
+                                placeholder={<FormattedMessage id="manage-specialty.choose-specialty" />}
+                                value={this.state.selectedSpecialty}
+                                onChange={this.handleChangeSelectSpecialty}
+                                options={arrSpecialty}
                             />
-                            <label className='label-upload' htmlFor='priewImg'>
-                                <FormattedMessage id="manage-specialty.upload-image" />
-                                <i className='fas fa-upload'></i>
+                        </div>
+
+                        <div className='col-4'>
+                            <label className='upload'>
                             </label>
-                            <div className='preview-image'
-                                style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
-                                onClick={() => this.openPreviewImage()}
-                            >
+                            <div className='preview-img-container'>
+                                <input id='priewImg' type='file' hidden
+                                    onChange={(event) => this.handleOnChangeImage(event)}
+                                />
+                                <label className='label-upload' htmlFor='priewImg'>
+                                    <FormattedMessage id="manage-specialty.upload-image" />
+                                    <i className='fas fa-upload'></i>
+                                </label>
+                                <div className='preview-image'
+                                    style={{ backgroundImage: `url(${this.state.previewImgURL})` }}
+                                    onClick={() => this.openPreviewImage()}
+                                >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='col-12'>
-                        <label className='description'>
-                            <FormattedMessage id="manage-specialty.specialty-detail" />
-                        </label>
-                        <MdEditor style={{ height: '300px', }}
-                            renderHTML={text => mdParser.render(text)}
-                            onChange={this.handleEditorChange}
-                            value={this.state.descriptionMarkdown}
-                        />
-                    </div>
-                    <div className='col-12'>
-                        <button className='btn-save-specialty'
-                            onClick={() => this.handleSaveSpecialty()}
-                        >
-                            {hasOldData === true ?
-                                <span><FormattedMessage id="menu.manage-doctor.save-infor" /></span> :
-                                <span><FormattedMessage id="menu.manage-doctor.create-infor" /></span>
-                            }
-                        </button>
+                        <div className='col-12'>
+                            <label className='description'>
+                                <FormattedMessage id="manage-specialty.specialty-detail" />
+                            </label>
+                            <MdEditor style={{ height: '300px', }}
+                                renderHTML={text => mdParser.render(text)}
+                                onChange={this.handleEditorChange}
+                                value={this.state.descriptionMarkdown}
+                            />
+                        </div>
+                        <div className='col-12'>
+                            <button className='btn-save-specialty'
+                                onClick={() => this.handleSaveSpecialty()}
+                            >
+                                {hasOldData === true ?
+                                    <span><FormattedMessage id="menu.manage-doctor.save-infor" /></span> :
+                                    <span><FormattedMessage id="menu.manage-doctor.create-infor" /></span>
+                                }
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

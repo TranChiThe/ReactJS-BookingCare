@@ -1,6 +1,6 @@
 .manage-doctor-container {
     font-size: 15px;
-    padding: 20px 30px;
+    padding: 0 30px;
     background: #f2f2f2;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -15,130 +15,133 @@
         border-bottom: 2px solid #007bff;
         margin-bottom: 20px;
     }
-    
-    .more-infor {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    
-        .content-left, .content-right {
-            flex: 1;
-            margin-right: 10px;
+
+    .manage-doctor-content {
+        padding: 0 70px;
+        .more-infor {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        
+            .content-left, .content-right {
+                flex: 1;
+                margin-right: 10px;
+            }
+        
+            .content-left {
+                max-width: 300px;
+            }
+        
+            .content-right {
+                max-width: 100%;
+            }
         }
-    
-        .content-left {
-            max-width: 300px;
+        
+        .form-group {
+            margin-bottom: 20px;
         }
-    
-        .content-right {
-            max-width: 100%;
+        
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            font-size: 16px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        
+            &:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+                outline: none;
+            }
         }
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-control {
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        padding: 8px;
-        font-size: 16px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: border-color 0.3s, box-shadow 0.3s;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
-        &:focus {
+        
+        .textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .select-container {
+            margin-bottom: 20px;
+        
+            label {
+                font-weight: 600;
+                margin-bottom: 8px;
+                display: block;
+                color: #555;
+            }
+        }
+        
+        .react-select__control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: none;
+            min-height: 36px;
+        
+            &:hover {
+                border-color: #007bff;
+            }
+        }
+        
+        .react-select__control--is-focused {
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-            outline: none;
         }
-    }
-    
-    .textarea {
-        resize: vertical;
-        min-height: 100px;
-    }
-    
-    .select-container {
-        margin-bottom: 20px;
-    
-        label {
+        
+        .react-select__menu {
+            border-radius: 8px;
+        }
+        
+        .react-select__option {
+            padding: 12px;
+        }
+        
+        .react-select__option--is-selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        .react-select__placeholder {
+            font-size: 16px;
+        }
+        
+        .mange-doctor-editor {
+            margin-top: 20px;
+        }
+        
+        .mange-doctor-editor label {
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             display: block;
             color: #555;
         }
-    }
-    
-    .react-select__control {
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        box-shadow: none;
-        min-height: 36px;
-    
-        &:hover {
-            border-color: #007bff;
+        
+        .save-content-doctor, .create-content-doctor {
+            display: inline-block;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        
+            &:hover {
+                opacity: 0.9;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .save-content-doctor {
+            background-color: #28a745;
+        }
+        
+        .create-content-doctor {
+            background-color: #007bff;
         }
     }
-    
-    .react-select__control--is-focused {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-    }
-    
-    .react-select__menu {
-        border-radius: 8px;
-    }
-    
-    .react-select__option {
-        padding: 12px;
-    }
-    
-    .react-select__option--is-selected {
-        background-color: #007bff;
-        color: #fff;
-    }
-    
-    .react-select__placeholder {
-        font-size: 16px;
-    }
-    
-    .mange-doctor-editor {
-        margin-top: 20px;
-    }
-    
-    .mange-doctor-editor label {
-        font-weight: 600;
-        margin-bottom: 10px;
-        display: block;
-        color: #555;
-    }
-    
-    .save-content-doctor, .create-content-doctor {
-        display: inline-block;
-        margin-top: 20px;
-        border-radius: 8px;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-        transition: background-color 0.3s, box-shadow 0.3s;
-    
-        &:hover {
-            opacity: 0.9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-    }
-    
-    .save-content-doctor {
-        background-color: #28a745;
-    }
-    
-    .create-content-doctor {
-        background-color: #007bff;
-    }
-    
 }
-
+    
+    

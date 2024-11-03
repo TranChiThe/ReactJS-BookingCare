@@ -37,7 +37,12 @@
         "see-more": "Xem thêm"
     },
     "menu": {
+        "home": {
+            "dashboard": "Tổng quan",
+            "statistical-chart": "Biểu đồ thống kê"
+        },
         "admin": {
+            "home": "Trang chủ",
             "user": "Người dùng",
             "manage-doctor": "Quản lý thông tin bác sĩ",
             "manage-admin": "Quản lý admin",
@@ -45,6 +50,7 @@
             "crud-redux": "Quản lý tài khoản bác sĩ",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
+            "manage-clinic-list": "Thông tin phòng khám",
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Bài đăng",
@@ -56,7 +62,8 @@
             "patient": "Bệnh nhân",
             "manage-patient-appointment": "Quản lý lịch khám bệnh nhân",
             "manage-patient-record": "Quản lý hồ sơ bệnh nhân",
-            "see-more": "Xem thêm"
+            "see-more": "Xem thêm",
+            "busy-schedule": "Đăng ký lịch bận"
         },
         "manage-doctor": {
             "title": "Quản lý thông tin chi tiết bác sĩ",
@@ -73,6 +80,19 @@
             "note": "Ghi chú",
             "specialty": "Chọn chuyên khoa",
             "clinic": "Chọn phòng khám"
+        },
+        "manage-statistical": {
+            "manage-statistical": "Quản lý báo cáo và thống kê"
+        }
+    },
+    "admin": {
+        "doctor": {
+            "notification-schedule-doctor": "Bác sĩ không có lịch khám trong thời gian này, vui lòng kiểm tra lại!"
+        },
+        "admin": {
+            "notification-schedule": "Lịch khám của bác sĩ chưa được tạo!",
+            "edit-clinic": "Cập nhật thông tin",
+            "create-clinic": "Tạo thông tin"
         }
     },
     "manage-specialty": {
@@ -129,11 +149,15 @@
         "choose-doctor": "Chọn bác sĩ",
         "choose-date": "Chọn ngày",
         "save": "Lưu thông tin",
-        "search": "Tìm kiếm",
+        "search": "Xem lịch",
         "full-name": "Họ và tên",
         "schedule": "Lịch khám",
         "maxNumber": "Lượng bệnh nhân tối đa",
-        "currentNumber": "Lượng bệnh nhân hiện tại"
+        "currentNumber": "Lượng bệnh nhân hiện tại",
+        "schedule-information": "Thông tin lịch khám bác sĩ: ",
+        "busy-schedule-title": "Quản lý lịch bận",
+        "reason": "Lý do bận",
+        "save-schedule": "Lưu lịch khám"
     },
     "patient": {
         "detail-doctor": {
@@ -152,8 +176,8 @@
         "booking-modal": {
             "title": "Thông tin đặt lịch khám bệnh",
             "booking": "Đặt cho ai",
-            "firstName": "Tên ",
-            "lastName": "Họ và tên đệm",
+            "firstName": "Tên (Bệnh nhân)",
+            "lastName": "Họ và tên đệm (Bệnh nhân)",
             "phoneNumber": "Số điện thoại",
             "email": "Email",
             "address": "Địa chỉ liên hệ",
@@ -163,7 +187,10 @@
             "btnConfirm": "Xác nhận",
             "btnCancel": "Hủy",
             "priceBooking": "Giá khám",
-            "scheduleBook": "Đặt lịch khám miễn phí"
+            "scheduleBook": "Đặt lịch khám miễn phí",
+            "option1": "Đặt cho mình",
+            "option2": "Đặt cho người thân",
+            "fullName": "Họ tên người đặt lịch"
         },
         "detail-clinic": {
             "introduction": "Giới thiệu",

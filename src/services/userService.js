@@ -1,11 +1,11 @@
 import axios from "../axios"
 import storeRedux from '../redux'
 import instance from "../axios";
+import { toast } from "react-toastify";
 
 const handleLoginApi = async (email, password) => {
     try {
         let response = await axios.post('/api/login', { email, password });
-        // console.log('logged in successfully', response)
         return response
 
     } catch (err) {
@@ -32,7 +32,7 @@ const getAllUsers = async (userId) => {
         return response;  // Trả về dữ liệu từ phản hồi
     } catch (error) {
         console.error('Error fetching users:', error.message);
-        throw error;  // Ném lỗi để xử lý ở nơi gọi hàm
+        throw error;
     }
 };
 
@@ -125,6 +125,10 @@ const createNewClinic = (data) => {
     return axios.post(`/api/create-new-clinic`, data);
 }
 
+const updateClinicInformation = (data) => {
+    return axios.post(`/api/update-clinic-information`, data);
+}
+
 const getAllClinic = () => {
     return axios.get(`/api/get-all-clinic`)
 }
@@ -141,13 +145,30 @@ const filterDoctor = (specialtyId, clinicId) => {
     return axios.post(`/api/filter-doctor?specialtyId=${specialtyId}&clinicId=${clinicId}`)
 }
 
-const doctorSearch = (searchTerm, specialtyId, clinicId) => {
-    return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}`)
+// const doctorSearch = (searchTerm, specialtyId, clinicId) => {
+//     return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}`)
+// }
+
+const doctorSearch = (searchTerm, specialtyId, clinicId, page = 1, limit = 5) => {
+    return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}&page=${page}&limit=${limit}`);
 }
 
 const getHomeSearch = (type, searchTerm) => {
     return axios.post(`/api/home-search?type=${type}&searchTerm=${searchTerm}`)
 }
+
+const getAppointmentByTime = (type, month, year) => {
+    return axios.get(`/api/get-appointment-by-time?type=${type}&month=${month}&year=${year}`)
+}
+
+const getCountPatientByTime = (type, month, year) => {
+    return axios.get(`/api/get-count-patient-by-time?type=${type}&month=${month}&year=${year}`)
+}
+
+const doctorBusySchedule = (data) => {
+    return axios.post(`/api/busy-schedule`, data)
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -172,10 +193,14 @@ export {
     getAllDetailSpecialtyById,
     deleteDoctorSchedule,
     createNewClinic,
+    updateClinicInformation,
     getAllClinic,
     getAllDetailClinicById,
     getAllDoctorSeeMore,
     filterDoctor,
     doctorSearch,
-    getHomeSearch
+    getHomeSearch,
+    getAppointmentByTime,
+    getCountPatientByTime,
+    doctorBusySchedule
 }

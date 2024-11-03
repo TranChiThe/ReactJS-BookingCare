@@ -5,105 +5,91 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import DoctorExtraInfo from './DoctorExtraInfo';
 import SpecialtyInfo from '../Specialty/SpecialtyInfo';
-import './AllDoctors.scss'
+import './AllDoctors.scss';
 
 class AllDoctors extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
             arrDoctors: [],
-        }
+        };
     }
 
-    async componentDidMount() {
-        this.setState({
-            arrDoctors: this.props.arrDoctorFromParent
-        })
+    componentDidMount() {
+        this.updateDoctorsList();
     }
 
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.language !== this.props.language) {
-
-        }
+    componentDidUpdate(prevProps) {
         if (prevProps.arrDoctorFromParent !== this.props.arrDoctorFromParent) {
-            this.setState({
-                arrDoctors: this.props.arrDoctorFromParent
-            })
+            this.updateDoctorsList();
         }
     }
 
-    handleViewDetailDoctor(doctor) {
+    updateDoctorsList = () => {
+        this.setState({
+            arrDoctors: this.props.arrDoctorFromParent,
+        });
+    };
+
+    handleViewDetailDoctor = (doctor) => {
         this.props.history.push(`/detail-doctor/${doctor.id}`);
-    }
+    };
+
+    renderDoctorName = (doctor) => {
+        const { language } = this.props;
+        const nameVi = `${doctor.positionData.valueVi}, ${doctor.lastName} ${doctor.firstName}`;
+        const nameEn = `${doctor.positionData.valueEn}, ${doctor.firstName} ${doctor.lastName}`;
+        return language === LANGUAGES.VI ? nameVi : nameEn;
+    };
 
     render() {
-        let arrDoctors = this.state.arrDoctors;
+        const { arrDoctors } = this.state;
+
         return (
             <React.Fragment>
-                <div className='specialty-container'>
+                <div className='specialty-container-search'>
                     <div className='specialty-body'>
-                        {arrDoctors && arrDoctors.length > 0 &&
-                            arrDoctors.map((item, index) => {
-                                let imageBase64 = '';
-                                if (item.image) {
-                                    imageBase64 = new Buffer.from(item.image, 'base64').toString('binary');
-                                }
-                                let nameVi = `${item.positionData.valueVi}, ${item.lastName} ${item.firstName}`
-                                let nameEn = `${item.positionData.valueEn}, ${item.firstName} ${item.lastName}`
+                        {arrDoctors && arrDoctors.length > 0 ? (
+                            arrDoctors.map((doctor, index) => {
+                                const imageBase64 = doctor.image
+                                    ? new Buffer.from(doctor.image, 'base64').toString('binary')
+                                    : '';
+
                                 return (
-                                    <div className='specialty-item'
-                                        onClick={() => this.handleViewDetailDoctor(item)}
-                                    >
+                                    <div className='specialty-item' key={index}
+                                        onClick={() => this.handleViewDetailDoctor(doctor)}>
                                         <div className='content-left'>
                                             <div className='image'
-                                                style={{ backgroundImage: `url(${imageBase64})` }}
-                                            >
-                                            </div>
+                                                style={{ backgroundImage: `url(${imageBase64})` }} />
                                         </div>
-
-                                        <div className='content-right' >
+                                        <div className='content-right'>
                                             <div className='doctor-info'>
-                                                {this.props.language === LANGUAGES.VI ? nameVi : nameEn} -
+                                                {this.renderDoctorName(doctor)}
                                             </div>
                                             <div className='doctor-info'>
-                                                <SpecialtyInfo specialtyIdFromParent={item.Doctor_Infor.specialtyId} />
+                                                <SpecialtyInfo specialtyIdFromParent={doctor.Doctor_Infor.specialtyId} />
                                             </div>
                                             <div className='clinic-info'>
-                                                <DoctorExtraInfo
-                                                    doctorIdFromParent={item.id}
-                                                />
-                                            </div>
-                                            <div>
-
+                                                <DoctorExtraInfo doctorIdFromParent={doctor.id} />
                                             </div>
                                         </div>
-
                                     </div>
-                                )
+                                );
                             })
-                        }
+                        ) : (
+                            <div className='doctor-notification'>
+                                <FormattedMessage id="patient.doctor-search.doctor-notify" />
+                            </div>
+                        )}
                     </div>
-                    {arrDoctors && arrDoctors.length === 0 &&
-                        <div className='doctor-notification'>
-                            <FormattedMessage id="patient.doctor-search.doctor-notify" />
-                        </div>
-                    }
                 </div>
             </React.Fragment>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-    };
-};
+const mapStateToProps = state => ({
+    language: state.app.language,
+});
 
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllDoctors));
+export default withRouter(connect(mapStateToProps)(AllDoctors));

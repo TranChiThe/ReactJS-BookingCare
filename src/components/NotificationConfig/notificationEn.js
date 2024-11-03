@@ -30,4 +30,18 @@ export const notificationEn = {
     editSuccessText: 'The information has been updated successfully',
     editFailTitle: 'An error occurred',
     editFailText: 'Unable to update information, please try again later!',
+
+    //---------- Manage Schedule ----------
+
+    addScheduleSuccessTitle: 'Success',
+    addScheduleSuccessText: 'Appointment created successfully',
+    addScheduleFailTitle: 'An error occurred',
+    addScheduleFailText: 'Unable to create appointment, please try again later!',
+
+    //---------- Busy Schedule ----------
+
+    addBusyScheduleSuccessTitle: 'Success',
+    addBusyScheduleSuccessText: 'Busy calendar created successfully',
+    addBusyScheduleFailTitle: 'An error occurred',
+    addBusyScheduleFailText: 'Unable to create busy schedule, please try again later!',
 }
