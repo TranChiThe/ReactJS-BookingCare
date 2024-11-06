@@ -3,14 +3,20 @@ import 'react-image-lightbox/style.css';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions';
 import UserModalRedux from './UserModalRedux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
+import Pagination from '../../../components/Pagination/Pagination';
+import Select from 'react-select'
 import Swal from 'sweetalert2';
-import { SwalConfig } from '../../../components/NotificationConfig/notificationSwal';
-import { notificationEn } from '../../../components/NotificationConfig/notificationEn';
-import { notificationVi } from '../../../components/NotificationConfig/notificationVi';
+import createSwalConfig from '../../../components/NotificationConfig/SwalConfig';
 import './UserRedux.scss'
 
+const roleOptions = [
+    { value: '', label: <FormattedMessage id="manage-user.all" defaultMessage="All" /> },
+    { value: 'R1', label: <FormattedMessage id="manage-user.admin" defaultMessage="Admin" /> },
+    { value: 'R2', label: <FormattedMessage id="manage-user.doctor" defaultMessage="Dcotor" /> },
+    { value: 'R4', label: <FormattedMessage id="manage-user.staff" defaultMessage="Staff" /> },
+];
 
 class UserRedux extends Component {
 
@@ -20,11 +26,15 @@ class UserRedux extends Component {
             isOpenModalUser: false,
             isOpenModalEdit: false,
             action: '',
+            currentPage: 1,
+            limlit: 10,
+            totalPages: 1,
+            selectedRole: { value: '', label: <FormattedMessage id="manage-user.all" defaultMessage="All" /> }
         }
     }
 
     async componentDidMount() {
-        this.props.fetchUserRedux();
+        this.props.fetchUserRedux('', 1, 10);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -54,29 +64,17 @@ class UserRedux extends Component {
             action: CRUD_ACTIONS.CREATE,
         })
     }
-    // this.props.deleteUser(user.id);
-    handleUserDelete = (user) => {
-        let { language } = this.props;
-        if (language === LANGUAGES.EN) {
-            Swal.fire(SwalConfig.confirmDialog(notificationEn.title, notificationEn.text, notificationEn.confirm, notificationEn.cancel))
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        this.props.deleteUser(user.id);
-                        Swal.fire(SwalConfig.successNotification(notificationEn.deleteTitle, notificationEn.deleteText));
-                    }
-                });
-        } else if (language === LANGUAGES.VI) {
-            Swal.fire(SwalConfig.confirmDialog(notificationVi.title, notificationVi.text, notificationVi.confirm, notificationVi.cancel))
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        this.props.deleteUser(user.id);
-                        Swal.fire(SwalConfig.successNotification(notificationVi.deleteTitle, notificationVi.deleteText));
-                    }
-                });
+
+    handleUserDelete = async (user) => {
+        const SwalConfig = createSwalConfig(this.props.intl);
+        const result = await Swal.fire(SwalConfig.confirmDialog());
+        if (result.isConfirmed) {
+            this.props.deleteUser(user.id);
+            Swal.fire(SwalConfig.successNotification(
+                'notification.delete-success.deleteText'
+            ))
         }
-
     };
-
 
     handleUserEdit = (user) => {
         this.setState({
@@ -86,12 +84,22 @@ class UserRedux extends Component {
         })
     }
 
-    confirmUserDelete = () => {
-
+    fetchUsers = () => {
+        const { selectedRole, currentPage, limit } = this.state;
+        this.props.fetchUserRedux(selectedRole.value, currentPage, limit);
     }
+
+    handleRoleChange = (selectedRole) => {
+        this.setState({ selectedRole, currentPage: 1 }, this.fetchUsers);
+    };
+
+    handlePageChange = (newPage) => {
+        this.setState({ currentPage: newPage }, this.fetchUsers);
+    };
 
     render() {
         let arrUsers = this.state.userRedux;
+        let { currentPage, totalPages } = this.props
         return (
             <React.Fragment>
                 <div className='user-redux-container'>
@@ -119,12 +127,23 @@ class UserRedux extends Component {
                     <div className='user-title'>
                         <FormattedMessage id="manage-user.title" />
                     </div>
-                    <button className='btn btn-primary px-2 mx-3'
-                        onClick={() => this.handleAddNewUser()}
-                    >
-                        <i className="fas fa-plus px-1"></i>
-                        <FormattedMessage id="manage-user.save" />
-                    </button>
+                    <div className='control-row'>
+                        <button className='btn btn-primary px-2 mx-3'
+                            onClick={() => this.handleAddNewUser()}
+                        >
+                            <i className="fas fa-plus px-1"></i>
+                            <FormattedMessage id="manage-user.save" />
+                        </button>
+                        <div className='filter-role'>
+                            <Select
+                                className="role-select"
+                                value={this.state.selectedRole}
+                                onChange={this.handleRoleChange}
+                                options={roleOptions}
+                                placeholder="Filter by role"
+                            />
+                        </div>
+                    </div>
                     <div className='user-redux-body'>
                         <div className='user-manage-table'>
                             <div className="users-container">
@@ -181,6 +200,11 @@ class UserRedux extends Component {
                         </div>
                     </div>
                 </div>
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={this.handlePageChange}
+                />
             </React.Fragment>
         )
     }
@@ -194,7 +218,10 @@ const mapStateToProps = state => {
         isLoadingGender: state.admin.isLoadingGender,
         positionRedux: state.admin.positions,
         roleRedux: state.admin.roles,
-        listUsers: state.admin.users,
+        listUsers: state.admin.data,
+        currentPage: state.admin.currentPage,
+        totalPages: state.admin.totalPages
+
     };
 };
 
@@ -203,10 +230,10 @@ const mapDispatchToProps = dispatch => {
         getGenderStart: () => dispatch(actions.fetchGenderStart()),
         getPositionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
-        createNewUser: (data) => dispatch(actions.createNewUser(data)),
-        fetchUserRedux: () => dispatch(actions.fetchAllUserStart()),
+        createNewUser: () => dispatch(actions.createNewUser()),
+        fetchUserRedux: (roleId, page, limit) => dispatch(actions.fetchAllUserStart(roleId, page, limit)),
         deleteUser: (userId) => dispatch(actions.fetchDeleteUserStart(userId))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(UserRedux));

@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { LANGUAGES } from '../../../../utils';
 import { FormattedMessage } from 'react-intl';
-import DatePicker from '../../../../components/Input/DatePicker';
-import { getScheduleDoctorByDate } from '../../../../services/userService'
+import { getScheduleDoctorByDate, getScheduleDoctorForWeek } from '../../../../services/userService'
+import ScheduleTable from '../../../ScheduleTable/ScheduleTable';
+import * as actions from '../../../../store/actions'
+import Pagination from '../../../../components/Pagination/Pagination';
 import './DoctorManageSchedule.scss'
+import { toast } from 'react-toastify';
 
 class ManageSchedule extends Component {
 
@@ -13,11 +16,17 @@ class ManageSchedule extends Component {
         this.state = {
             currentDate: '',
             arrSchedule: {},
+            rangeTime: [],
+            dataScheduleForWeek: [],
+            currentPage: 1,
+            totalPages: 4,
+            weekDates: []
         }
     }
 
     async componentDidMount() {
-
+        this.props.fetchScheduleHoursStart();
+        this.fetchScheduleData();
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,6 +43,18 @@ class ManageSchedule extends Component {
                     arrSchedule: res.data
                 })
             }
+        }
+        if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
+            let data = this.props.allScheduleTime;
+            if (data && data.length > 0) {
+                data = data.map(item => {
+                    item.isSelected = false;
+                    return item;
+                });
+            }
+            this.setState({
+                rangeTime: data,
+            });
         }
     }
 
@@ -52,84 +73,65 @@ class ManageSchedule extends Component {
         }
     }
 
+    fetchScheduleData = async () => {
+        try {
+            let res = await getScheduleDoctorForWeek(this.props.userInFo?.id, this.state.currentPage);
+            if (res && res.errCode === 0) {
+                // Chuyển đổi dữ liệu thành mảng lịch trình
+                const schedulesArray = Object.keys(res.data).map(key => ({
+                    timeType: key,
+                    ...res.data[key]
+                }));
+
+                this.setState({
+                    dataScheduleForWeek: schedulesArray
+                });
+            } else {
+                console.error('Error fetching schedule data: ', res?.message || 'Unknown error');
+                toast.error(<FormattedMessage id='toast.error' />)
+            }
+        } catch (error) {
+            console.error('Error fetching schedule data:', error);
+            toast.error(<FormattedMessage id='toast.error' />)
+        }
+    };
+
+    calculateWeekDates = () => {
+        const today = new Date();
+        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+        const weekDates = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date(firstDayOfWeek);
+            date.setDate(firstDayOfWeek.getDate() + i);
+            return date.getTime();
+        });
+        this.setState({ weekDates });
+    }
+
+    handlePageChange = (newPage) => {
+        this.setState({ currentPage: newPage }, () => {
+            this.fetchScheduleData();
+        });
+    };
+
     render() {
         const { language } = this.props;
-        let { arrSchedule } = this.state
-        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
+        let { rangeTime, dataScheduleForWeek, currentPage, totalPages } = this.state
         return (
             <div className='doctor-manage-schedule-container'>
                 <div className='manage-schedule-title'>
                     <FormattedMessage id="manage-schedule.title" />
                 </div>
-                <div className='container'>
-                    <div className='row'>
-                        <div className='col-2'>
-                            <label>
-                                <FormattedMessage id="manage-schedule.choose-date" />
-                            </label>
-                            <DatePicker
-                                placeholder={''}
-                                onChange={this.handleOnchangeDatePicker}
-                                className='form-control'
-                                selected={this.state.currentDate}
-                                minDate={yesterday}
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className='doctor-schedule-body'>
-                    <div className='doctor-manage-table'>
-                        <div className="users-container">
-                            <table id="customers">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th><FormattedMessage id="manage-schedule.full-name" /></th>
-                                        <th><FormattedMessage id="manage-schedule.schedule" /></th>
-                                        <th><FormattedMessage id="manage-schedule.currentNumber" /></th>
-                                        <th><FormattedMessage id="manage-schedule.maxNumber" /></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {arrSchedule && arrSchedule.length > 0 &&
-                                        arrSchedule.map((item, index) => {
-                                            let nameVi = item.doctorData.lastName + ' ' + item.doctorData.firstName;
-                                            let nameEn = item.doctorData.firstName + ' ' + item.doctorData.lastName;
-                                            let positionVi = item && item.positionData ? item.positionData.valueVi : '';
-                                            let positionEn = item && item.positionData ? item.positionData.valueEn : '';
-                                            let timeDataEn = item && item.timeTypeData ? item.timeTypeData.valueEn : '';
-                                            let timeDataVi = item && item.timeTypeData ? item.timeTypeData.valueVi : ''
-                                            return (
-                                                <tr key={index}>
-                                                    <td style={{ paddingLeft: 10 }}>{index + 1}</td>
-                                                    <td>{language === LANGUAGES.VI ? nameVi : nameEn}</td>
-                                                    <td>{language === LANGUAGES.VI ? timeDataVi : timeDataEn}</td>
-                                                    <td style={{ padding: '0 100px' }}>{item.currentNumber ? item.currentNumber : 0}</td>
-                                                    <td style={{ padding: '0 100px' }}>{item.maxNumber}</td>
-
-                                                    {/* <td>
-                                                        <button className="btn-edit" onClick={() => this.handleUserEdit(item)}>
-                                                            <i className='fas fa-pencil-alt'></i>
-                                                        </button>
-                                                        <button className="btn-delete" onClick={() => this.handleUserDelete(item.id)}>
-                                                            <i className='fas fa-trash'></i>
-                                                        </button>
-                                                    </td> */}
-                                                </tr>
-                                            );
-                                        })}
-
-                                </tbody>
-                            </table>
-                            {(arrSchedule && arrSchedule.length === 0 || this.state.currentDate === '') &&
-                                <div className='information'>
-                                    <FormattedMessage id="admin.doctor.notification-schedule-doctor" />
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+                <ScheduleTable
+                    rangeTime={rangeTime}
+                    dataScheduleForWeek={dataScheduleForWeek}
+                    weekNumber={currentPage}
+                    fetchScheduleData={this.fetchScheduleData}
+                />
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={this.handlePageChange}
+                />
             </div>
         );
     }
@@ -139,12 +141,14 @@ class ManageSchedule extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        userInFo: state.user.userInFo
+        userInFo: state.user.userInFo,
+        allScheduleTime: state.admin.allScheduleTime,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchScheduleHoursStart: () => dispatch(actions.fetchScheduleHoursStart()),
     };
 };
 

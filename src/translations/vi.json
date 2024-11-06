@@ -1,13 +1,4 @@
 {
-    "swal": {
-        "confirmTitle": "Bạn có chắc chắn?",
-        "confirmText": "Bạn sẽ không thể khôi phục lại điều này!",
-        "confirm": "Vâng, xóa nó!",
-        "cancel": "Hủy bỏ",
-        "deleteTitle": "Đã xõa!",
-        "deleteText": "Tập tin của bạn đã được xóa.",
-        "ok": "OK"
-    },
     "homeheader": {
         "specialty": "Chuyên khoa",
         "search-doctor": "Tìm bác sĩ theo chuyên khoa",
@@ -47,7 +38,7 @@
             "manage-doctor": "Quản lý thông tin bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",
-            "crud-redux": "Quản lý tài khoản bác sĩ",
+            "crud-redux": "Quản lý tài khoản",
             "clinic": "Phòng khám",
             "manage-clinic": "Quản lý phòng khám",
             "manage-clinic-list": "Thông tin phòng khám",
@@ -111,7 +102,7 @@
         "address": "Địa chỉ"
     },
     "manage-user": {
-        "title": "Quản lý tài khoản bác sĩ",
+        "title": "Quản lý tài khoản",
         "add": "Thêm mới tài khoản",
         "email": "Email",
         "password": "Mật khẩu",
@@ -129,7 +120,11 @@
         "save": "Thêm tài khoản",
         "edit": "Chỉnh sửa bác sĩ",
         "save-change": "Lưu thay đổi",
-        "close": "Thoát"
+        "close": "Thoát",
+        "all": "Tất cả",
+        "admin": "Quản trị viên",
+        "staff": "Nhân viên",
+        "doctor": "Bác sĩ"
     },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
@@ -219,5 +214,54 @@
             "none-specialty": "Không tìm thấy chuyên khoa!",
             "none-facility": "Không tìm thấy cơ sở y tế!"
         }
-    }
+        
+    },
+    "toast": {
+        "no-access": "Bạn không có quyền thực hiện thao tác này.",
+        "error": "Có lỗi xãy ra!",
+        "missing": "Thiếu trường dữ liệu"
+    },
+
+    "notification": {
+        "ok": "Đồng ý",
+        "no": "Không",
+        "cancel":"Hủy bỏ",
+        "confirm": "Vâng, xóa nó!",
+        "titleSuccess": "Thành công",
+        "titleFail": "Thất bại",
+
+        "delete-success": {
+            "confirmTitle":"Bạn có chắc chắn?",
+            "confirmText": "Bạn sẽ không thể khôi phục lại điều này!",
+            "deleteTitle": "Đã xóa!",
+            "deleteText":"Đã xóa thành công"
+        },
+
+        "user-create-success": {
+            "title": "Thành công",
+            "text": "Đã thêm mới tài khoản"
+        },
+        "user-create-fail": {
+            "title": "Thất bại",
+            "text": "Không thể thêm mới tài khoản"
+        },
+        "user-edit-success": {
+            "title": "Thành công",
+            "text": "Đã cập nhật thông tin"
+        },
+        "user-edit-fail": {
+            "title": "Thất bại",
+            "text": "Không thể cập nhật tài khoản"
+        },
+        "busy-schedule": {
+            "textSuccess": "Thêm mới lịch bận thành công!",
+            "textFail": "Không thể thêm lịch bận, hãy kiểm tra lại!",
+            "toast": "Lịch bận đã tồn tại, hãy chọn thời gian khác"
+        },
+        "schedule": {
+            "textSuccess": "Thêm mới lịch hẹn thành công!",
+            "textFail": "Không thể thêm mới lịch hẹn, hãy kiểm tra lại!",
+            "toast": "Lịch hẹn đã tồn tại, hãy chọn thời gian khác"
+        }
+    } 
 }

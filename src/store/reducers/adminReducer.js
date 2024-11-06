@@ -7,8 +7,9 @@ const initialState = {
     isLoadingPosition: false,
     isLoadingRole: false,
     loading: false,
-    success: 1,
-    error: false,
+    error: null,
+    success: false,
+    missing: false,
     genders: [],
     roles: [],
     positions: [],
@@ -21,6 +22,11 @@ const initialState = {
     allScheduleTime: [],
     bulkScheduleDoctor: [],
     allRequiredDoctorInfo: [],
+    totalRecords: 0,
+    totalPages: 0,
+    currentPage: 1,
+    error: null,
+    data: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -87,9 +93,13 @@ const adminReducer = (state = initialState, action) => {
             }
 
         case actionTypes.FETCH_ALL_USER_SUCCESS:
-            state.users = action.users;
+            state.data = action.payload.data;
+            state.totalRecords = action.payload.totalRecords
+            state.totalPages = action.payload.totalPages
+            state.currentPage = action.payload.currentPage
             return {
                 ...state
+
             }
 
         case actionTypes.FETCH_ALL_USER_FAILED:
@@ -210,25 +220,30 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS:
-            state.success = 0
+        ///
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START:
             return {
                 ...state,
+                loading: true
+            }
+        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                success: true,
             }
         case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING:
-            state.success = 1
             return {
                 ...state,
+                loading: false,
+                missing: true,
             }
-        case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START:
-            state.success = 1
-            return {
-                ...state,
-            }
+
         case actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILED:
-            state.success = 2
             return {
                 ...state,
+                loading: false,
+                error: true,
             }
 
         default:

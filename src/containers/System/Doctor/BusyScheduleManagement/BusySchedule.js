@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import * as actions from '../../../../store/actions';
-import { LANGUAGES, CRUD_ACTIONS, dateFormat } from '../../../../utils';
-import Select from 'react-select';
+import { LANGUAGES } from '../../../../utils';
 import DatePicker from '../../../../components/Input/DatePicker';
 import { toast } from 'react-toastify'
 import _ from 'lodash'
-import { getScheduleDoctorByDate, doctorBusySchedule } from '../../../../services/userService'
-import { saveBusyScheduleInfoFail, saveBusyScheduleInfoSuccess } from '../../../../components/NotificationConfig/notificationConfig'
-// import './AdminScheduleManage.scss'
+import { doctorBusySchedule } from '../../../../services/userService'
+import Swal from 'sweetalert2';
+import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig';
 
 
 class ManageBusySchedule extends Component {
@@ -17,11 +16,8 @@ class ManageBusySchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrDoctor: [],
-            selectedDoctor: '',
-            currentDate: '',
+            currentDate: new Date(new Date().setDate(new Date().getDate() + 7)),
             dataSchedule: [],
-            isOpenModal: false,
             rangeTime: [],
             reason: '',
         }
@@ -29,7 +25,6 @@ class ManageBusySchedule extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchAllDoctorStart();
         this.props.getDetailInforDoctor();
         this.props.fetchScheduleHoursStart();
         this.props.createBulkScheduleDoctor();
@@ -61,10 +56,6 @@ class ManageBusySchedule extends Component {
             })
         }
     }
-
-    handleChangeSelect = async (selectedDoctor) => {
-        this.setState({ selectedDoctor });
-    };
 
     buildDataInputSelect = (inputData) => {
         let result = [];
@@ -105,6 +96,7 @@ class ManageBusySchedule extends Component {
         let { rangeTime, currentDate } = this.state;
         let { language } = this.props
         let result = [];
+        let SwalConfig = createSwalConfig(this.props.intl)
         if (!currentDate) {
             if (language === LANGUAGES.EN) {
                 toast.error('Invalid date!')
@@ -140,44 +132,27 @@ class ManageBusySchedule extends Component {
             formatedDate: formatedDate,
             reason: this.state.reason
         });
-        if (res) {
-            saveBusyScheduleInfoSuccess(this.props.language);
+        if (res && res.errCode === 1) {
+            toast.error(<FormattedMessage id="toast.missing" />)
+        }
+        else if (res && res.errCode === 0) {
+            Swal.fire(SwalConfig.successNotification(
+                'notification.busy-schedule.textSuccess'
+            ))
             this.setState(prevState => ({
                 rangeTime: prevState.rangeTime.map(item => ({
                     ...item,
-                    isSelected: false
+                    isSelected: false,
+                    currentDate: new Date(new Date().setDate(new Date().getDate() + 7))
                 }))
             }));
+        } else if (res && res.errCode === 2) {
+            toast.error(<FormattedMessage id='notification.busy-schedule.toast' />)
         } else {
-            saveBusyScheduleInfoFail(this.props.language);
+            Swal.fire(SwalConfig.errorNotification(
+                'notification.busy-schedule.textFail'
+            ))
         }
-    }
-
-    handleScheduleSearch = async () => {
-        let { currentDate, selectedDoctor } = this.state;
-        let date = new Date(currentDate).getTime();
-        if (selectedDoctor.value && date) {
-            let res = await getScheduleDoctorByDate(selectedDoctor.value, date)
-            if (res && res.errCode === 0) {
-                if (res.data !== '') {
-                    this.setState({
-                        dataSchedule: res.data,
-                        isOpenModal: true
-                    })
-                } else {
-                    this.setState({
-                        isOpenModal: false
-                    })
-                }
-
-            }
-        }
-    }
-
-    handleChangeToggle = () => {
-        this.setState({
-            isOpenModal: !this.state.isOpenModal
-        })
     }
 
     handleTextareaChange(event) {
@@ -187,7 +162,8 @@ class ManageBusySchedule extends Component {
     render() {
         let { language } = this.props;
         let { rangeTime } = this.state;
-        console.log('check date: ', this.state);
+        let nextWeek = new Date(new Date().setDate(new Date().getDate() + 7))
+        console.log('check state: ', this.state)
         return (
             <React.Fragment>
                 <div className='manage-schedule-container'>
@@ -217,15 +193,8 @@ class ManageBusySchedule extends Component {
                                     onChange={this.handleOnchangeDatePicker}
                                     className='form-control'
                                     selected={this.state.currentDate}
-                                    minDate={new Date()}
+                                    minDate={nextWeek}
                                 />
-                            </div>
-                            <div className='col-2 form-group'>
-                                <button className='schedule-search'
-                                    onClick={() => this.handleScheduleSearch()}
-                                >
-                                    <FormattedMessage id="manage-schedule.search" />
-                                </button>
                             </div>
                             <div className={language === LANGUAGES.VI ? 'col-12 pick-hour-container' : 'col-12 pick-hour-container'}>
                                 {rangeTime && rangeTime.length > 0 &&
@@ -276,12 +245,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchAllDoctorStart: () => dispatch(actions.fetchAllDoctorStart()),
         getDetailInforDoctor: (data) => dispatch(actions.fetchDetailInforDoctorStart(data)),
         fetchScheduleHoursStart: () => dispatch(actions.fetchScheduleHoursStart()),
         createBulkScheduleDoctor: (data) => dispatch(actions.saveBulkScheduleDoctor(data))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageBusySchedule);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ManageBusySchedule));
 

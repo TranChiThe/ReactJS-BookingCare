@@ -14,7 +14,7 @@ const handleLoginApi = async (email, password) => {
 
 }
 
-const getAllUsers = async (userId) => {
+const getAllUsers = async (userId, roleId, page, limit) => {
     try {
         // Validate userId
         if (!userId) {
@@ -25,17 +25,19 @@ const getAllUsers = async (userId) => {
         const token = state.auth.accessToken;
         let response = await axios.get('/api/get-all-users', {
             params: {
-                id: userId
+                id: userId,
+                page: page,
+                limit: limit,
+                roleId: roleId
             },
-            headers: token ? { 'Authorization': `Bearer ${token}` } : {}  // Thêm token vào headers nếu có
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
-        return response;  // Trả về dữ liệu từ phản hồi
+        return response;
     } catch (error) {
         console.error('Error fetching users:', error.message);
         throw error;
     }
 };
-
 
 const createNewUserService = (data) => {
     return axios.post(`/api/create-new-user`, data);
@@ -117,8 +119,8 @@ const getAllDetailSpecialtyById = (data) => {
     return axios.get(`/api/get-detail-specialty-by-id?id=${data.name}&location=${data.location}`)
 }
 
-const deleteDoctorSchedule = (data) => {
-    return axios.delete(`api/delete-doctor-schedule?id=${data}`)
+const deleteDoctorSchedule = (timeType, status, date) => {
+    return axios.delete(`api/delete-doctor-schedule?timeType=${timeType}&status=${status}&date=${date}`)
 }
 
 const createNewClinic = (data) => {
@@ -145,16 +147,12 @@ const filterDoctor = (specialtyId, clinicId) => {
     return axios.post(`/api/filter-doctor?specialtyId=${specialtyId}&clinicId=${clinicId}`)
 }
 
-// const doctorSearch = (searchTerm, specialtyId, clinicId) => {
-//     return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}`)
-// }
-
 const doctorSearch = (searchTerm, specialtyId, clinicId, page = 1, limit = 5) => {
-    return axios.post(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}&page=${page}&limit=${limit}`);
+    return axios.get(`/api/doctor-search?searchTerm=${searchTerm}&specialtyId=${specialtyId}&clinicId=${clinicId}&page=${page}&limit=${limit}`);
 }
 
 const getHomeSearch = (type, searchTerm) => {
-    return axios.post(`/api/home-search?type=${type}&searchTerm=${searchTerm}`)
+    return axios.get(`/api/home-search?type=${type}&searchTerm=${searchTerm}`)
 }
 
 const getAppointmentByTime = (type, month, year) => {
@@ -168,6 +166,11 @@ const getCountPatientByTime = (type, month, year) => {
 const doctorBusySchedule = (data) => {
     return axios.post(`/api/busy-schedule`, data)
 }
+
+const getScheduleDoctorForWeek = (doctorId, weekNumber) => {
+    return axios.get(`/api/get-schedule-for-week?doctorId=${doctorId}&weekNumber=${weekNumber}`)
+}
+
 
 export {
     handleLoginApi,
@@ -202,5 +205,6 @@ export {
     getHomeSearch,
     getAppointmentByTime,
     getCountPatientByTime,
-    doctorBusySchedule
+    doctorBusySchedule,
+    getScheduleDoctorForWeek
 }

@@ -45,6 +45,7 @@ class ManageListDoctorSchedule extends Component {
                         this.props.handleScheduleSearch();
                         Swal.fire(SwalConfig.successNotification(notificationEn.deleteTitle, notificationEn.deleteText));
                         this.props.handleScheduleSearch();
+                        this.props.fetchScheduleData()
                     }
                 });
         } else if (language === LANGUAGES.VI) {
@@ -55,10 +56,10 @@ class ManageListDoctorSchedule extends Component {
                         this.props.handleScheduleSearch();
                         Swal.fire(SwalConfig.successNotification(notificationVi.deleteTitle, notificationVi.deleteText));
                         this.props.handleScheduleSearch();
+                        this.props.fetchScheduleData()
                     }
                 });
         }
-
     };
 
     render() {
@@ -95,9 +96,6 @@ class ManageListDoctorSchedule extends Component {
                                                         <td style={{ padding: '0 100px' }}>{item.maxNumber}</td>
 
                                                         <td>
-                                                            <button className="btn-edit" onClick={() => this.handleUserEdit(item)}>
-                                                                <i className='fas fa-pencil-alt'></i>
-                                                            </button>
                                                             <button className="btn-delete" onClick={() => this.handleUserDelete(item.id)}>
                                                                 <i className='fas fa-trash'></i>
                                                             </button>

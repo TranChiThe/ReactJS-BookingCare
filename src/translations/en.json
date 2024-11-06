@@ -1,13 +1,4 @@
 {
-    "swal": {
-        "confirmTitle": "Are you sure?",
-        "confirmText": "You won't be able to revert this!",
-        "confirm": "Yes, delete it!",
-        "cancel": "Cancel",
-        "deleteTitle": "Deleted!",
-        "deleteText": "Your file has been deleted.",
-        "ok": "OK"
-    },
     "homeheader": {
         "specialty": "Medical specialty",
         "search-doctor": "Find a doctor by specialty",
@@ -48,7 +39,7 @@
             "manage-doctor": "Manage doctor information",
             "manage-admin": "Manage admins",
             "crud": "CRUD user",
-            "crud-redux": "Manage doctor accounts",
+            "crud-redux": "Manage accounts",
             "clinic": "Clinic",
             "manage-clinic": "Manage clinic",
             "manage-clinic-list": "Clinic information",
@@ -112,7 +103,7 @@
         "address": "Address"
     },
     "manage-user": {
-        "title": "Manage doctor accounts",
+        "title": "Manage accounts",
         "add": "Create account",
         "email": "Email",
         "password": "Password",
@@ -130,7 +121,11 @@
         "save": "Create account",
         "edit": "Edit doctors",
         "save-change": "Save changes",
-        "close": "Close"
+        "close": "Close",
+        "all": "All",
+        "admin": "Admin",
+        "staff": "Staff",
+        "doctor": "Dcotor"
     },
     "homepage": {
         "outstanding-doctor": "Outstanding doctor last week",
@@ -220,5 +215,55 @@
             "none-specialty": "No specialty found!",
             "none-facility": "No medical facility found!"
         }
-    }
+    },
+
+    "toast": {
+        "no-access": "You do not have permission to perform this operation.",
+        "error": "An error occurred!",
+        "missing": "Missing input parameter"
+    },
+
+    "notification": {
+        "ok": "OK",
+        "no": "NO",
+        "cancel":"Cancel",
+        "confirm": "Yes, delete it!",
+        "titleSuccess": "Success",
+        "titleFail": "Error",
+
+        "delete-success": {
+            "confirmTitle":"Are you sure?",
+            "confirmText": "You won't be able to revert this!",
+            "deleteTitle": "Deleted",
+            "deleteText":"Deleted successfully"
+        },
+
+        "user-create-success": {
+            "title": "Success",
+            "text": "New account added"
+        },
+        "user-create-fail": {
+            "title": "Error",
+            "text": "Cannot add new account"
+        },
+        "user-edit-success": {
+            "title": "Success",
+            "text": "Information updated"
+        },
+        "user-edit-fail": {
+            "title": "Error",
+            "text": "Unable to update account"
+        },
+        "busy-schedule": {
+            "textSuccess": "New busy schedule added successfully!",
+            "textFail": "Unable to add busy calendar, please check again!",
+            "toast": "Busy schedule already exists, please choose another time"
+        },
+        "schedule": {
+            "textSuccess": "New appointment added successfully!",
+            "textFail": "Cannot add new appointment, please check again!",
+            "toast": "Appointment already exists, please choose another time"
+        }
+       
+    } 
 }

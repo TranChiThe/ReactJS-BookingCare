@@ -1,24 +1,38 @@
 .doctor-header {
     font-size: 18px;
     font-weight: 200;
-    background: rgb(152,152,232);
+    background: rgb(152, 152, 232);
     padding-left: 100px;
     padding-top: 20px;
-    background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(65,151,217,1) 0%, rgba(197,208,235,1) 0%, rgba(207,223,242,0.9443155452436195) 50%, rgba(220,236,245,0.9052871148459384) 100%);
+    background: linear-gradient(
+        102deg,
+        rgba(152, 152, 232, 0.8631090487238979) 0%,
+        rgba(65, 151, 217, 1) 0%,
+        rgba(197, 208, 235, 1) 0%,
+        rgba(207, 223, 242, 0.9443155452436195) 50%,
+        rgba(220, 236, 245, 0.9052871148459384) 100%
+    );
     i {
         padding-bottom: 8px;
         font-size: 20px;
-        color: blue;       
+        color: blue;
     }
 }
 .search-container {
     position: relative;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    background: rgb(152,152,232);
-    background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(65,151,217,1) 0%, rgba(197,208,235,1) 0%, rgba(207,223,242,0.9443155452436195) 50%, rgba(220,236,245,0.9052871148459384) 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: rgb(152, 152, 232);
+    background: linear-gradient(
+        102deg,
+        rgba(152, 152, 232, 0.8631090487238979) 0%,
+        rgba(65, 151, 217, 1) 0%,
+        rgba(197, 208, 235, 1) 0%,
+        rgba(207, 223, 242, 0.9443155452436195) 50%,
+        rgba(220, 236, 245, 0.9052871148459384) 100%
+    );
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     .selected-options {
         display: flex;
         width: 700px;
@@ -26,13 +40,13 @@
             width: 50%;
             padding-right: 10px;
         }
-        
+
         .select-clinic {
             width: 50%;
             padding-left: 10px;
         }
     }
-   
+
     .search-item {
         input {
             width: 400px;
@@ -40,9 +54,11 @@
             border: 2px solid #ddd;
             border-radius: 25px;
             font-size: 16px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
             margin-top: 10px;
-    
+
             &:focus {
                 border-color: #6c63ff;
                 box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
@@ -50,7 +66,6 @@
             }
         }
     }
-    
 
     .suggestions {
         position: absolute;
@@ -67,7 +82,9 @@
         li {
             padding: 12px 15px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease;
 
             &:hover {
                 background-color: #4036fd;
@@ -109,33 +126,33 @@
 
 .pagination {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    margin: 20px 0; 
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
     button {
-        background-color: #009688; 
-        color: white; 
-        border: none; 
-        border-radius: 5px; 
-        padding: 10px 15px; 
-        margin: 0 5px; 
-        cursor: pointer; 
-        transition: background-color 0.3s ease; 
+        background-color: #009688;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
 
         &.active {
-            // background-color: #00796b; 
-            font-weight: bold; 
+            // background-color: #00796b;
+            font-weight: bold;
             background-color: red;
         }
 
         &:hover {
-            background-color: #00695c; 
+            background-color: #00695c;
         }
 
         &:disabled {
-            background-color: #b2dfdb; 
-            cursor: not-allowed; 
-            color: #757575; 
+            background-color: #b2dfdb;
+            cursor: not-allowed;
+            color: #757575;
         }
     }
 }

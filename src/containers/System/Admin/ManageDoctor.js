@@ -10,7 +10,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
 import './ManageDoctor.scss'
 import { getDetailInForDoctor, saveDetailDoctorService } from '../../../services/userService'
-import { saveInfoSuccess, saveInfoFail, editInfoSuccess, editInfoFail } from '../../../components/NotificationConfig/notificationConfig.js'
+import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 const mdParser = new MarkdownIt();
 
@@ -89,6 +89,19 @@ class ManageDoctor extends Component {
                 listClinic: dataSelectClinic
             })
         }
+        if (this.props.success !== prevProps.success && this.props.success) {
+            Swal.fire('Success', 'Doctor details saved successfully!', 'success');
+        }
+
+        // Kiểm tra missing
+        if (this.props.missing !== prevProps.missing && this.props.missing) {
+            Swal.fire('Warning', 'Missing required doctor information.', 'warning');
+        }
+
+        // Kiểm tra error
+        if (this.props.error !== prevProps.error && this.props.error) {
+            Swal.fire('Error', 'Error saving doctor details.', 'error');
+        }
     }
 
     handleEditorChange = ({ html, text }) => {
@@ -98,9 +111,8 @@ class ManageDoctor extends Component {
         })
     }
 
-    handleSaveDoctorInfo = () => {
+    handleSaveDoctorInfo = async () => {
         let { hasOldData } = this.state;
-        let { success } = this.props;
         let data = this.props.saveDetailInfoDoctor({
             contentHTML: this.state.contentHTML,
             contentMarkDown: this.state.contentMarkDown,
@@ -116,7 +128,12 @@ class ManageDoctor extends Component {
             note: this.state.note,
             actions: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
         })
-        if (data) {
+        console.log('check data: ', data)
+        let { loading, success, missing, error } = this.props;
+        if (this.props.loading) {
+            // Hiển thị thông báo loading
+        } else if (this.props.success) {
+            Swal.fire('Success', 'Doctor details saved successfully!', 'success');
             this.setState({
                 selectedOptions: '',
                 contentHTML: '',
@@ -130,39 +147,12 @@ class ManageDoctor extends Component {
                 note: '',
                 hasOldData: false,
             });
-            console.log('check', success)
-            // if (this.props.success === true) {
-            //     if (hasOldData === false) {
-            //         if (data) {
-            //             saveInfoSuccess(this.props.language);
-            //         } else {
-            //             saveInfoFail(this.props.language);
-            //         }
-            //     } else if (hasOldData === true) {
-            //         if (data) {
-            //             editInfoSuccess(this.props.language);
-            //         } else {
-            //             editInfoFail(this.props.language);
-            //         }
-            //     }
-            // }
-            if (success === 1) {
-                toast.error('fail')
-            } else if (success === 0) {
-                if (data) {
-                    saveInfoSuccess(this.props.language);
-                }
-
-                // saveInfoFail(this.props.language);
-
-                // editInfoSuccess(this.props.language);
-
-                // editInfoFail(this.props.language);
-            }
-            else if (success === 2) {
-                saveInfoFail(this.props.language);
-            }
+        } else if (this.props.missing) {
+            Swal.fire('Warning', 'Doctor details are missing some required information.', 'warning');
+        } else if (this.props.error) {
+            Swal.fire('Error', 'Something went wrong while saving doctor details.', 'error');
         }
+        console.log('check props ', this.props)
     }
 
     handleChangeSelect = async (selectedOptions) => {
@@ -441,7 +431,10 @@ const mapStateToProps = state => {
         detailDoctor: state.admin.detailDoctor,
         allDoctors: state.admin.allDoctors,
         allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
-        success: state.admin.success
+        loading: state.admin.loading,
+        success: state.admin.success,
+        error: state.admin.error,
+        missing: state.admin.missing,
     };
 };
 

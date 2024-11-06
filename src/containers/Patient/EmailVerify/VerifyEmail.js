@@ -65,12 +65,16 @@ class VerifyEmail extends Component {
                             Loading data....
                         </div>
                         :
-                        <div>
-                            {errCode === 0 ?
-                                <div className='info-booking'>xac nhan lich hen thanh cong!</div>
-                                :
-                                <div className='info-booking'>Lich hen khong ton tai hoac da duoc xac nhan, vui long thu lai sau!</div>
-                            }
+                        <div className={`info-booking ${errCode === 0 ? 'success' : 'error'}`}>
+                            <div className="icon">
+                                {errCode === 0 ? '✅' : '❌'}
+                            </div>
+                            <div className="message">
+                                {errCode === 0 ? 'Xác nhận lịch hẹn thành công!' : 'Lịch hẹn không tồn tại hoặc đã được xác nhận!'}
+                            </div>
+                            <div className="description">
+                                {errCode === 0 ? 'Cảm ơn bạn đã xác nhận lịch hẹn.' : 'Vui lòng thử lại hoặc liên hệ hỗ trợ.'}
+                            </div>
                         </div>
                     }
                 </div>

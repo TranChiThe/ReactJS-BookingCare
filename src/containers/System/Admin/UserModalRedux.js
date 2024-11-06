@@ -7,8 +7,10 @@ import * as actions from '../../../store/actions';
 import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
 import { toast } from 'react-toastify'
 import _ from 'lodash';
-import { notificationAddUserSuccess, notificationAddUserFailed, notificationEditUserSuccess, notificationEditUserFailed } from '../../../components/NotificationConfig/notificationConfig'
-import './UserModalRedux.scss'; // Import CSS file
+import Swal from 'sweetalert2';
+import createSwalConfig from '../../../components/NotificationConfig/SwalConfig'
+import { injectIntl } from 'react-intl';
+import './UserModalRedux.scss';
 
 class UserModalRedux extends Component {
     constructor(props) {
@@ -180,53 +182,126 @@ class UserModalRedux extends Component {
     }
 
     checkValidInput = () => {
-        let isValid = true;
-        if (this.props.language === 'en') {
-            this.setState({
-                arrCheck: { email: 'Email', password: 'Password', firstName: 'First name', lastName: 'Last name', phoneNumber: 'Phone number', address: 'Address' }
-            });
-        } else {
-            this.setState({
-                arrCheck: { email: 'Email', password: 'Mật khẩu', firstName: 'Tên', lastName: 'Họ và tên lót', phoneNumber: 'Số điện thoại', address: 'Địa chỉ' }
-            });
-        }
-        for (let i = 0; i < Object.keys(this.state.arrCheck).length; i++) {
-            let key = Object.keys(this.state.arrCheck)[i];
-            let regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
-            let checkEmailValid = regEmail.test(this.state.email);
-            let passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
-            let checkPasswordValid = passw.test(this.state.password);
-            if (!this.state[key]) {
-                isValid = false;
-                if (this.props.language === 'en') {
-                    if (!checkEmailValid) {
-                        toast.error('Invalid email');
-                    } else if (!checkPasswordValid) {
-                        toast.error('Invalid password');
-                    } else {
-                        toast.error('This input is required: ' + this.state.arrCheck[key]);
-                    }
-                } else {
-                    if (!checkEmailValid) {
-                        toast.error('Email không hợp lệ');
-                    } else if (!checkPasswordValid) {
-                        toast.error('Mật khẩu không hợp lệ');
-                    } else {
-                        toast.error('Ô dữ liệu cần phải nhập vào: ' + this.state.arrCheck[key]);
-                    }
-                }
-                break;
+        const { email, password, firstName, lastName, phoneNumber, address } = this.state;
+        const { language } = this.props;
+        const messages = {
+            en: {
+                invalidEmail: "Invalid email",
+                invalidPassword: "Invalid password",
+                invalidPhone: "Invalid phone number",
+                fillAllFields: "Please enter all required information"
+            },
+            vi: {
+                invalidEmail: "Email không hợp lệ",
+                invalidPassword: "Mật khẩu không hợp lệ",
+                invalidPhone: "Số điện thoại không hợp lệ",
+                fillAllFields: "Vui lòng nhập đủ thông tin"
             }
+        };
+
+        const validationMessages = messages[language];
+        let isValid = true;
+
+        // Regular expressions
+        const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+        const passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+        const phoneRegEx = /^[0-9]{10,15}$/;
+
+        // Check for empty fields
+        if (!email || !password || !firstName || !lastName || !phoneNumber || !address) {
+            toast.error(validationMessages.fillAllFields);
+            return false;
         }
+
+        // Validation checks
+        if (!regEmail.test(email)) {
+            toast.error(validationMessages.invalidEmail);
+            isValid = false;
+        }
+        if (!passw.test(password)) {
+            toast.error(validationMessages.invalidPassword);
+            isValid = false;
+        }
+        if (!phoneRegEx.test(phoneNumber)) {
+            toast.error(validationMessages.invalidPhone);
+            isValid = false;
+        }
+
         return isValid;
-    }
+    };
+
+    // handleSaveUser = () => {
+    //     let isValid = this.checkValidInput();
+    //     const { intl } = this.props;
+    //     const SwalConfig = createSwalConfig(intl);
+    //     if (isValid === false) {
+    //         return;
+    //     } else if (this.props.action === CRUD_ACTIONS.CREATE) {
+    //         let data = this.props.createNewUser({
+    //             email: this.state.email,
+    //             password: this.state.password,
+    //             firstName: this.state.firstName,
+    //             lastName: this.state.lastName,
+    //             address: this.state.address,
+    //             phoneNumber: this.state.phoneNumber,
+    //             gender: this.state.gender,
+    //             roleId: this.state.role,
+    //             positionId: this.state.position,
+    //             avatar: this.state.avatar,
+    //         });
+    //         if (data) {
+    //             this.props.closeUserModal();
+    //             this.props.fetchUserRedux();
+    //             emitter.emit('EVENT_CLEAR_MODAL_DATA');
+    //             Swal.fire(SwalConfig.successNotification(
+    //                 "notification.user-create-success.title",
+    //                 "notification.user-create-success.text"
+    //             ))
+    //         } else {
+    //             Swal.fire(SwalConfig.errorNotification(
+    //                 'notification.user-create-success.title',
+    //                 'notification.user-create-success.text'
+    //             ))
+    //         }
+    //     } else if (this.state.action === CRUD_ACTIONS.EDIT) {
+    //         let data = this.props.userEditRedux({
+    //             id: this.state.id,
+    //             email: this.state.email,
+    //             password: this.state.password,
+    //             firstName: this.state.firstName,
+    //             lastName: this.state.lastName,
+    //             address: this.state.address,
+    //             phoneNumber: this.state.phoneNumber,
+    //             gender: this.state.gender,
+    //             roleId: this.state.role,
+    //             positionId: this.state.position,
+    //             avatar: this.state.avatar,
+    //         });
+    //         if (data) {
+    //             this.props.closeUserModal();
+    //             Swal.fire(SwalConfig.successNotification(
+    //                 'notification.user-edit-success.title',
+    //                 'notification.user-edit-success.text'
+    //             ))
+    //         } else {
+    //             Swal.fire(SwalConfig.errorNotification(
+    //                 'notification.user-edit-fail.title',
+    //                 'notification.user-edit-fail.text'
+    //             ))
+    //         }
+    //     }
+    // }
 
     handleSaveUser = () => {
+        const SwalConfig = createSwalConfig(this.props.intl);  // Create SwalConfig using intl prop
         let isValid = this.checkValidInput();
-        if (isValid === false) {
+        if (!isValid) {
             return;
-        } else if (this.props.action === CRUD_ACTIONS.CREATE) {
-            let data = this.props.createNewUser({
+        }
+
+        let data;
+        if (this.props.action === CRUD_ACTIONS.CREATE) {
+            data = this.props.createNewUser({
                 email: this.state.email,
                 password: this.state.password,
                 firstName: this.state.firstName,
@@ -238,16 +313,21 @@ class UserModalRedux extends Component {
                 positionId: this.state.position,
                 avatar: this.state.avatar,
             });
+
             if (data) {
                 this.props.closeUserModal();
                 this.props.fetchUserRedux();
                 emitter.emit('EVENT_CLEAR_MODAL_DATA');
-                notificationAddUserSuccess(this.props.language);
+                Swal.fire(SwalConfig.successNotification(
+                    "notification.user-create-success.text"
+                ));
             } else {
-                notificationAddUserFailed(this.props.language);
+                Swal.fire(SwalConfig.errorNotification(
+                    'notification.user-create-fail.text'
+                ));
             }
-        } else if (this.state.action === CRUD_ACTIONS.EDIT) {
-            let data = this.props.userEditRedux({
+        } else if (this.props.action === CRUD_ACTIONS.EDIT) {
+            data = this.props.userEditRedux({
                 id: this.state.id,
                 email: this.state.email,
                 password: this.state.password,
@@ -260,14 +340,19 @@ class UserModalRedux extends Component {
                 positionId: this.state.position,
                 avatar: this.state.avatar,
             });
+
             if (data) {
                 this.props.closeUserModal();
-                notificationEditUserSuccess(this.props.language)
+                Swal.fire(SwalConfig.successNotification(
+                    'notification.user-edit-success.text'
+                ));
             } else {
-                notificationEditUserFailed(this.props.language);
+                Swal.fire(SwalConfig.errorNotification(
+                    'notification.user-edit-fail.text'
+                ));
             }
         }
-    }
+    };
 
     render() {
         let genders = this.state.genderArr;
@@ -463,4 +548,4 @@ const mapDispatchToProps = dispatch => {
         userEditRedux: (user) => dispatch(actions.fetchEditUserStart(user)),
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(UserModalRedux);
+export default (connect(mapStateToProps, mapDispatchToProps)(injectIntl(UserModalRedux)));

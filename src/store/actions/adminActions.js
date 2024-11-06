@@ -109,13 +109,12 @@ export const saveUserFailed = () => ({
     type: actionTypes.CREATE_USER_FAILED
 })
 
-export const fetchAllUserStart = () => {
-    return async (dispatch, getState) => {
+export const fetchAllUserStart = (roleId, page = 1, limit = 10) => {
+    return async (dispatch) => {
         try {
-            // dispatch({ type: actionTypes. })
-            let res = await getAllUsers("All");
+            let res = await getAllUsers("All", roleId, page, limit);
             if (res && res.errCode === 0) {
-                dispatch(fetchAllUserSuccess(res.users));
+                dispatch(fetchAllUserSuccess(res.data, res.totalRecords, res.totalPages, page));
             } else {
                 dispatch(fetchAllUserFailed());
             }
@@ -125,9 +124,14 @@ export const fetchAllUserStart = () => {
     }
 }
 
-export const fetchAllUserSuccess = (data) => ({
+export const fetchAllUserSuccess = (data, totalRecords, totalPages, currentPage) => ({
     type: actionTypes.FETCH_ALL_USER_SUCCESS,
-    users: data,
+    payload: {
+        data,
+        totalRecords,
+        totalPages,
+        currentPage,
+    },
 })
 
 export const fetchAllUserFailed = () => ({
@@ -244,32 +248,73 @@ export const fetchDetailInforDoctorStart = (doctorId) => {
     }
 }
 
+// export const saveDetailInforDoctor = (data) => {
+//     return async (dispatch, getState) => {
+//         dispatch({
+//             type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START,
+//         })
+//         try {
+//             let res = await saveDetailDoctorService(data);
+//             if (res && res.errCode === 0) {
+//                 dispatch({
+//                     type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS,
+//                 })
+//                 console.log('FETCH_SAVE_DETAIL_DOCTOR_SUCCESS: ')
+//             } else if (res && res.errCode === 1) {
+//                 dispatch({
+//                     type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING,
+//                 })
+//                 console.log('FETCH_SAVE_DETAIL_DOCTOR_MISSING: ')
+//             } else {
+//                 console.log('FETCH_SAVE_DETAIL_DOCTOR_FAILED: ')
+//                 dispatch({
+//                     type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILED,
+//                 })
+//             }
+//         } catch (e) {
+//             console.log('FETCH_SAVE_DETAIL_DOCTOR_FAILED: ', e)
+//             dispatch({
+//                 type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILED,
+//             })
+//         }
+//     }
+// }
+
 export const saveDetailInforDoctor = (data) => {
     return async (dispatch, getState) => {
         dispatch({
             type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_START,
-        })
+        });
+
         try {
             let res = await saveDetailDoctorService(data);
+
+            // Kiểm tra nếu có lỗi, thông báo lỗi
+            if (res.errCode === 1) {
+                dispatch({
+                    type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING,
+                    message: res.errMessage, // Lấy thông báo lỗi từ API
+                });
+                return;  // Dừng lại tại đây nếu có lỗi
+            }
+
+            // Nếu không có lỗi, thông báo thành công
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_SUCCESS,
-                })
-                console.log('FETCH_SAVE_DETAIL_DOCTOR_SUCCESS: ')
-            } else {
-                dispatch({
-                    type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_MISSING,
-                })
-                console.log('FETCH_SAVE_DETAIL_DOCTOR_MISSING: ')
+                    message: res.errMessage,
+                });
             }
         } catch (e) {
-            console.log('FETCH_SAVE_DETAIL_DOCTOR_FAILED: ', e)
+            console.log('FETCH_SAVE_DETAIL_DOCTOR_FAILED: ', e);
             dispatch({
                 type: actionTypes.FETCH_SAVE_DETAIL_DOCTOR_FAILED,
-            })
+            });
         }
-    }
-}
+    };
+};
+
+
 
 export const fetchScheduleHoursStart = () => {
     return async (dispatch, getState) => {

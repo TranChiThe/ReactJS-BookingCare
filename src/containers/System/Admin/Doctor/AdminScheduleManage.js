@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import * as actions from '../../../../store/actions';
 import { LANGUAGES, CRUD_ACTIONS, dateFormat } from '../../../../utils';
 import Select from 'react-select';
 import DatePicker from '../../../../components/Input/DatePicker';
 import { toast } from 'react-toastify'
 import _ from 'lodash'
-import { saveBulkScheduleDoctor, getScheduleDoctorByDate } from '../../../../services/userService'
-import ManageListDoctorSchedule from './ManageListDoctorSchedule';
-import { saveScheduleInfoSuccess, saveScheduleInfoFail, saveInfoSuccess } from '../../../../components/NotificationConfig/notificationConfig'
+import { saveBulkScheduleDoctor, getScheduleDoctorByDate, getScheduleDoctorForWeek } from '../../../../services/userService'
+import ScheduleTable from '../../../ScheduleTable/ScheduleTable';
+import Pagination from '../../../../components/Pagination/Pagination';
+import Swal from 'sweetalert2';
+import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig';
 import './AdminScheduleManage.scss'
 
 class ManageSchedule extends Component {
@@ -22,14 +24,21 @@ class ManageSchedule extends Component {
             dataSchedule: [],
             isOpenModal: false,
             rangeTime: [],
+            dataScheduleForWeek: [],
+            currentPage: 1,
+            totalPages: 4,
+            weekDates: []
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.props.fetchAllDoctorStart();
         this.props.getDetailInforDoctor();
         this.props.fetchScheduleHoursStart();
         this.props.createBulkScheduleDoctor();
+        await this.fetchScheduleData();
+        this.calculateWeekDates();
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -59,8 +68,44 @@ class ManageSchedule extends Component {
         }
     }
 
+    calculateWeekDates = () => {
+        const today = new Date();
+        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+        const weekDates = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date(firstDayOfWeek);
+            date.setDate(firstDayOfWeek.getDate() + i);
+            return date.getTime();
+        });
+        this.setState({ weekDates });
+    }
+
+    fetchScheduleData = async () => {
+        const { selectedDoctor, currentPage } = this.state;
+        try {
+            let res = await getScheduleDoctorForWeek(selectedDoctor?.value, currentPage);
+            if (res && res.errCode === 0) {
+                const schedulesArray = Object.keys(res.data).map(key => ({
+                    timeType: key,
+                    ...res.data[key]
+                }));
+
+                this.setState({
+                    dataScheduleForWeek: schedulesArray
+                });
+            } else {
+                console.error('Error fetching schedule data: ', res?.message || 'Unknown error');
+                toast.error(<FormattedMessage id='toast.error' />)
+            }
+        } catch (error) {
+            console.error('Error fetching schedule data:', error);
+            toast.error(<FormattedMessage id='toast.error' />)
+        }
+    };
+
     handleChangeSelect = async (selectedDoctor) => {
-        this.setState({ selectedDoctor });
+        this.setState({ selectedDoctor }, async () => {
+            await this.fetchScheduleData();
+        });
     };
 
     buildDataInputSelect = (inputData) => {
@@ -102,6 +147,7 @@ class ManageSchedule extends Component {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let { language } = this.props;
         let result = [];
+        let SwalConfig = createSwalConfig(this.props.intl)
         if (!selectedDoctor || _.isEmpty(selectedDoctor)) {
             if (language === LANGUAGES.EN) {
                 toast.error('Please select the doctor you want to schedule an appointment with!');
@@ -127,6 +173,7 @@ class ManageSchedule extends Component {
                     object.doctorId = selectedDoctor.value;
                     object.date = formatedDate;
                     object.timeType = item.keyMap;
+                    object.currentNumber = 0;
                     result.push(object);
                 });
                 console.log('check selected time:', selectedTime);
@@ -144,11 +191,12 @@ class ManageSchedule extends Component {
             arrSchedule: result,
             doctorId: selectedDoctor.value,
             formatedDate: formatedDate,
+            currentNumber: 0,
         });
 
         if (res && res.errCode === 0) {
-            // saveScheduleInfoSuccess(this.props.language);
-            saveInfoSuccess(this.props.language)
+            Swal.fire(SwalConfig.successNotification('notification.schedule.textSuccess'))
+            this.fetchScheduleData();
             // Reset trạng thái các khung giờ đã chọn
             this.setState(prevState => ({
                 rangeTime: prevState.rangeTime.map(item => ({
@@ -156,8 +204,10 @@ class ManageSchedule extends Component {
                     isSelected: false
                 }))
             }));
+        } else if (res && res.errCode === 2) {
+            toast.error(<FormattedMessage id='notification.schedule.toast' />)
         } else {
-            saveScheduleInfoFail(this.props.language);
+            Swal.fire(SwalConfig.errorNotification('notification.schedule.textFail'))
         }
     }
 
@@ -187,22 +237,19 @@ class ManageSchedule extends Component {
         });
     }
 
+    handlePageChange = (newPage) => {
+        this.setState({ currentPage: newPage }, () => {
+            this.fetchScheduleData();
+        });
+    };
+
     render() {
         let { language } = this.props;
-        let { rangeTime, dataSchedule } = this.state;
+        let { rangeTime, dataScheduleForWeek, currentPage, totalPages } = this.state;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-        console.log('check date: ', this.state);
         return (
+
             <React.Fragment>
-                <div className='list-schedule-doctor'>
-                    <ManageListDoctorSchedule
-                        dataSchedule={this.state.dataSchedule}
-                        handleChangeToggle={this.handleChangeToggle}
-                        isOpen={this.state.isOpenModal}
-                        handleScheduleSearch={this.handleScheduleSearch}
-                        selectedDoctor={this.state.selectedDoctor}
-                    />
-                </div>
                 <div className='manage-schedule-container'>
                     <div className='manage-schedule-title'>
                         <FormattedMessage id="manage-schedule.title" />
@@ -232,13 +279,13 @@ class ManageSchedule extends Component {
                                     minDate={yesterday}
                                 />
                             </div>
-                            <div className='col-2 form-group'>
+                            {/* <div className='col-2 form-group'>
                                 <button className='schedule-search'
                                     onClick={() => this.handleScheduleSearch()}
                                 >
                                     <FormattedMessage id="manage-schedule.search" />
                                 </button>
-                            </div>
+                            </div> */}
                             <div className={language === LANGUAGES.VI ? 'col-12 pick-hour-container' : 'col-12 pick-hour-container'}>
                                 {rangeTime && rangeTime.length > 0 &&
                                     rangeTime.map((item, index) => {
@@ -264,7 +311,19 @@ class ManageSchedule extends Component {
                             </div>
                         </div>
                     </div>
+                    <ScheduleTable
+                        rangeTime={rangeTime}
+                        dataScheduleForWeek={dataScheduleForWeek}
+                        weekNumber={currentPage}
+                        fetchScheduleData={this.fetchScheduleData}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={this.handlePageChange}
+                    />
                 </div >
+
             </React.Fragment>
         );
     }
@@ -292,4 +351,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedule);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(ManageSchedule));

@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import Header from '../../containers/Header/Header';
 import DoctorManageSchedule from '../../containers/System/Doctor/ManageSchedule/DoctorManageSchedule'
 import BusySchedule from '../../containers/System/Doctor/BusyScheduleManagement/BusySchedule'
+import AppointmentManagement from '../../containers/System/Doctor/ManageAppointment/AppointmentManagement ';
 class Schedule extends Component {
     render() {
         const { systemMenuPath, isLoggedIn, roleId } = this.props;
@@ -16,6 +17,7 @@ class Schedule extends Component {
                             <Switch>
                                 <Route path="/doctor-manage/manage-schedule" exact component={DoctorManageSchedule} />
                                 <Route path="/doctor-manage/manage-busy-schedule" exact component={BusySchedule} />
+                                <Route path="/doctor-manage/manage-appointment" exact component={AppointmentManagement} />
                                 <Route component={() => { return (<Redirect to="/doctor-manage/manage-schedule" />) }} />
                             </Switch>
                         </div>
