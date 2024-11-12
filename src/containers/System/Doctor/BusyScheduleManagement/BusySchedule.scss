@@ -1,0 +1,21 @@
+.manage-schedule-container {
+    .manage-schedule-title {
+
+    }
+    .container {
+        .reason-textarea {
+            resize: none; 
+            border-radius: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s ease;
+        
+            &:focus {
+                border-color: #007bff; 
+                outline: none;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+        }
+        
+    }
+}

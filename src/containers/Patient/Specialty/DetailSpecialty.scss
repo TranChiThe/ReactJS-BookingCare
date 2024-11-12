@@ -1,0 +1,76 @@
+.detail-specialty-container {
+    background: rgb(231, 231, 238);
+    background: linear-gradient(
+        90deg,
+        rgba(231, 231, 238, 0.8631090487238979) 0%,
+        rgba(186, 221, 241, 0.9443155452436195) 51%,
+        rgba(229, 231, 236, 0.9373549883990719) 100%
+    );
+    font-size: 15px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    .description-specialty {
+        h1,
+        h2,
+        h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        width: 900px;
+        text-align: justify;
+    }
+    .detail-specialty-body {
+        margin: 0 100px;
+    }
+
+    .search-doctor-specialty {
+        select {
+            height: 30px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
+    .each-doctor {
+        display: flex;
+        width: 100%;
+        min-height: 300px;
+        margin: 15px 0;
+        box-shadow: 0 1px 6px #20211447;
+        border-radius: 8px;
+        padding: 10px;
+        .specialty-content-left {
+            width: 35%;
+            .profile-doctor {
+                .profile-doctor-container {
+                    padding-top: 30px;
+                    padding: 30px 10px;
+                    background: #e7e7ee;
+                    background: linear-gradient(
+                        90deg,
+                        rgba(231, 231, 238, 0.863109) 0%,
+                        rgba(186, 221, 241, 0.944316) 51%,
+                        rgba(229, 231, 236, 0.937355) 100%
+                    );
+                    border-bottom: 1px solid #d3d3d3;
+                    .intro-doctor {
+                        border-bottom: unset !important;
+                    }
+                }
+            }
+        }
+        .specialty-content-right {
+            width: 65%;
+            padding: 10px;
+            .doctor-schedule {
+                .doctor-schedule-container {
+                    border-right: unset !important;
+                }
+            }
+            .doctor-extra-info {
+                .doctor-extra-info-container {
+                    padding-left: 0 !important;
+                }
+            }
+        }
+    }
+}

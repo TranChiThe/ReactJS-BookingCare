@@ -1,0 +1,48 @@
+.profile-doctor-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .intro-doctor {
+        display: flex;
+        padding-top: 30px;
+        padding: 30px 10px;
+        background: rgb(231,231,238);
+        background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
+        border-bottom: 1px solid #d3d3d3;
+        .content-left {
+            width: 30%;
+            border-radius: 50%;
+            background: center center no-repeat;
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+        }
+        .content-right {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            width: calc(100% - 160px);
+            .up {
+                font-weight: 600;
+            }
+            .down {
+                padding-top: 10px;
+                text-align: justify;
+                text-transform: capitalize;
+                font-weight: 500;
+            }
+        }
+    }
+    .price {
+        padding: 10px 0px;
+        font-size: 15px;
+        font-weight: 600;
+        border: 1px solid #ccc;
+        width: 200px;
+        margin: 10px 0px;
+        border-radius: 5px;
+        background-color: #faf5f5;
+        text-align: center;
+    }
+}
+
+

@@ -1,0 +1,157 @@
+.home-container {
+    background: rgb(152, 152, 232);
+    background: linear-gradient(
+        102deg,
+        rgba(152, 152, 232, 0.863) 0%,
+        rgba(65, 151, 217, 1) 0%,
+        rgba(197, 208, 235, 1) 0%,
+        rgba(207, 223, 242, 0.944) 50%,
+        rgba(220, 236, 245, 0.905) 100%
+    );
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    .search-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 100%;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff, #e6e6e6);
+            border-radius: 50px;
+            padding: 5px 25px;
+            width: 100%;
+            max-width: 800px;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+
+            &:hover {
+                box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .filter {
+                width: 150px;
+                margin-right: 15px;
+
+                .react-select__control {
+                    border-radius: 30px;
+                    background-color: #fff;
+                    border: none;
+                    box-shadow: none;
+                    font-size: 14px;
+                }
+            }
+
+            .search-input {
+                flex: 1;
+                border: none;
+                padding: 6px 20px;
+                font-size: 16px;
+                background-color: transparent;
+                outline: none;
+                border-radius: 30px;
+                color: #4a4a4a;
+                transition: background-color 0.2s ease-in-out;
+
+                &:focus {
+                    background-color: #f8f9fa;
+                }
+
+                &::placeholder {
+                    color: #a9a9a9;
+                    font-size: 14px;
+                    font-style: italic;
+                }
+            }
+
+            .search-icon {
+                font-size: 22px;
+                color: #6c757d;
+                margin-left: 15px;
+                cursor: pointer;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #007bff;
+                }
+            }
+        }
+    }
+
+    .result-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        gap: 20px; /* Khoảng cách giữa các cột */
+
+        .column {
+            flex: 1; /* Tất cả cột có cùng chiều rộng */
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi nền mượt mà */
+
+            h2 {
+                margin-bottom: 15px;
+                font-size: 20px;
+                color: #333;
+            }
+
+            .item {
+                padding: 30px 0;
+                border-bottom: 1px solid #ddd;
+
+                .information {
+                    display: flex;
+                    justify-content: flex-start;
+
+                    .image {
+                        width: 60px;
+                        height: 60px;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        margin-right: 30px;
+                    }
+
+                    p {
+                        margin: 0;
+                        color: #555;
+                    }
+                    &:hover {
+                        background-color: #ccdef8; /* Thay đổi màu nền khi hover */
+                        color: #007bff;
+                    }
+                }
+            }
+
+            .item:last-child {
+                border-bottom: none;
+            }
+
+            div {
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            &:hover {
+                background-color: #e7f1ff; /* Thay đổi màu nền khi hover */
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .result-container {
+            flex-direction: column; /* Chuyển thành một cột trên màn hình nhỏ */
+
+            .column {
+                margin-bottom: 20px; /* Thêm khoảng cách giữa các cột */
+            }
+        }
+    }
+}

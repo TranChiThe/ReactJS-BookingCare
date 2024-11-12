@@ -1,0 +1,300 @@
+// reset slick
+.slick-prev:before {
+    font-family: 'Glyphicons Halflings' !important;
+    color: blue !important;
+    font-size: 30px !important;
+    content: "▶" !important;
+    outline: none !important;
+    // content: '';
+    // background: url('../../assets/images/flags/en.png') no-repeat center; // Thay thế bằng đường dẫn tới icon SVG của bạn
+    // width: 20px; // Kích thước icon
+    // height: 20px; // Kích thước icon
+    // background-size: cover;
+
+}
+.slick-prev {
+    left: 0 !important;
+    z-index: 1 !important;
+    width: 50px !important;
+    height: 38px !important; 
+    background: none !important;
+    background-color: transparent !important;
+    opacity: 0.5;
+    border-radius: 5px;
+    border: 1px solid rgb(116, 82, 237);
+    background-color: transparent !important;
+    
+    &:hover {
+        background: #ece9e9 !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(125, 121, 246, 0.5) !important;
+        background-color: transparent !important;
+    }
+}
+
+.slick-next:before {
+    font-family: 'Glyphicons Halflings' !important;
+    color: blue !important;
+    font-size: 30px !important;
+    content: "◀" !important;
+    outline: none !important;
+}
+.slick-next {
+    right: 0  !important;
+    width: 50px !important;
+    height: 38px !important; 
+    opacity: 0.5;
+    border-radius: 10px;
+    background: none !important;
+    opacity: 0.5;
+    border-radius: 5px;
+    border: 1px solid rgb(116, 82, 237);
+    &:hover {
+        // background: #ece9e9 !important;
+        background-color: transparent !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(125, 121, 246, 0.5) !important;
+    }
+}
+
+.slick-disabled {
+    display: none !important;
+}
+
+
+
+.section-section {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    &.section-specialty{
+        background: #f5f5f5;
+        background: rgb(231,231,238);
+        background: linear-gradient(90deg, rgba(231,231,238,0.8631090487238979) 0%, rgba(186,221,241,0.9443155452436195) 51%, rgba(229,231,236,0.9373549883990719) 100%);
+    }
+    &.section-handbook {
+        background: rgb(152,152,232);
+        background: linear-gradient(90deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(102,150,187,1) 0%, rgba(171,203,231,1) 0%, rgba(111,163,230,0.9443155452436195) 50%, rgba(122,198,231,0.9052871148459384) 100%);
+        height: 450px;
+    }
+    &.section-about {
+        height: 100%;
+        padding-bottom: 10px;
+        border-top: 1px solid #ccbcbc;
+        border-bottom: 1px solid #ccbcbc;
+        background: rgb(152,152,232);
+        background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(102,150,187,1) 0%, rgba(202,222,226,1) 0%, rgba(114,171,241,0.9443155452436195) 38%, rgba(187,214,218,0.9052871148459384) 56%);
+    }
+    &.section-medical-facility {
+        background: rgb(152,152,232);
+        background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(102,150,187,1) 0%, rgba(202,222,226,1) 0%, rgba(114,171,241,0.9443155452436195) 38%, rgba(187,214,218,0.9052871148459384) 56%);
+    }
+    .section-body {
+        margin: 0 90px;
+        .section-customize {
+            padding: 5px;
+            cursor: pointer;
+            .bg-img {
+                height: 200px;
+                width: 100%;
+                object-fit: contain;
+                background-position: center center ;
+                background-repeat: no-repeat ;
+                background-size: cover ;
+                background-color: #eee;
+                margin: 0 auto ;
+                max-height: 300px; 
+                border-radius: 5px;
+
+                &.img-handbook{
+                    height: 400px;
+                } 
+                &.section-outstanding-doctor {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+                }
+            }
+            
+            .title-images {
+                text-align: center;
+            }
+        }            
+    }
+}
+
+
+.section-section {
+    height: 330px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .section-container {
+        margin: 0 20px;
+        // padding: 0 70px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            height: 60px;
+            padding-top: 30px;
+            margin-bottom: 10px;
+            
+            .title-section {
+                font-size: 22px;
+                font-weight: 600;
+                padding-left: 90px;
+                
+            }
+            .btn-section {
+                font-size: 14px;
+                padding: 10px 15px;
+                float: right;
+                display: block;
+                border: none;
+                outline: none;
+                border-radius: 10px;
+                font-weight: 500;
+                text-transform: uppercase;
+                margin-right: 80px;
+
+                &:hover {
+                background-color: rgb(231, 153, 9)
+                }
+            }
+
+        }
+    }
+}
+
+.section-outstanding-doctor {
+    background: rgb(209,209,221);
+    background: linear-gradient(90deg, rgba(209,209,221,0.8631090487238979) 0%, rgba(117,186,227,0.9443155452436195) 51%, rgba(198,201,207,0.9373549883990719) 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .outer-bg {
+        margin-bottom: 10px;
+    }
+    .section-customize {
+        padding: 5px;
+        .customize-border {
+            border: 1px solid rgb(137, 153, 247);
+            border-radius: 5px;
+            padding: 20px;
+            transition: transform .5s;
+            background-color: #d6ddf0;
+        }
+        .customize-border:hover {
+            transform: scale(1.1);
+            border: none;
+            outline: none;
+            background: none;
+        }
+
+    }
+}
+
+
+.home-footer {
+    background-color: #232324; /* Màu nền tối */
+    color: #fff; /* Màu chữ sáng */
+    padding: 40px 0;
+    font-family: 'Roboto', sans-serif;
+
+    .footer-info {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #444;
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .footer-left {
+            .footer-title {
+                display: flex;
+                align-items: center;
+
+                .logo {
+                    width: 80px;
+                    height: 50px;
+                    background: url('../../assets//logo-image.png') no-repeat center center;
+                    background-size: contain;
+                }
+
+                .logo-title {
+                    font-size: 28px;
+                    font-weight: bold;
+                    margin-left: 0px;
+                    color: #fff;
+                }
+            }
+
+            .footer-content {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                color: #ddd;
+
+                i {
+                    margin-right: 10px;
+                    font-size: 18px;
+                    color: #007bff;
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+        }
+
+        .footer-center {
+            .center-title {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .specialty {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #ddd;
+                cursor: pointer;
+                transition: color 0.3s;
+
+                &:hover {
+                    color: #007bff; /* Hiệu ứng hover */
+                }
+            }
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 20px;
+
+            div {
+                margin-top: 10px;
+                font-size: 14px;
+                color: #ddd;
+            }
+        }
+    }
+
+    .footer-end {
+        background-color: #181818;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 20px;
+        font-size: 15px;
+        color: #777;
+        p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+        }
+    }
+}

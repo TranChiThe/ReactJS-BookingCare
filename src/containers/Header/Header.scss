@@ -1,0 +1,267 @@
+@import "../../styles/common.scss";
+
+// Background colors
+$light-bg-color: #f9fafb;
+$dark-bg-color: #2d2f36;
+$language-bg-color: #e7e9ed;
+$language-bg-dark: #3a3d46;
+$dropdown-bg-color: #ffffff;
+$dropdown-bg-dark: #444;
+$dropdown-hover-bg-color: #e0e0e0;
+$dropdown-active-bg-color: #007bff;
+
+// Text colors
+$light-text-color: #333;
+$dark-text-color: #ffffff;
+
+// Button colors
+$button-bg-color: #007bff;
+$button-bg-dark: #0056b3;
+$button-hover-color: #0056b3;
+$button-hover-dark: #003d7a;
+
+.header-container {
+    z-index: 100000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $light-bg-color; 
+    color: $light-text-color; 
+    height: 80px; 
+    padding: 0 40px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+    position: sticky; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #d9dadb;
+
+    &.dark-mode {
+        background-color: $dark-bg-color; 
+        color: $dark-text-color; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+    }
+
+    .header-tabs-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        .navigator-menu {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            .nav-item {
+                margin-right: 30px; 
+                cursor: pointer;
+                font-weight: 500; 
+                font-size: 16px; 
+                color: inherit;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $button-bg-color; 
+                }
+            }
+        }
+    }
+
+    .languages {
+        display: flex; 
+        align-items: center; 
+        margin-left: auto; 
+
+        .welcome {
+            margin-right: 5px; 
+            font-size: 15px; 
+        }
+
+        .language-dropdown {
+            position: relative;
+            cursor: pointer;
+
+            .selected-language {
+                display: flex;
+                align-items: center;
+                background-color: $language-bg-color; 
+                padding: 8px 12px;
+                margin: 0 8px;
+                border-radius: 6px; 
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease, color 0.3s ease;
+
+                .flag-icon {
+                    margin-right: 8px;
+                    width: 24px;
+                    height: 24px;
+                    background-size: cover;
+                }
+
+                i {
+                    margin-left: 8px;
+                }
+
+                &.dark-mode {
+                    background-color: $language-bg-dark; 
+                    color: $dark-text-color;
+                }
+            }
+
+            .language-list {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: $dropdown-bg-color;
+                border-radius: 6px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); 
+                margin-top: 10px;
+                z-index: 100;
+
+                &.dark-mode {
+                    background-color: $dropdown-bg-dark;
+                }
+
+                .language-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 16px;
+                    cursor: pointer;
+                    font-size: 15px;
+                    transition: background-color 0.3s ease;
+                    
+                    &:hover {
+                        background-color: $dropdown-hover-bg-color;
+                    }
+
+                    &.active {
+                        background-color: $dropdown-active-bg-color;
+                        color: $light-text-color;
+                    }
+
+                    .flag-icon {
+                        margin-right: 8px;
+                        width: 24px;
+                        height: 16px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                }
+            }
+        }
+
+        .btn-dark-mode {
+            margin-left: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: $button-bg-color; 
+            color: $light-text-color;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            
+            i {
+                margin-right: 8px;
+                font-size: 18px;
+            }
+            
+            &:hover {
+                background-color: $button-hover-color;
+            }
+            
+            &.dark-mode {
+                background-color: $button-bg-dark; 
+                color: $dark-text-color;
+            
+                &:hover {
+                    background-color: $button-hover-dark;
+                }
+            }
+        }
+
+        .btn-logout {
+            margin-left: 20px; 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: $light-text-color;
+            padding: 8px 16px;
+            margin: 0 8px;
+            border-radius: 6px;
+            background-color: $button-bg-color; 
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $button-hover-color;
+            }
+
+            i {
+                font-size: 18px;
+                margin-right: 8px;
+            }
+
+        }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+        padding: 0 20px; 
+
+        .header-tabs-container {
+            .nav-item {
+                margin-right: 15px; 
+                font-size: 14px; 
+            }
+        }
+
+        .languages {
+            .welcome {
+                font-size: 14px; 
+            }
+
+            .language-dropdown {
+                .selected-language {
+                    padding: 6px 10px;
+                }
+            }
+
+            .btn-dark-mode,
+            .btn-logout {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        height: 60px; 
+
+        .header-tabs-container {
+            .nav-item {
+                font-size: 12px; 
+                margin-right: 10px; 
+            }
+        }
+
+        .languages {
+            .welcome {
+                font-size: 12px; 
+            }
+
+            .language-dropdown {
+                .selected-language {
+                    padding: 4px 8px;
+                }
+            }
+
+            .btn-dark-mode,
+            .btn-logout {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+    }
+}

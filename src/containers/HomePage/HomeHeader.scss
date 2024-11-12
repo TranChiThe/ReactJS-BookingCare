@@ -1,0 +1,378 @@
+// Background colors
+$light-bg-color: #f5f5f5;
+$dark-bg-color: #333;
+$language-bg-color: #e0e0e0;
+$language-bg-dark: #555;
+$dropdown-bg-color: #ffffff;
+$dropdown-bg-dark: #444;
+$dropdown-hover-bg-color: #e0e0e0;
+$dropdown-active-bg-color: #b0b0b0;
+
+// Text colors
+$light-text-color: #000;
+$dark-text-color: #fff;
+
+// Button colors
+$button-bg-color: #007bff;
+$button-bg-dark: #0056b3;
+$button-hover-color: #0056b3;
+$button-hover-dark: #003d7a;
+
+.slick-prev:before {
+    font-family: 'Glyphicons Halflings' !important;
+    color: red !important;
+    font-size: 30px !important;
+    content: "▶" !important;
+}
+.slick-prev {
+    left: 0 !important;
+    z-index: 1 !important;
+    width: 44px !important;
+    height: 38px !important; 
+    background: none !important;
+    opacity: 0.5;
+    border-radius: 10px;
+    
+    
+    &:hover {
+        background: #ece9e9 !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+}
+
+.slick-next:before {
+    font-family: 'Glyphicons Halflings' !important;
+    // color: red !important;
+    font-size: 30px !important;
+    content: "◀" !important;
+}
+.slick-next {
+    right: 0  !important;
+    width: 44px !important;
+    height: 38px !important; 
+    opacity: 0.5;
+    border-radius: 10px;
+    background: none !important;
+
+    &:hover {
+        background: #ece9e9 !important;
+        opacity: 1;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+}
+
+
+.home-header-container {
+    height: 65px;
+    padding-left: 50px;
+    position: sticky;
+    top: 0;
+    background: rgb(230,230,242);
+    background: linear-gradient(90deg, rgba(230,230,242,0.8631090487238979) 0%, rgba(177,208,227,0.9443155452436195) 51%, rgba(234,234,244,0.9373549883990719) 100%);
+    z-index: 1000;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .home-header-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        .left-content {
+            width: 25%;
+            display: flex;
+            align-items: center;
+
+            .header-logo {
+                background: url('../../assets/logo-image.png') left center no-repeat;
+                height: 100%;
+                width: 100%;
+                cursor: pointer;
+                background-size: contain;
+
+            }
+            i {
+                font-size: 26px;
+                color: grey;
+                cursor: pointer;
+            }
+
+            .logo-text {
+                font-size: 25px;
+                color: #49bce2;
+                margin-left: 1px;
+                position: absolute;
+                padding-left: 95px;
+                cursor: pointer;
+            }
+        }
+
+        .center-content {
+            width: 50%;
+            min-width: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .child-content{
+                .subs-title {
+                    font-weight: 400;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .right-content {
+            width: 25%;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+            padding-right: 50px;
+
+            .languages {
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+        
+                .language-dropdown {
+                    position: relative;
+                    cursor: pointer;
+        
+                    .selected-language {
+                        display: flex;
+                        align-items: center;
+                        background-color: $language-bg-color; // Màu nền chế độ sáng
+                        padding: 5px 10px;
+                        margin: 0 5px;
+                        border-radius: 4px;
+                        transition: background-color 0.3s ease, color 0.3s ease;
+                        
+                        .flag-icon {
+                            margin-right: 5px;
+                            width: 30px;
+                            height: 25px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                        }
+        
+                        i {
+                            margin-left: auto;
+                        }
+        
+                        &.dark-mode {
+                            background-color: $language-bg-dark; // Màu nền chế độ tối
+                            color: $dark-text-color;
+                        }
+                    }
+        
+                    .language-list {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background-color: $dropdown-bg-color;
+                        border-radius: 4px;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        margin-top: 5px;
+                        overflow: hidden;
+                        z-index: 100;
+        
+                        &.dark-mode {
+                            background-color: $dropdown-bg-dark;
+                        }
+        
+                        .language-item {
+                            display: flex;
+                            align-items: center;
+                            padding: 10px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+        
+                            &:hover {
+                                background-color: $dropdown-hover-bg-color;
+                            }
+        
+                            &.active {
+                                background-color: $button-bg-color;
+                                color: $light-bg-color;
+                            }
+        
+                            .flag-icon {
+                                margin-right: 5px;
+                                width: 24px;
+                                height: 16px;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                            }
+                        }
+                    }
+                }
+            }
+            .support {
+                padding-right: 40px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                transition: transform .2s;
+                padding-left: 120px;
+                &:hover {
+                    transform: scale(1.1);
+                    color: #007bff;
+                }
+                i {
+                    font-size: 15px;
+                    margin-right: 5px;
+                    
+                }
+            }
+        }
+
+        
+        .language-vi {
+            cursor: pointer;
+            padding-right: 10px;
+            font-weight: 700;
+            opacity: 0.3;
+            transition: transform .2s;
+            &.active {
+                opacity: 1;
+                span {
+                    color: rgb(238, 79, 79);
+                    font-size: 15px;
+                    font-style: italic;
+                }  
+            }
+            &:hover {
+                opacity: 0.9;
+                transform: scale(1.2);
+            }
+            
+        }
+
+        .language-en {
+            cursor: pointer;
+            font-weight: 700;
+            padding-right: 10px;
+            opacity: 0.3;
+            transition: transform .2s;
+            &.active {
+                opacity: 1;
+                span {
+                    color: rgb(82, 79, 238);
+                    font-size: 15px;
+                    font-style: italic;
+                }
+            }
+            &:hover {
+                opacity: 0.9;
+                transform: scale(1.2);
+            } 
+        }
+    }
+}
+
+.home-header-banner {
+    background: url('../../assets/banner-image.webp') center center no-repeat;
+    min-width: 700px;
+    height: 635px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0px 0;
+    display: flex;
+    flex-direction: column;
+
+    .content-up {
+        height: 60%;
+        .title1 {
+            text-align:  center;
+            font-size: 30px;
+            color: white;
+            text-shadow: 1px 1px 1px #333;
+            margin-bottom: 10px;
+            padding-top: 120px;
+        }
+        
+        .title2 {
+            text-align:  center;
+            font-size: 30px;
+            color: white;
+            text-shadow: 1px 1px 1px #333;
+        }
+    }
+
+    .content-down {
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        .home-option {
+            text-align: center;
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+            padding-top: 80px;
+            
+            .child-option {
+                transition: transform .3s; /* Animation */  
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.1);
+                }
+                .child-icon {
+                    background: white;
+                    width: 45px;
+                    height: 45px;
+                    padding: 10px;
+                    border-radius: 50%;
+                    text-align: center;
+                    margin: 0 auto;
+
+                    i {
+                        color: #49bce2;
+                        font-size: 25px;
+                    }
+                    
+                }
+                .child-text {
+                    font-size: 17px;
+                    font-weight: 530;
+                    width: 98px;
+                    &:hover {
+                        color: rgb(17, 82, 221);
+                    }
+                }
+            }
+        }
+    }
+    
+    .search {
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        padding: 10px;
+        border-radius: 30px;
+        background: rgb(238, 250, 216);
+        margin-top: 50px;
+        i {
+            margin: 0 5px;
+        }
+
+        input {
+            height: 30px;
+            width: 350px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+
+.flag-icon-vi {
+    background-image: url('../../assets/images/flags/vi.png'); // Hình ảnh cờ Việt Nam
+}
+
+.flag-icon-en {
+    background-image: url('../../assets/images/flags/en.png'); // Hình ảnh cờ Anh
+}

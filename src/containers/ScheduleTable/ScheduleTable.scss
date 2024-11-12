@@ -1,0 +1,130 @@
+.schedule-table {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid #ddd;
+    height: 520px;
+}
+
+.schedule-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.header-item {
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-row {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 1fr);
+    transition: background-color 0.3s;
+    &:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    &:hover {
+        background-color: #e9ecef;
+    }
+}
+
+.row-item {
+    padding: 10px 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.schedule-button {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .button-text {
+        display: none;
+        margin-left: 8px;
+        font-size: 12px;
+    }
+
+    &:hover .button-text {
+        display: inline-block;
+    }
+
+    &.busy {
+        background-color: #dc3545;
+    }
+    &.available {
+        background-color: #28a745;
+    }
+    &.empty {
+        background-color: gray;
+    }
+}
+
+.menu-container {
+    position: relative;
+    margin-left: 5px;
+
+    .menu-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #555;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        z-index: 1000;
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            width: 100%;
+            text-align: left;
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+    }
+}

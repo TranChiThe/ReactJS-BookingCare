@@ -1,0 +1,11 @@
+.specialty-child {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .specialty-name {
+        padding: 10px 0;
+        font-size: 15px;
+        text-align: center;
+        &:hover{
+            color: blue;
+        }
+    }
+}

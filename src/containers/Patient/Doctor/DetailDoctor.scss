@@ -1,0 +1,99 @@
+.doctor-detail-container {
+    height: 500px;
+    background: rgb(231, 231, 238);
+    background: linear-gradient(
+        90deg,
+        rgba(231, 231, 238, 0.8631090487238979) 0%,
+        rgba(186, 221, 241, 0.9443155452436195) 51%,
+        rgba(229, 231, 236, 0.9373549883990719) 100%
+    );
+    font-size: 14px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    .intro-doctor {
+        display: flex;
+        padding-top: 30px;
+        padding: 30px 100px;
+        border-bottom: 1.5px solid #d3d3d3;
+        .content-left {
+            width: 30%;
+            border-radius: 50%;
+            background: center center no-repeat;
+            width: 160px;
+            height: 160px;
+            margin: 10px 30px;
+            background-size: cover;
+        }
+        .content-right {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            padding-left: 10px;
+            width: 600px;
+            text-align: justify;
+            .up {
+                font-size: 20px;
+                font-weight: 600;
+            }
+            .down {
+                padding-top: 10px;
+            }
+        }
+    }
+
+    .schedule-doctor {
+        padding-left: 100px;
+        display: flex;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        .content-left {
+            width: 57%;
+            .schedule-selected {
+                width: 180px;
+                padding-top: 10px;
+                text-transform: capitalize;
+            }
+        }
+        .content-right {
+            width: 43%;
+        }
+    }
+
+    .detail-infor-doctor {
+        padding-top: 30px;
+        padding-left: 10px;
+        background: rgb(152, 152, 232);
+        background: linear-gradient(
+            102deg,
+            rgba(152, 152, 232, 0.8631090487238979) 0%,
+            rgba(102, 150, 187, 1) 0%,
+            rgba(197, 208, 235, 1) 0%,
+            rgba(148, 188, 238, 0.9443155452436195) 50%,
+            rgba(200, 224, 237, 0.9052871148459384) 100%
+        );
+        padding: 20px 100px;
+        text-align: justify;
+        h3 {
+            font-size: 17px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+                "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        img {
+            width: 100%;
+        }
+    }
+    .comment-doctor {
+        height: 100px;
+        background: rgb(152, 152, 232);
+        background: linear-gradient(
+            102deg,
+            rgba(152, 152, 232, 0.8631090487238979) 0%,
+            rgba(102, 150, 187, 1) 0%,
+            rgba(202, 222, 226, 1) 0%,
+            rgba(114, 171, 241, 0.9443155452436195) 38%,
+            rgba(187, 214, 218, 0.9052871148459384) 56%
+        );
+        height: 200px;
+    }
+}

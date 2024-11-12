@@ -1,0 +1,364 @@
+{
+    "homeheader": {
+        "specialty": "Medical specialty",
+        "search-doctor": "Find a doctor by specialty",
+        "health-facility": "Health facility",
+        "choose-a-clinic": "Choose a clinic",
+        "doctor": "Doctor",
+        "choose-a-good-doctor": "Choose a good doctor",
+        "examination-package": "Examination package",
+        "general-health-check": "General health check",
+        "support": "Support",
+        "welcome": "Welcome, "
+    },
+    "banner": {
+        "title1": "MEDICAL FLATFORM,",
+        "title2": "COMPREHENSIVE HEALTH CARE",
+        "child1": "Specialized examination",
+        "child2": "General examination",
+        "child3": "Medical tests",
+        "child4": "Mental health",
+        "child5": "Dental examination"
+    },
+    "search": {
+        "search": "Find a medical specialist"
+    },
+    "medicalFacility": {
+        "medical": "Outstanding medical facilities",
+        "see-more": "See more"
+    },
+    "handbook": {
+        "handbook": "Handbook"
+    },
+    "menu": {
+        "home": {
+            "dashboard": "Dash board",
+            "statistical-chart": "Statistical chart"
+        },
+        "admin": {
+            "home": "Home",
+            "user": "Users system",
+            "manage-doctor": "Manage doctor information",
+            "manage-admin": "Manage admins",
+            "crud": "CRUD user",
+            "crud-redux": "Manage accounts",
+            "clinic": "Clinic",
+            "manage-clinic": "Manage clinic",
+            "manage-clinic-list": "Clinic information",
+            "specialty": "Specialties",
+            "manage-specialty": "Manage specialties",
+            "handbook": "Handbook",
+            "manage-handbook": "Manage handbook",
+            "filter": "Filter"
+        },
+        "doctor": {
+            "manage-schedule": "Manage doctor's schedule",
+            "schedule": "Schedule",
+            "patient": "Patient",
+            "manage-patient-appointment": "Manage patient appointments",
+            "manage-patient-record": "Patient record management",
+            "see-more": "See more",
+            "busy-schedule": "Register busy schedule"
+        },
+        "manage-doctor": {
+            "title": "Manage doctor details",
+            "choose-doctor": "Choose doctor",
+            "description": "Doctor referral information",
+            "content": "Doctor details",
+            "save-infor": "Save information",
+            "create-infor": "Create information",
+            "price": "Medical examination price",
+            "payment": "Payment methods",
+            "province": "Province",
+            "name-clinic": "Clinic name",
+            "address-clinic": "Clinic address",
+            "note": "Note",
+            "specialty": "Choose a specialty",
+            "clinic": "Choose a clinic"
+        },
+        "manage-statistical": {
+            "manage-statistical": "Managing reports and statistics"
+        },
+        "staff":{
+            "doctor":"Doctor",
+            "doctor-schedule": "Manage appointment schedule",
+            "patient":"Patient",
+            "patient-appointment": "Appointment management"
+        }
+    },
+    "admin": {
+        "doctor": {
+            "notification-schedule-doctor": "The doctor is not available during this time, please check back!",
+            "appointment-manage": "Manage medical appointment schedule",
+            "confirm": "Confirm",
+            "refuse": "Refuse",
+            "confirmed": "Confirmed",
+            "examining": "Examining",
+            "complete": "Complete",
+            "canceled": "Canceled",
+            "all": "All",
+            "appointment-avaiable": "No appointments available"
+        },
+        "admin": {
+            "notification-schedule": "Doctor's appointment has not been created!",
+            "edit-clinic": "Update information",
+            "create-clinic": "Create information",
+            "delete": "Delete"
+        },
+        "staff": {
+            "totalAppointment": "Total Appointments",
+            "totalRevenue": "Total Revenue",
+            "totalPatient": "Total Patients",
+            "newAppointment": "New Appointments",
+            "cancelledAppointment": "Cancelled Appointments",
+            "filter": "Filter by",
+            "week": "Week",
+            "month": "Month",
+            "year": "Year",
+            "statistics": "Statistical Chart"
+        },
+        "dashboard": {
+            "user": "Total Users",
+            "doctor": "Doctors",
+            "appointment": "Appointments",
+            "feedback": "Feedback",
+            "admin": "Admin Home"
+        }
+    },
+    "manage-specialty": {
+        "title": "Specialized management",
+        "choose-specialty": "Choose specialty",
+        "specialty-image:": "Add image",
+        "upload-image": "Upload image",
+        "specialty-detail": "Detailed specialist information"
+    },
+    "manage-clinic": {
+        "clinic-name": "Clinic name",
+        "description": "Introduction",
+        "pro-strength": "Professional strengths",
+        "equipment": "Equipment",
+        "upload-image": "Upload image",
+        "address": "Address"
+    },
+    "manage-user": {
+        "title": "Manage accounts",
+        "add": "Create account",
+        "email": "Email",
+        "password": "Password",
+        "full-name": "Full Name",
+        "first-name": "First Name ",
+        "last-name": "Last Name",
+        "phone-number": "Phone Number",
+        "address": "Address",
+        "gender": "Gender",
+        "position": "Position",
+        "role": "Role",
+        "avatar": "Avatar",
+        "actions": "Actions",
+        "image": "Upload images",
+        "save": "Create account",
+        "edit": "Edit doctors",
+        "save-change": "Save changes",
+        "close": "Close",
+        "all": "All",
+        "admin": "Admin",
+        "staff": "Staff",
+        "doctor": "Doctor"
+    },
+    "homepage": {
+        "outstanding-doctor": "Outstanding doctor last week",
+        "more-info": "See more",
+        "specialty-popular": "Popular specialties"
+    },
+    "homefooter": {
+        "medical-service": "Health services",
+        "specialized-examination": "Specialized examination",
+        "general-examination": "General examination",
+        "mental-health": "Mental health",
+        "medical-tests": "Medical tests",
+        "dental-examination": "Dental examination"
+    },
+    "manage-schedule": {
+        "title": "Manage doctor's examination plan",
+        "choose-doctor": "Choose doctor",
+        "choose-date": "Choose date",
+        "save": "Save infor",
+        "search": "View calendar",
+        "full-name": "Full Name",
+        "schedule": "Schedule",
+        "maxNumber": "Maximum number of patients",
+        "currentNumber": "Current patient population",
+        "schedule-information": "Doctor's appointment information: ",
+        "busy-schedule-title": "Manage your busy schedule",
+        "reason": "Reason busy",
+        "save-schedule": "Save appointment"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Schedule",
+            "notification": "The doctor does not have appointments scheduled during this time, please choose another time.",
+            "choose": "Choose ",
+            "book-free": " and book (free)"
+        },
+        "doctor-info": {
+            "text-address": "Address",
+            "price": "Examination price",
+            "note": "Patients can pay by method: ",
+            "detail-view": "See details",
+            "hidden-view": "Hide price list"
+        },
+        "booking-modal": {
+            "title": "Information on scheduling medical examinations",
+            "booking": "Set it for someone",
+            "firstName": "First name (Patient)",
+            "lastName": "Last name (Patient)",
+            "phoneNumber": "Phone number",
+            "email": "Email",
+            "address": "Address",
+            "reason": "Reason for medical examination",
+            "birthday": "Birthday",
+            "gender": "Gender",
+            "btnConfirm": "Confirm",
+            "btnCancel": "Cancel",
+            "priceBooking": "Examination price",
+            "scheduleBook": "Schedule a free examination",
+            "option1": "Book for yourself",
+            "option2": "Book for family",
+            "fullName": "Name of person making appointment"
+        },
+        "detail-clinic": {
+            "introduction": "Introduction",
+            "doctor": "Doctor",
+            "proStrength": "Professional strengths",
+            "equipment": "Equipment"
+        },
+        "see-more-specialty": {
+            "title": "Specialties for you"
+        },
+        "see-more-doctors": {
+            "title": "Doctor for you"
+        },
+        "doctor-search": {
+            "doctor": "Find a doctor...",
+            "specialty": "Select a specialty...",
+            "clinic": "Select medical facility...",
+            "doctor-notify": "Doctor information not found!"
+        },
+        "home-search": {
+            "search": "What information are you looking for?",
+            "doctor": "Doctor",
+            "specialty": "Specialty",
+            "medical-facility": "Medical Facility",
+            "none-doctor": "Doctor not found!",
+            "none-specialty": "No specialty found!",
+            "none-facility": "No medical facility found!"
+        },
+        "support": {
+            "fullName":"Full name:",
+            "phoneNumber":"Phone number:",
+            "reason":"Reason for medical examination:",
+            "date": "Appointment time:",
+            "status": "Status:",
+            "doctorInfo": "Doctor information",
+            "patientInfo": "Patient Information",
+            "email": "Enter your email address...",
+            "record": "Enter your record code...",   
+            "manage-schedule": "Manage medical appointment schedule",
+            "cancel": "Cancel appointment",
+            "toast": "Incorrect email or record code, please try again!"
+        }
+    },
+
+    "toast": {
+        "no-access": "You do not have permission to perform this operation.",
+        "error": "An error occurred!",
+        "missing": "Missing input parameter",
+        "phoneNumber": "Invalid phone number format. Please enter a 10-digit phone number.",
+        "email": "Invalid email format."
+    },
+
+    "notification": {
+        "ok": "OK",
+        "no": "NO",
+        "cancel":"Cancel",
+        "confirm": "Yes, Do it!",
+        "titleSuccess": "Success",
+        "titleFail": "Error",
+
+        "delete-success": {
+            "confirmTitle":"Are you sure?",
+            "confirmText": "You won't be able to revert this!",
+            "deleteTitle": "Deleted",
+            "deleteText":"Deleted successfully"
+        },
+
+        "user-create-success": {
+            "title": "Success",
+            "text": "New account added"
+        },
+        "user-create-fail": {
+            "title": "Error",
+            "text": "Cannot add new account"
+        },
+        "user-edit-success": {
+            "title": "Success",
+            "text": "Information updated"
+        },
+        "user-edit-fail": {
+            "title": "Error",
+            "text": "Unable to update account"
+        },
+        "busy-schedule": {
+            "textSuccess": "New busy schedule added successfully!",
+            "textFail": "Unable to add busy calendar, please check again!",
+            "toast": "Busy schedule already exists, please choose another time"
+        },
+        "schedule": {
+            "textSuccess": "New appointment added successfully!",
+            "textFail": "Cannot add new appointment, please check again!",
+            "toast": "Appointment already exists, please choose another time"
+        },
+        "doctor-info": {
+            "textSuccess": "Doctor information added successfully!",
+            "textFail": "Unable to add doctor information, please check again!",
+            "textUpdateSuccess":"Doctor information updated successfully!",
+            "textUpdateFail":"Unable to update doctor information, please try again!",
+            "already":"Doctor information already exists in the system, please try again!",
+            "doNotExists":"Doctor information does not exist in the system, please try again!"
+        },
+        "clinic-manage":{
+            "titleSuccess": "Added clinic information successfully!",
+            "titleFail": "Unable to add clinic information, please try again later!",
+            "titleUpdateSuccess": "Clinic information updated!",
+            "titleUpdateFail": "Clinic information could not be updated, please check again!",
+            "already-clinic":"The clinic already exists in the system."
+
+        },
+       "patient": {
+            "already-appoitment": "You have a doctor's appointment during this time!",
+            "morning": "You have a doctor's appointment this morning!",
+            "afternoon": "You have a doctor's appointment this afternoon!",
+            "error": "Unable to book an appointment, please check again!",
+            "textSuccess": "Appointment booked successfully, please check your email to confirm your appointment!",
+            "textFail": "Unable to book an appointment, please check again!",
+            "textConfirm": "Appointment confirmation successful!",
+            "textConfirmFail": "Appointment does not exist or has been confirmed!",
+            "descriptionConfirm": "Thank you for confirming your appointment.",
+            "descriptionFail": "Please try again or contact support."
+        },
+        "specialty": {
+            "textSuccess":"New specialty added successfully!",
+            "textFail":"Unable to add new specialty, please try again!",
+            "textUpdateSuccess":"Specialty update successful!",
+            "textUpdateFail":"Unable to update specialty, please try again!",
+            "already":"Specialty already exists in the system, please choose another specialty!",
+            "doNotExists":"Specialty does not exist in the system!"
+        },
+        "appointment-doctor": {
+            "textSuccess": "Confirmation successful!",
+            "textFail": "Unable to confirm, please check again!",
+            "textCancelSuccess": "Appointment canceled successfully!",
+            "textCancelFail": "Appointment cannot be cancelled, please try again!"
+        }
+    } 
+}

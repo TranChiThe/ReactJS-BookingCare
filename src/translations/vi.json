@@ -1,0 +1,363 @@
+{
+    "homeheader": {
+        "specialty": "Chuyên khoa",
+        "search-doctor": "Tìm bác sĩ theo chuyên khoa",
+        "health-facility": "Cơ sở y tế",
+        "choose-a-clinic": "Chọn bệnh viện phòng khám",
+        "doctor": "Bác sĩ",
+        "choose-a-good-doctor": "Chọn bác sĩ giỏi",
+        "examination-package": "Gói khám",
+        "general-health-check": "Khám sức khỏe tổng quát",
+        "support": "Hỗ trợ",
+        "welcome": "Xin chào, "
+    },
+    "banner": {
+        "title1": "NỀN TẢNG Y TẾ",
+        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "child1": "Khám chuyên khoa",
+        "child2": "Khám tổng quát",
+        "child3": "Xét nghiệm y học",
+        "child4": "Sức khỏe tinh thần",
+        "child5": "Khám nha khoa"
+    },
+    "search": {
+        "search": "Tìm chuyên khoa khám bệnh"
+    },
+    "medicalFacility": {
+        "medical": "Cơ sở y tế nổi bật",
+        "see-more": "Xem thêm"
+    },
+    "handbook": {
+        "handbook": "Cẩm nang"
+    },
+    "menu": {
+        "home": {
+            "dashboard": "Tổng quan",
+            "statistical-chart": "Biểu đồ thống kê"
+        },
+        "admin": {
+            "home": "Trang chủ",
+            "user": "Người dùng",
+            "manage-doctor": "Quản lý thông tin bác sĩ",
+            "manage-admin": "Quản lý admin",
+            "crud": "CRUD user",
+            "crud-redux": "Quản lý tài khoản",
+            "clinic": "Phòng khám",
+            "manage-clinic": "Quản lý phòng khám",
+            "manage-clinic-list": "Thông tin phòng khám",
+            "specialty": "Chuyên khoa",
+            "manage-specialty": "Quản lý chuyên khoa",
+            "handbook": "Bài đăng",
+            "manage-handbook": "Quản lý bài đăng",
+            "filter": "Lọc"
+        },
+        "doctor": {
+            "manage-schedule": "Quản lý kế hoạch khám bệnh",
+            "schedule": "Lịch khám",
+            "patient": "Bệnh nhân",
+            "manage-patient-appointment": "Quản lý lịch khám bệnh nhân",
+            "manage-patient-record": "Quản lý hồ sơ bệnh nhân",
+            "see-more": "Xem thêm",
+            "busy-schedule": "Đăng ký lịch bận"
+        },
+        "manage-doctor": {
+            "title": "Quản lý thông tin chi tiết bác sĩ",
+            "choose-doctor": "Chọn bác sĩ",
+            "description": "Thông tin giới thiệu bác sĩ",
+            "content": "Thông tin chi tiết bác sĩ",
+            "save-infor": "Lưu thông tin",
+            "create-infor": "Tạo thông tin",
+            "price": "Giá khám bệnh",
+            "payment": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "name-clinic": "Tên phòng khám",
+            "address-clinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú",
+            "specialty": "Chọn chuyên khoa",
+            "clinic": "Chọn phòng khám"
+        },
+        "manage-statistical": {
+            "manage-statistical": "Quản lý báo cáo và thống kê"
+        },
+        "staff":{
+            "doctor":"Bác sĩ",
+            "doctor-schedule": "Quản lý lịch khám",
+            "patient":"Bệnh nhân",
+            "patient-appointment": "Quản lý lịch hẹn"
+        }
+    },
+    "admin": {
+        "doctor": {
+            "notification-schedule-doctor": "Bác sĩ không có lịch khám trong thời gian này, vui lòng kiểm tra lại!",
+            "appointment-manage": "Quản lý lịch khám bệnh",
+            "confirm": "Xác nhận",
+            "refuse": "Từ chối",
+            "confirmed": "Đã xác nhận",
+            "examining": "Đang khám",
+            "complete": "Đã khám xong",
+            "canceled": "Đã hủy",
+            "all": "Tất cả",
+            "appointment-avaiable": "Không có cuộc hẹn nào sẵn có"
+        },
+        "admin": {
+            "notification-schedule": "Lịch khám của bác sĩ chưa được tạo!",
+            "edit-clinic": "Cập nhật thông tin",
+            "create-clinic": "Tạo thông tin",
+            "delete": "Xóa"
+        },
+        "staff": {
+            "totalAppointment": "Tổng Lịch Hẹn",
+            "totalRevenue": "Tổng Doanh Thu",
+            "totalPatient": "Tổng Bệnh Nhân",
+            "newAppointment": "Lịch Hẹn Mới",
+            "cancelledAppointment": "Lịch Hẹn Đã Hủy",
+            "filter": "Lọc theo",
+            "week": "Tuần",
+            "month": "Tháng",
+            "year": "Năm",
+            "statistics": "Biểu Đồ Thống Kê"
+        },
+        "dashboard": {
+            "user": "Tổng Người Dùng",
+            "doctor": "Bác Sĩ",
+            "appointment": "Lịch Hẹn",
+            "feedback": "Phản Hồi",
+            "admin": "Trang chủ quản trị"
+        }
+    },
+    "manage-specialty": {
+        "title": "Quản lý chuyên khoa",
+        "choose-specialty": "Chọn chuyên khoa",
+        "specialty-image:": "Thêm hình ảnh",
+        "upload-image": "Tải ảnh",
+        "specialty-detail": "Thông tin chuyên khoa chi tiết "
+    },
+    "manage-clinic": {
+        "clinic-name": "Tên phòng khám",
+        "description": "Thông tin giới thiệu",
+        "pro-strength": "Thế mạnh chuyên môn",
+        "equipment": "Trang thiết bị",
+        "upload-image": "Tải ảnh",
+        "address": "Địa chỉ"
+    },
+    "manage-user": {
+        "title": "Quản lý tài khoản",
+        "add": "Thêm mới tài khoản",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "full-name": "Họ và Tên",
+        "first-name": "Tên ",
+        "last-name": "Họ và tên đệm",
+        "phone-number": "Số điện thoại",
+        "address": "Địa chỉ",
+        "gender": "Giới tính",
+        "position": "Chức danh",
+        "role": "Vai trò",
+        "avatar": "Ảnh đại diện",
+        "actions": "Hành động",
+        "image": "Tải ảnh",
+        "save": "Thêm tài khoản",
+        "edit": "Chỉnh sửa bác sĩ",
+        "save-change": "Lưu thay đổi",
+        "close": "Thoát",
+        "all": "Tất cả",
+        "admin": "Quản trị viên",
+        "staff": "Nhân viên",
+        "doctor": "Bác sĩ"
+    },
+    "homepage": {
+        "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
+        "more-info": "Xem thêm",
+        "specialty-popular": "Chuyên khoa phổ biến"
+    },
+    "homefooter": {
+        "medical-service": "Dịch vụ y tế",
+        "specialized-examination": "Khám chuyên khoa",
+        "general-examination": "Khám tổng quát",
+        "mental-health": "Sức khỏe tinh thần",
+        "medical-tests": "Xét nghiệm y học",
+        "dental-examination": "Khám nha khoa"
+    },
+    "manage-schedule": {
+        "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
+        "choose-doctor": "Chọn bác sĩ",
+        "choose-date": "Chọn ngày",
+        "save": "Lưu thông tin",
+        "search": "Xem lịch",
+        "full-name": "Họ và tên",
+        "schedule": "Lịch khám",
+        "maxNumber": "Lượng bệnh nhân tối đa",
+        "currentNumber": "Lượng bệnh nhân hiện tại",
+        "schedule-information": "Thông tin lịch khám bác sĩ: ",
+        "busy-schedule-title": "Quản lý lịch bận",
+        "reason": "Lý do bận",
+        "save-schedule": "Lưu lịch khám"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule": "Lịch khám",
+            "notification": "Bác sĩ không có lịch khám trong thời gian này, vui lòng chọn thời gian khác.",
+            "choose": "Chọn ",
+            "book-free": " và đặt (miễn phí)"
+        },
+        "doctor-info": {
+            "text-address": "Địa chỉ",
+            "price": "Giá khám",
+            "note": "Bệnh nhân có thể thanh toán bằng phương thức: ",
+            "detail-view": "Xem chi tiết",
+            "hidden-view": "Ẩn bảng giá"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch khám bệnh",
+            "booking": "Đặt cho ai",
+            "firstName": "Tên (Bệnh nhân)",
+            "lastName": "Họ và tên đệm (Bệnh nhân)",
+            "phoneNumber": "Số điện thoại",
+            "email": "Email",
+            "address": "Địa chỉ liên hệ",
+            "reason": "Lý do khám bệnh",
+            "birthday": "Ngày sinh",
+            "gender": "Giới tính",
+            "btnConfirm": "Xác nhận",
+            "btnCancel": "Hủy",
+            "priceBooking": "Giá khám",
+            "scheduleBook": "Đặt lịch khám miễn phí",
+            "option1": "Đặt cho mình",
+            "option2": "Đặt cho người thân",
+            "fullName": "Họ tên người đặt lịch"
+        },
+        "detail-clinic": {
+            "introduction": "Giới thiệu",
+            "doctor": "Bác sĩ",
+            "proStrength": "Thế mạnh chuyên môn",
+            "equipment": "Trang thiết bị"
+        },
+        "see-more-specialty": {
+            "title": "Chuyên khoa dành cho bạn"
+        },
+        "see-more-doctors": {
+            "title": "Bác sĩ dành cho bạn"
+        },
+        "doctor-search": {
+            "doctor": "Tìm kiếm bác sĩ...",
+            "specialty": "Chọn chuyên khoa...",
+            "clinic": "Chọn cơ sở y tế...",
+            "doctor-notify": "Không tìm thấy thông tin bác sĩ!"
+        },
+        "home-search": {
+            "search": "Bạn muốn tìm kiếm thông tin gì ?",
+            "doctor": "Bác sĩ",
+            "specialty": "Chuyên khoa",
+            "medical-facility": "Cơ sở y tế",
+            "none-doctor": "Không tìm thấy bác sĩ!",
+            "none-specialty": "Không tìm thấy chuyên khoa!",
+            "none-facility": "Không tìm thấy cơ sở y tế!"
+        },
+        "support": {
+            "fullName":"Họ và tên:",
+            "phoneNumber":"Số điện thoại:",
+            "reason":"Lý do khám bệnh:",
+            "date": "Thời gian hẹn:",
+            "status": "Trạng thái:",
+            "doctorInfo": "Thông tin bác sĩ",
+            "patientInfo": "Thông tin bệnh nhân",
+            "email": "Nhập địa chỉ emai của bạn...",
+            "record": "Nhập mã hồ sơ của bạn...",
+            "manage-schedule": "Quản lý lịch khám bệnh",
+            "cancel": "Hủy lịch hẹn",
+            "toast": "Email hoặc mã hồ sơ không chính xác, hãy thử lại!"
+        }
+        
+    },
+    "toast": {
+        "no-access": "Bạn không có quyền thực hiện thao tác này.",
+        "error": "Có lỗi xãy ra!",
+        "missing": "Thiếu trường dữ liệu",
+        "phoneNumber": "Định dạng số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.",
+        "email": "Email không đúng định dạng"
+    },
+
+    "notification": {
+        "ok": "Đồng ý",
+        "no": "Không",
+        "cancel":"Hủy bỏ",
+        "confirm": "Vâng, hãy thực hiện!",
+        "titleSuccess": "Thành công",
+        "titleFail": "Thất bại",
+
+        "delete-success": {
+            "confirmTitle":"Bạn có chắc chắn?",
+            "confirmText": "Bạn sẽ không thể khôi phục lại điều này!",
+            "deleteTitle": "Đã xóa!",
+            "deleteText":"Đã xóa thành công"
+        },
+
+        "user-create-success": {
+            "title": "Thành công",
+            "text": "Đã thêm mới tài khoản"
+        },
+        "user-create-fail": {
+            "title": "Thất bại",
+            "text": "Không thể thêm mới tài khoản"
+        },
+        "user-edit-success": {
+            "title": "Thành công",
+            "text": "Đã cập nhật thông tin"
+        },
+        "user-edit-fail": {
+            "title": "Thất bại",
+            "text": "Không thể cập nhật tài khoản"
+        },
+        "busy-schedule": {
+            "textSuccess": "Thêm mới lịch bận thành công!",
+            "textFail": "Không thể thêm lịch bận, hãy kiểm tra lại!",
+            "toast": "Lịch bận đã tồn tại, hãy chọn thời gian khác"
+        },
+        "schedule": {
+            "textSuccess": "Thêm mới lịch hẹn thành công!",
+            "textFail": "Không thể thêm mới lịch hẹn, hãy kiểm tra lại!",
+            "toast": "Lịch hẹn đã tồn tại, hãy chọn thời gian khác"
+        },
+        "doctor-info": {
+            "textSuccess": "Thêm thông tin bác sĩ thành công!",
+            "textFail": "Không thể thêm thông tin bác sĩ, hãy kiểm tra lại!",
+            "textUpdateSuccess":"Cập nhật thông tin bác sĩ thành công!",
+            "textUpdateFail":"Không thể cập nhật thông tin bác sĩ, hãy thử lại!",
+            "already":"Thông tin bác sĩ đã tồn tại trong hệ thống, hãy thử lại!",
+            "doNotExists":"Thông tin bác sĩ không tồn tại trong hệ thống, hãy thử lại!"
+        },
+        "clinic-manage":{
+            "titleSuccess": "Thêm thông tin phòng khám thành công!",
+            "titleFail": "Không thể thêm thông tin phòng khám, hãy thử lại sau!",
+            "titleUpdateSuccess": "Đã cập nhật thông tin phòng khám!",
+            "titleUpdateFail": "Không thể cập nhật thông tin phòng khám, hãy kiểm tra lại!",
+            "already-clinic":"Phòng khám đã tồn tại trong hệ thống"
+        },
+        "patient": {
+            "already-appoitment": "Bạn đã có cuộc hẹn với bác sĩ trong thời gian này!",
+            "morning": "Bạn đã có cuộc hẹn với bác sĩ vào buổi sáng này!",
+            "afternoon": "Bạn đã có cuộc hẹn với bác sĩ vào buổi chiều này!",
+            "error": "Không thể đặt lịch hẹn, hãy kiểm tra lại!",
+            "textSuccess": "Đã đặt lịch hẹn thành công, hãy kiểm tra email của bạn để xác nhận lịch hẹn!",
+            "textFail": "Không thể đặt lịch hẹn, hãy kiểm tra lại!",
+            "textConfirm": "Xác nhận lịch hẹn thành công!",
+            "textConfirmFail": "Lịch hẹn không tồn tại hoặc đã được xác nhận!",
+            "descriptionConfirm": "Cảm ơn bạn đã xác nhận lịch hẹn.",
+            "descriptionFail": "Vui lòng thử lại hoặc liên hệ hỗ trợ."
+        },
+        "specialty": {
+            "textSuccess":"Thêm mới chuyên khoa thành công!",
+            "textFail":"Không thể thêm mới chuyên khoa, hãy thử lại!",
+            "textUpdateSuccess":"Cập nhật chuyên khoa thành công!",
+            "textUpdateFail":"Không thể cập nhật chuyên khoa, hãy thử lại!",
+            "already":"Chuyên khoa đã tồn tại trong hệ thống, hãy chọn chuyên khoa khác!",
+            "doNotExists":"Chuyên khoa không tồn tại trong hệ thống!"
+        },
+        "appointment-doctor": {
+            "textSuccess": "Xác nhận thành công!",
+            "textFail": "Không thể xác nhận, hãy kiểm tra lại!",
+            "textCancelSuccess": "Đã hủy lịch hẹn thành công!",
+            "textCancelFail": "Không thể hủy lịch hẹn, hãy thử lại!"
+        }
+    } 
+}

@@ -1,0 +1,208 @@
+
+@import "../styles/common.scss";
+
+// Định nghĩa các biến số
+$menu-bg-color-light: #f8f9fa;
+$menu-bg-color-light: #f8f9fa;
+$menu-text-color-light: #343a40;
+$menu-active-bg-color-light: #007bff;
+$menu-active-text-color-light: #ffffff;
+$menu-hover-bg-color-light: #e9ecef;
+
+$menu-bg-color-dark: #333;
+$menu-text-color-dark: #ffffff;
+$menu-active-bg-color-dark: #000000; // Màu nền đen khi active trong dark mode
+$menu-active-text-color-dark: #ffffff;
+$menu-hover-bg-color-dark: #444;
+
+$submenu-bg-color-light: #ffffff;
+$submenu-hover-bg-color-light: #f1f1f1;
+
+$submenu-bg-color-dark: #444;
+$submenu-hover-bg-color-dark: #555;
+
+$transition-speed: 0.3s;
+
+.navigator-menu {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    background-color: $menu-bg-color-light; // Màu nền sángsdfghdfsg
+    color: $menu-text-color-light; // Màu chữ sáng
+    background-color: #d9dadb;
+    
+    &.dark-mode {
+        background-color: $menu-bg-color-dark; // Màu nền tối
+        color: $menu-text-color-dark; // Màu chữ tối
+    }
+
+    &.list-unstyled,
+    .list-unstyled {
+        list-style-type: none;
+    }
+
+    .menu-group {
+        position: relative;
+
+        &:hover {
+            cursor: pointer;
+            background-color: darken($menu-bg-color-light, 5%);
+            color: $menu-text-color-light;
+        }
+
+        &.active {
+            background-color: red;
+        }
+
+        &.dark-mode {
+            &:hover {
+                background-color: darken($menu-bg-color-dark, 5%);
+            }
+        }
+
+        .menu-group-name {
+            line-height: 50px;
+            padding: 0 20px;
+            margin: 5px 0;
+            font-weight: 600;
+            border-left: 3px solid transparent;
+            transition: background-color $transition-speed ease-in-out;
+            font-size: 15px;
+
+            &:hover {
+                background-color: $menu-hover-bg-color-light;
+                border-left-color: $menu-active-bg-color-light;
+            }
+
+            &.dark-mode {
+                color: $menu-text-color-dark; // Màu chữ tối
+                &:hover {
+                    background-color: $menu-hover-bg-color-dark;
+                    border-left-color: $menu-active-bg-color-dark;
+                }
+            }
+            &.active {
+                background-color: red;
+            }
+
+        }
+
+        .menu-list {
+            display: none;
+            background-color: $submenu-bg-color-light;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            padding: 0;
+            z-index: 999;
+
+            &.dark-mode {
+                background-color: $submenu-bg-color-dark;
+            }
+
+            .menu {
+                width: 100%;
+                padding: 0 20px;
+                height: 45px;
+                line-height: 45px;
+                text-transform: capitalize;
+                color: $menu-text-color-light;
+                transition: background-color $transition-speed ease-in-out;
+                min-width: 250px;
+                max-width: fit-content ;
+
+
+                &.active {
+                    background-color: $menu-active-bg-color-light;
+                    a {
+                        color: $menu-active-text-color-light;
+                    }
+                }
+
+                &.dark-mode {
+                    color: $menu-text-color-dark;
+                    background-color: $menu-active-bg-color-dark; // Màu nền đen khi active
+                    a {
+                        color: $menu-active-text-color-dark;
+                    }
+                }
+
+                .menu-link {
+                    text-decoration: none;
+                    color: inherit;
+                }
+
+                &:hover {
+                    background-color: $menu-hover-bg-color-light;
+                    .sub-menu-list {
+                        display: block;
+                    }
+                }
+
+                &.dark-mode:hover {
+                    background-color: $menu-hover-bg-color-dark;
+                }
+
+                .sub-menu-list {
+                    display: none;
+                    background-color: $submenu-bg-color-light;
+                    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+                    position: absolute;
+                    top: 0;
+                    left: 205px; // Điều chỉnh vị trí nếu cần
+                    padding: 0;
+                    width: auto;
+                    min-width: 250px;
+
+                    &.dark-mode {
+                        background-color: $submenu-bg-color-dark;
+                    }
+
+                    .sub-menu {
+                        padding: 0 15px;
+                        height: 35px;
+                        line-height: 35px;
+                        white-space: nowrap;
+
+                        &:hover {
+                            background-color: $submenu-hover-bg-color-light;
+                        }
+
+                        &.dark-mode:hover {
+                            background-color: $submenu-hover-bg-color-dark;
+                        }
+
+                        .sub-menu-link {
+                            text-decoration: none;
+                            color: inherit;
+                        }
+
+                        a {
+                            display: block;
+                        }
+
+                        &.active a {
+                            font-weight: 500;
+                            color: $menu-active-bg-color-light;
+                        }
+                    }
+                }
+
+                .icon-right {
+                    position: absolute;
+                    top: 50%;
+                    right: 15px;
+                    transform: translateY(-50%);
+                }
+            }
+        }
+
+        &:hover {
+            .menu-list {
+                display: block;
+            }
+        }
+    }
+}
+
+
+
