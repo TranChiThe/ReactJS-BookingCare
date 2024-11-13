@@ -58,13 +58,16 @@ class DoctorExtraInfo extends Component {
                     <div className='content-up'>
                         <div className='address-text'><FormattedMessage id="patient.doctor-info.text-address" /></div>
                         <div className='clinic-name'>
-                            {extraInfo && extraInfo.Clinic ?
-                                extraInfo.Clinic.name : ''
-                            }
+                            {extraInfo && extraInfo.clinicTypeData && language === LANGUAGES.VI ?
+                                extraInfo.clinicTypeData.valueVi : ''}
+                            {extraInfo && extraInfo.clinicTypeData && language === LANGUAGES.EN ?
+                                extraInfo.clinicTypeData.valueEn : ''}
                         </div>
                         <div className='detail-address'>
-                            {extraInfo && extraInfo.Clinic ?
+                            {extraInfo && extraInfo.Clinic && language === LANGUAGES.VI ?
                                 extraInfo.Clinic.address : ''}
+                            {extraInfo && extraInfo.Clinic && language === LANGUAGES.EN ?
+                                extraInfo.Clinic.addressEn : ''}
                         </div>
                     </div>
                     <div className='content-down'>

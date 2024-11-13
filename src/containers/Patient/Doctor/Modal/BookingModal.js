@@ -266,7 +266,6 @@ class BookingModal extends Component {
     render() {
         let { isOpenModal, closeBookingModal, dataTime } = this.props;
         let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : ''
-        console.log('check state: ', this.state.priceAppointment)
         return (
             <>
                 {this.state.isLoading && <LoadingOverlay />}

@@ -138,6 +138,8 @@ class HomeSearch extends Component {
                             {listFilterData.dataClinic && listFilterData.dataClinic.length > 0 ? (
                                 listFilterData.dataClinic.map((clinic, index) => {
                                     let imageBase64 = '';
+                                    let clinicVi = clinic.clinicData.valueVi
+                                    let clinicEn = clinic.clinicData.valueEn;
                                     if (clinic.image) {
                                         imageBase64 = new Buffer.from(clinic.image, 'base64').toString('binary');
                                     }
@@ -149,7 +151,7 @@ class HomeSearch extends Component {
                                                 <div className='image'
                                                     style={{ backgroundImage: `url(${imageBase64})` }}
                                                 ></div>
-                                                <div>{clinic.name}</div>
+                                                <div>{language === LANGUAGES.VI ? clinicVi : clinicEn}</div>
                                             </div>
                                         </div>
                                     )

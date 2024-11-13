@@ -52,7 +52,6 @@ class DetailDoctor extends Component {
         const nameEn = detailDoctor.positionData
             ? `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`
             : '';
-
         return (
             <React.Fragment>
                 <HomeHeader isShowBanner={false} />
@@ -67,8 +66,11 @@ class DetailDoctor extends Component {
                                 {language === LANGUAGES.VI ? nameVi : nameEn}
                             </div>
                             <div className='down'>
-                                {detailDoctor.MarkDown?.description && (
-                                    <span>{detailDoctor.MarkDown.description}</span>
+                                {detailDoctor.Doctor_Infor?.description && (
+                                    <span>{language === LANGUAGES.VI ?
+                                        detailDoctor.Doctor_Infor.description :
+                                        detailDoctor.Doctor_Infor.descriptionEn}
+                                    </span>
                                 )}
                             </div>
                         </div>
@@ -82,10 +84,15 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                     <div className='detail-infor-doctor'>
-                        {detailDoctor.MarkDown?.contentHTML && (
-                            <div dangerouslySetInnerHTML={{ __html: detailDoctor.MarkDown.contentHTML }} />
-                        )}
+                        {language === LANGUAGES.VI
+                            ? detailDoctor.Doctor_Infor?.contentHTML && (
+                                <div dangerouslySetInnerHTML={{ __html: detailDoctor.Doctor_Infor.contentHTML }} />
+                            )
+                            : detailDoctor.Doctor_Infor?.contentHTMLEn && (
+                                <div dangerouslySetInnerHTML={{ __html: detailDoctor.Doctor_Infor.contentHTMLEn }} />
+                            )}
                     </div>
+
                     {/* <div className='comment-doctor'>
                         <Comment />
                     </div> */}

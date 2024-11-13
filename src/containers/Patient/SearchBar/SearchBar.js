@@ -39,9 +39,9 @@ class SearchBar extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
-            let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfo;
+            let { resSpecialty, alreadyClinic } = this.props.allRequiredDoctorInfo;
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, "SPECIALTY");
-            const dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
+            const dataSelectClinic = this.buildDataInputSelect(alreadyClinic, "CLINIC");
             this.setState({
                 listSpecialty: dataSelectSpecialty,
                 listClinic: dataSelectClinic,
@@ -49,9 +49,9 @@ class SearchBar extends Component {
         }
 
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
-            let { resClinic, resSpecialty } = this.props.allRequiredDoctorInfo;
+            let { alreadyClinic, resSpecialty } = this.props.allRequiredDoctorInfo;
             const dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, "SPECIALTY");
-            const dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
+            const dataSelectClinic = this.buildDataInputSelect(alreadyClinic, "CLINIC");
             if (
                 dataSelectSpecialty !== this.state.listSpecialty ||
                 dataSelectClinic !== this.state.listClinic
@@ -211,12 +211,12 @@ class SearchBar extends Component {
             if (type === "CLINIC") {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.name}`;
-                    let labelEn = `${item.nameEn}`;
-                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
-                    object.value = item.id;
+                    let labelVi = `${item.clinicData?.valueVi}`
+                    let labelEn = `${item.clinicData?.valueEn}`
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.name;
                     result.push(object);
-                });
+                })
             }
         }
         return result;

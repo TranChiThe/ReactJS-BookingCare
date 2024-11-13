@@ -151,8 +151,8 @@ const getAllClinic = () => {
     return axios.get(`/api/get-all-clinic`)
 }
 
-const getAllDetailClinicById = (data) => {
-    return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`)
+const getAllDetailClinicById = (name) => {
+    return axios.get(`/api/get-detail-clinic-by-id?name=${name}`)
 }
 
 const getAllDoctorSeeMore = () => {
@@ -187,8 +187,8 @@ const getScheduleDoctorForWeek = (doctorId, weekNumber) => {
     return axios.get(`/api/get-schedule-for-week?doctorId=${doctorId}&weekNumber=${weekNumber}`)
 }
 
-const clinicDelete = (clinicId) => {
-    return axios.delete(`/api/clinic-delete?clinicId=${clinicId}`)
+const clinicDelete = (name) => {
+    return axios.delete(`/api/clinic-delete?name=${name}`)
 }
 
 const getPatientAppointment = (doctorId, statusId, date, searchTerm, page = 1, limit = 5) => {

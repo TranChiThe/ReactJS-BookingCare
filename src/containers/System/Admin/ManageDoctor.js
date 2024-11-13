@@ -66,12 +66,12 @@ class ManageDoctor extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
-            let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
+            let { resPrice, resPayment, resProvince, resSpecialty, alreadyClinic } = this.props.allRequiredDoctorInfo
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
+            let dataSelectClinic = this.buildDataInputSelect(alreadyClinic, 'CLINIC')
 
             this.setState({
                 arrDoctor: dataSelect,
@@ -85,12 +85,12 @@ class ManageDoctor extends Component {
 
         }
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
-            let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
+            let { resPrice, resPayment, resProvince, resSpecialty, alreadyClinic } = this.props.allRequiredDoctorInfo
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
+            let dataSelectClinic = this.buildDataInputSelect(alreadyClinic, 'CLINIC')
 
             this.setState({
                 listPrice: dataSelectPrice,
@@ -163,7 +163,11 @@ class ManageDoctor extends Component {
             note: this.state.note,
             noteEn: this.state.noteEn
         })
-        if (res && res.errCode === 0) {
+        if (selectedOptions?.value === '') {
+            toast.error(<FormattedMessage id='notification.doctor-info.selectedDoctor' />)
+            return;
+        }
+        else if (res && res.errCode === 0) {
             Swal.fire(SwalConfig.successNotification('notification.doctor-info.textSuccess'))
             this.handleSetState();
         }
@@ -184,44 +188,45 @@ class ManageDoctor extends Component {
     handleUpdateDoctorInfo = async () => {
         let SwalConfig = createSwalConfig(this.props.intl)
         let selectedOptions = this.state;
-        if (selectedOptions?.value === '') {
-            toast.error(<FormattedMessage id='notification.doctor-info.selectedDoctor' />)
-            return;
-        }
         let result = await Swal.fire(SwalConfig.confirmDialog())
         if (result.isConfirmed) {
-            let res = await updateDetailDoctorService({
-                language: this.props.language,
-                contentHTML: this.state.contentHTML,
-                contentMarkDown: this.state.contentMarkDown,
-                description: this.state.description,
-                contentHTMLEn: this.state.contentHTMLEn,
-                contentMarkDownEn: this.state.contentMarkDownEn,
-                descriptionEn: this.state.descriptionEn,
-                doctorId: this.state.selectedOptions.value,
-                clinicId: this.state.selectedClinic.value,
-                specialtyId: this.state.selectedSpecialty.value,
-                selectedPrice: this.state.selectedPrice.value,
-                selectedPayment: this.state.selectedPayment.value,
-                selectedProvince: this.state.selectedProvince.value,
-                selectedSpecialty: this.state.selectedSpecialty.value,
-                selectedClinic: this.state.selectedClinic.value,
-                note: this.state.note,
-                noteEn: this.state.nameEn
-            })
-            if (res && res.errCode === 0) {
-                Swal.fire(SwalConfig.successNotification('notification.doctor-info.textUpdateSuccess'))
-                this.handleSetState();
+            if (!selectedOptions) {
+                toast.error(<FormattedMessage id='notification.doctor-info.selectedDoctor' />)
+            } else {
+                let res = await updateDetailDoctorService({
+                    language: this.props.language,
+                    contentHTML: this.state.contentHTML,
+                    contentMarkDown: this.state.contentMarkDown,
+                    description: this.state.description,
+                    contentHTMLEn: this.state.contentHTMLEn,
+                    contentMarkDownEn: this.state.contentMarkDownEn,
+                    descriptionEn: this.state.descriptionEn,
+                    doctorId: this.state.selectedOptions.value,
+                    clinicId: this.state.selectedClinic.value,
+                    specialtyId: this.state.selectedSpecialty.value,
+                    selectedPrice: this.state.selectedPrice.value,
+                    selectedPayment: this.state.selectedPayment.value,
+                    selectedProvince: this.state.selectedProvince.value,
+                    selectedSpecialty: this.state.selectedSpecialty.value,
+                    selectedClinic: this.state.selectedClinic.value,
+                    note: this.state.note,
+                    noteEn: this.state.nameEn
+                })
+                if (res && res.errCode === 0) {
+                    Swal.fire(SwalConfig.successNotification('notification.doctor-info.textUpdateSuccess'))
+                    this.handleSetState();
+                }
+                else if (res && res.errCode === 1) {
+                    toast.error(<FormattedMessage id='toast.missing' />)
+                }
+                else if (res && res.errCode === 2) {
+                    toast.error(<FormattedMessage id='notification.doctor-info.doNotExists' />)
+                }
+                else {
+                    Swal.fire(SwalConfig.errorNotification('notification.doctor-info.textUpdateFail'))
+                }
             }
-            else if (res && res.errCode === 1) {
-                toast.error(<FormattedMessage id='toast.missing' />)
-            }
-            else if (res && res.errCode === 2) {
-                toast.error(<FormattedMessage id='notification.doctor-info.doNotExists' />)
-            }
-            else {
-                Swal.fire(SwalConfig.errorNotification('notification.doctor-info.textUpdateFail'))
-            }
+
         }
     }
 
@@ -401,11 +406,10 @@ class ManageDoctor extends Component {
             if (type === "CLINIC") {
                 inputData.map((item, index) => {
                     let object = {};
-                    object.label = item.name
-                    let labelVi = `${item.name}`
-                    let labelEn = `${item.nameEn}`
+                    let labelVi = `${item.clinicData?.valueVi}`
+                    let labelEn = `${item.clinicData?.valueEn}`
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn
-                    object.value = item.id;
+                    object.value = item.name;
                     result.push(object);
                 })
             }
@@ -417,6 +421,7 @@ class ManageDoctor extends Component {
         this.setState({
             isUpdate: !this.state.isUpdate,
         })
+        this.handleSetState()
     }
 
     handleFilterButton = async () => {

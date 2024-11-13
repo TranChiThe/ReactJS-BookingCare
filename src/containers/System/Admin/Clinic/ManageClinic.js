@@ -11,12 +11,12 @@ import { getAllClinic, getAllDetailClinicById, updateClinicInformation, createNe
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig.js';
+import * as actions from '../../../../store/actions'
 import './ManageClinic.scss'
 
 const mdParser = new MarkdownIt();
 
 class ManageClinicInfo extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -43,26 +43,43 @@ class ManageClinicInfo extends Component {
     }
 
     async componentDidMount() {
-        this.getAllClinic();
+        this.props.getAllRequiredDoctorInfo();
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
-
+            this.fetAllClinicInfo()
+            this.handleSetState()
         }
-        if (prevState.isUpdate !== this.state.isUpdate) {
-            this.getAllClinic();
+        if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
+            this.fetAllClinicInfo()
         }
     }
 
-    getAllClinic = async () => {
-        let res = await getAllClinic();
-        if (res && res.errCode === 0) {
-            let arrClinic = this.buildDataInputSelect(res.data)
-            this.setState({
-                arrClinic: arrClinic
-            })
+    fetAllClinicInfo = () => {
+        let { resClinic } = this.props.allRequiredDoctorInfo
+        let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
+        this.setState({
+            listClinic: dataSelectClinic,
+        })
+    }
+
+    buildDataInputSelect = (inputData, type) => {
+        let result = [];
+        let { language } = this.props;
+        if (inputData && inputData.length > 0) {
+            if (type === "CLINIC") {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.valueVi}`
+                    let labelEn = `${item.valueEn}`
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.keyMap;
+                    result.push(object);
+                })
+            }
         }
+        return result;
     }
 
     handleOnchangeInput = (event, id) => {
@@ -110,8 +127,7 @@ class ManageClinicInfo extends Component {
         }
         let data = await createNewClinic({
             language: this.props.language,
-            id: this.state.selectedClinic ? this.state.selectedClinic.value : '',
-            name: this.state.name,
+            name: this.state.selectedClinic ? this.state.selectedClinic.value : '',
             image: this.state.imageBase64,
             address: this.state.address,
             introductionHTML: this.state.introductionHTML,
@@ -132,7 +148,6 @@ class ManageClinicInfo extends Component {
         });
         if (data && data.errCode === 0) {
             Swal.fire(SwalConfig.successNotification('notification.clinic-manage.titleSuccess'))
-            this.getAllClinic()
             this.handleSetState()
         }
         else if (data && data.errCode === 1) {
@@ -159,8 +174,7 @@ class ManageClinicInfo extends Component {
         if (result.isConfirmed) {
             let data = await updateClinicInformation({
                 language: this.props.language,
-                id: this.state.selectedClinic ? this.state.selectedClinic.value : '',
-                name: this.state.name,
+                name: this.state.selectedClinic ? this.state.selectedClinic.value : '',
                 image: this.state.imageBase64,
                 address: this.state.address,
                 introductionHTML: this.state.introductionHTML,
@@ -179,10 +193,8 @@ class ManageClinicInfo extends Component {
                 equipmentHTMLEn: this.state.equipmentHTMLEn,
                 equipmentMarkdownEn: this.state.equipmentMarkdownEn,
             });
-            this.getAllClinic()
             if (data && data.errCode === 0) {
                 Swal.fire(SwalConfig.successNotification('notification.clinic-manage.titleUpdateSuccess'))
-                this.getAllClinic()
                 this.handleSetState()
                 this.setState({
                     previewImgURL: ''
@@ -209,9 +221,7 @@ class ManageClinicInfo extends Component {
             let res = await clinicDelete(selectedClinic?.value)
             if (res && res.errCode === 0) {
                 Swal.fire(SwalConfig.successNotification('notification.clinic-manage.titleUpdateSuccess'))
-                this.getAllClinic();
                 this.setState({
-                    selectedClinic: '',
                     name: '',
                     address: '',
                     imageBase64: '',
@@ -233,9 +243,7 @@ class ManageClinicInfo extends Component {
     handleChangeSelect = async (selectedClinic) => {
         this.setState({ selectedClinic })
         let { language } = this.props;
-        let response = await getAllDetailClinicById({
-            id: selectedClinic.value,
-        });
+        let response = await getAllDetailClinicById(selectedClinic?.value);
         if (response && response.data && response.data.image) {
             if (language === LANGUAGES.VI) {
                 this.setState({
@@ -258,7 +266,6 @@ class ManageClinicInfo extends Component {
                 })
             } else if (language === LANGUAGES.EN) {
                 this.setState({
-                    nameEn: response.data.nameEn,
                     addressEn: response.data.addressEn,
                     introductionHTMLEn: response.data.introductionHTMLEn,
                     introductionMarkdownEn: response.data.introductionMarkdownEn,
@@ -278,21 +285,10 @@ class ManageClinicInfo extends Component {
             }
 
         } else {
-            this.handleSetState()
-        }
-    }
-
-    buildDataInputSelect = (inputData) => {
-        let result = [];
-        if (inputData && inputData.length > 0) {
-            inputData.map((item, index) => {
-                let object = {};
-                object.label = item.name
-                object.value = item.id;
-                result.push(object);
+            this.setState({
+                // imageBase64: ''
             })
         }
-        return result;
     }
 
     handelUpdateButton = () => {
@@ -326,10 +322,8 @@ class ManageClinicInfo extends Component {
         })
     }
 
-
-
     render() {
-        let { arrClinic, selectedClinic, isUpdate } = this.state;
+        let { listClinic, selectedClinic, isUpdate } = this.state;
         let { language } = this.props;
         console.log('check state: ', this.state)
         return (
@@ -354,25 +348,15 @@ class ManageClinicInfo extends Component {
                                 </button>
                             }
                         </div>
-
-                        <div className='col-4 form-group'>
-                            <div className={`selected-clinic ${(language === LANGUAGES.EN || isUpdate) ? '' : 'disabled'}`}>
-                                <Select
-                                    placeholder={<FormattedMessage id="manage-clinic.clinic-name" />}
-                                    value={selectedClinic}
-                                    onChange={this.handleChangeSelect}
-                                    options={arrClinic}
-                                />
-                            </div>
-                        </div>
                     </div>
                     <div className='add-new-clinic row'>
                         <div className='col-4 form-group'>
                             <label><FormattedMessage id="manage-clinic.clinic-name" /></label>
-                            <input className='form-control' type='text'
-                                value={language === LANGUAGES.VI ? this.state.name : this.state.nameEn}
-                                onChange={(event) => this.handleOnchangeInput(event, 'name')}
-                                placeholder={this.props.intl.formatMessage({ id: 'manage-clinic.clinic-name' })}
+                            <Select
+                                placeholder={<FormattedMessage id="manage-clinic.clinic-name" />}
+                                value={selectedClinic}
+                                onChange={this.handleChangeSelect}
+                                options={listClinic}
                             />
                         </div>
                         <div className='col-4'>
@@ -461,12 +445,13 @@ class ManageClinicInfo extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getAllRequiredDoctorInfo: () => dispatch(actions.fetchAllRequiredDoctorStart()),
     };
 };
 

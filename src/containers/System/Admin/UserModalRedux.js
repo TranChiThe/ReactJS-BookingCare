@@ -27,9 +27,9 @@ class UserModalRedux extends Component {
             lastName: '',
             phoneNumber: '',
             address: '',
-            gender: '',
-            position: '',
-            role: '',
+            gender: 'M',
+            position: 'P0',
+            role: 'R1',
             avatar: '',
             arrCheck: {
                 email: 'Email',

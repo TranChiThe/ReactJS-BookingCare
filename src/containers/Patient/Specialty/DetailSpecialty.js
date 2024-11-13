@@ -101,14 +101,19 @@ class DetailSpecialty extends Component {
     render() {
         let { arrDoctorId, dataDetailSpecialty, listProvince } = this.state;
         let { language } = this.props;
+        console.log('check state: ', this.state)
         return (
             <div className='detail-specialty-container'>
                 <HomeHeader />
                 <div className='detail-specialty-body'>
                     <div className='description-specialty'>
-                        {dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) &&
-                            <div dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}></div>
-
+                        {language === LANGUAGES.VI
+                            ? dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                                <div dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTML }}></div>
+                            )
+                            : dataDetailSpecialty && !_.isEmpty(dataDetailSpecialty) && (
+                                <div dangerouslySetInnerHTML={{ __html: dataDetailSpecialty.descriptionHTMLEn }}></div>
+                            )
                         }
                     </div>
                     <div className='search-doctor-specialty'>

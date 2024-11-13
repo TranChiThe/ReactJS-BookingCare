@@ -43,6 +43,7 @@ class ManageSpecialty extends Component {
                 selectedSpecialty: '',
                 previewImgURL: ''
             })
+            this.handleSetState()
             // if (this.state.selectedSpecialty) {
             //     this.handleChangeSelectSpecialty(this.state.selectedSpecialty)
             // }
@@ -252,6 +253,7 @@ class ManageSpecialty extends Component {
         this.setState({
             isUpdate: !this.state.isUpdate,
         })
+        this.handleSetState()
     }
 
     render() {

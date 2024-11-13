@@ -1,7 +1,7 @@
 .specialty-container-search {
     padding: 20px 100px;
     // background: linear-gradient(102deg, rgba(152,152,232,0.8631090487238979) 0%, rgba(65,151,217,1) 0%, rgba(197,208,235,1) 0%, rgba(207,223,242,0.9443155452436195) 50%, rgba(220,236,245,0.9052871148459384) 100%);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     .specialty-header {
         font-size: 18px;
         font-weight: 200;
@@ -9,7 +9,7 @@
         i {
             padding-bottom: 8px;
             font-size: 20px;
-            color: blue;       
+            color: blue;
         }
     }
     .specialty-body {
@@ -28,11 +28,10 @@
                     background-size: cover;
                     border-radius: 10px;
                 }
-                
             }
             .content-right {
                 width: 80%;
-                padding-left: 60px;
+                margin-left: 90px;
                 padding-top: 0px;
                 font-size: 20px;
                 &:hover {
@@ -42,12 +41,11 @@
                 .clinic-info {
                     font-size: 15px;
                 }
-                .doctor-info{
+                .doctor-info {
                     display: inline-block;
                     padding: 0 5px;
                 }
             }
-            
         }
     }
     .doctor-notification {
@@ -56,6 +54,6 @@
         font-size: 18px;
         text-align: center;
         text-transform: uppercase;
-        font-family: 'Times New Roman', Times, serif;
+        font-family: "Times New Roman", Times, serif;
     }
 }

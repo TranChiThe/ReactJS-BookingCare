@@ -60,9 +60,9 @@ class ManageSchedule extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
-            let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
+            let { resSpecialty, alreadyClinic } = this.props.allRequiredDoctorInfo
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
+            let dataSelectClinic = this.buildDataInputSelect(alreadyClinic, 'CLINIC')
 
             this.setState({
                 arrDoctor: dataSelect,
@@ -71,9 +71,9 @@ class ManageSchedule extends Component {
             })
         }
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
-            let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
+            let { resSpecialty, alreadyClinic } = this.props.allRequiredDoctorInfo
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
-            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
+            let dataSelectClinic = this.buildDataInputSelect(alreadyClinic, 'CLINIC')
 
             this.setState({
                 listSpecialty: dataSelectSpecialty,
@@ -183,10 +183,10 @@ class ManageSchedule extends Component {
             if (type === "CLINIC") {
                 inputData.map((item, index) => {
                     let object = {};
-                    let labelVi = `${item.name}`
-                    let labelEn = `${item.nameEn}`
+                    let labelVi = `${item.clinicData?.valueVi}`
+                    let labelEn = `${item.clinicData?.valueEn}`
                     object.label = language === LANGUAGES.VI ? labelVi : labelEn
-                    object.value = item.id;
+                    object.value = item.name;
                     result.push(object);
                 })
             }

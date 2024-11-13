@@ -28,7 +28,7 @@ class UserRedux extends Component {
             isOpenModalEdit: false,
             action: '',
             currentPage: 1,
-            limlit: 10,
+            limit: 10,
             totalPages: 1,
             selectedRole: { value: '', label: <FormattedMessage id="manage-user.all" defaultMessage="All" /> }
         }
@@ -186,7 +186,8 @@ class UserRedux extends Component {
 
                                                 return (
                                                     <tr className="" key={index}>
-                                                        <td>{index + 1}</td>
+                                                        {/* <td>{index + 1}</td> */}
+                                                        <td>{index + 1 + (this.state.currentPage - 1) * this.state.limit}</td>
                                                         <td>{item.email}</td>
                                                         <td>{this.props.language === LANGUAGES.VI ? positionVi : positionEn}</td>
                                                         <td>{this.props.language === LANGUAGES.VI ? nameVi : nameEn}</td>

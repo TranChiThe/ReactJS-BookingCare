@@ -93,9 +93,9 @@ class ProfileDoctor extends Component {
                         <div className='down'>
                             {isShowDescriptionDoctor === true ?
                                 <>
-                                    {dataProfile.MarkDown && dataProfile.MarkDown.description &&
+                                    {dataProfile.Doctor_Infor &&
                                         <span>
-                                            {dataProfile.MarkDown.description}
+                                            {language === LANGUAGES.VI ? dataProfile.Doctor_Infor?.description : dataProfile.Doctor_Infor?.descriptionEn}
                                         </span>
                                     }
                                 </>

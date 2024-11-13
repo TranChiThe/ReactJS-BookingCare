@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import { FormattedMessage } from 'react-intl';
 import { getAllClinic } from '../../../services/userService';
 import { withRouter } from 'react-router';
+import { LANGUAGES } from '../../../utils'
 import './MedicalFacility.scss'
 
 
@@ -31,12 +32,13 @@ class MedicalFacility extends Component {
 
     handleViewDetailClinic = (clinic) => {
         if (this.props.history) {
-            this.props.history.push(`/detail-clinic/${clinic.id}`)
+            this.props.history.push(`/detail-clinic/${clinic.name}`)
         }
     }
 
     render() {
         let { dataClinics } = this.state;
+        let { language } = this.props;
         return (
             <div className='section-section section-medical-facility'>
                 <div className='section-container'>
@@ -58,7 +60,7 @@ class MedicalFacility extends Component {
                                                     style={{ backgroundImage: `url(${item.image})` }}
                                                 >
                                                 </div>
-                                                <div className='clinic-name'>{item.name}</div>
+                                                <div className='clinic-name'>{language === LANGUAGES.VI ? item.clinicData?.valueVi : item.clinicData?.valueEn}</div>
                                             </div>
                                         </div>
                                     )
@@ -77,7 +79,8 @@ class MedicalFacility extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language
     };
 };
 
