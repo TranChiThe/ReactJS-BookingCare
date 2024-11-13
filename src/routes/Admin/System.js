@@ -9,6 +9,7 @@ import ManageClinic from '../../containers/System/Admin/Clinic/ManageClinic';
 import ManageClinicInfo from '../../containers/System/Admin/Clinic/ManageClinicInfo';
 import StatisticalChart from '../../containers/System/Admin/Home/Char/StatisticalChart'
 import AdminDashboard from '../../containers/System/Admin/Home/DashBoard/AdminDashboard'
+import ManageSystemCode from '../../containers/System/Admin/SystemCode/ManageSystemCode'
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn, roleId } = this.props;
@@ -21,6 +22,7 @@ class System extends Component {
                             <Switch>
                                 <Route path="/system/overview" component={AdminDashboard} />
                                 <Route path="/system/statistical-chart" component={StatisticalChart} />
+                                <Route path="/system/system-code" component={ManageSystemCode} />
                                 <Route path="/system/manage-user" component={UserRedux} />
                                 <Route path="/system/manage-doctor" component={ManageDoctor} />
                                 <Route path="/system/manage-specialty" component={ManageSpecialty} />

@@ -27,6 +27,9 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOptions: '',
             description: '',
+            contentMarkDownEn: '',
+            contentHTMLEn: '',
+            descriptionEn: '',
             arrDoctor: [],
             // save info doctor table
             listPrice: [],
@@ -40,6 +43,7 @@ class ManageDoctor extends Component {
             selectedClinic: '',
             selectedSpecialty: '',
             note: '',
+            noteEn: '',
             clinicId: '',
             specialtyId: '',
             isUpdate: false,
@@ -62,11 +66,12 @@ class ManageDoctor extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
-            let { resPrice, resPayment, resProvince, resSpecialty } = this.props.allRequiredDoctorInfo
+            let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
             let dataSelectPrice = this.buildDataInputSelect(resPrice, 'PRICE')
             let dataSelectPayment = this.buildDataInputSelect(resPayment, 'PAYMENT')
             let dataSelectProvince = this.buildDataInputSelect(resProvince, 'PROVINCE')
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
+            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
 
             this.setState({
                 arrDoctor: dataSelect,
@@ -74,7 +79,10 @@ class ManageDoctor extends Component {
                 listPayment: dataSelectPayment,
                 listProvince: dataSelectProvince,
                 listSpecialty: dataSelectSpecialty,
+                listClinic: dataSelectClinic,
             })
+            this.handleSetState()
+
         }
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
             let { resPrice, resPayment, resProvince, resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
@@ -95,10 +103,19 @@ class ManageDoctor extends Component {
     }
 
     handleEditorChange = ({ html, text }) => {
-        this.setState({
-            contentMarkDown: text,
-            contentHTML: html,
-        })
+        let { language } = this.props;
+        if (language === LANGUAGES.VI) {
+            this.setState({
+                contentMarkDown: text,
+                contentHTML: html,
+            })
+        } else if (language === LANGUAGES.EN) {
+            this.setState({
+                contentMarkDownEn: text,
+                contentHTMLEn: html,
+            })
+        }
+
     }
 
     handleSetState = () => {
@@ -113,15 +130,28 @@ class ManageDoctor extends Component {
             selectedSpecialty: '',
             selectedClinic: '',
             note: '',
+            ontentMarkDownEn: '',
+            contentHTMLEn: '',
+            descriptionEn: '',
+            noteEn: ''
         })
     }
 
     handleSaveDoctorInfo = async () => {
         let SwalConfig = createSwalConfig(this.props.intl)
+        let { selectedOptions } = this.state;
+        if (!selectedOptions?.value) {
+            toast.error(<FormattedMessage id='notification.doctor-info.selectedDoctor' />)
+            return;
+        }
         let res = await saveDetailDoctorService({
+            language: this.props.language,
             contentHTML: this.state.contentHTML,
             contentMarkDown: this.state.contentMarkDown,
             description: this.state.description,
+            contentHTMLEn: this.state.contentHTMLEn,
+            contentMarkDownEn: this.state.contentMarkDownEn,
+            descriptionEn: this.state.descriptionEn,
             doctorId: this.state.selectedOptions.value,
             clinicId: this.state.selectedClinic.value,
             specialtyId: this.state.selectedSpecialty.value,
@@ -131,27 +161,43 @@ class ManageDoctor extends Component {
             selectedSpecialty: this.state.selectedSpecialty.value,
             selectedClinic: this.state.selectedClinic.value,
             note: this.state.note,
+            noteEn: this.state.noteEn
         })
         if (res && res.errCode === 0) {
             Swal.fire(SwalConfig.successNotification('notification.doctor-info.textSuccess'))
             this.handleSetState();
-        } else if (res && res.errCode === 1) {
+        }
+        else if (res && res.errCode === 1) {
             toast.error(<FormattedMessage id='toast.missing' />)
-        } else if (res && res.errCode === 2) {
+        }
+        else if (res && res.errCode === 2) {
             toast.error(<FormattedMessage id='notification.doctor-info.already' />)
-        } else {
+        }
+        else if (res && res.errCode === 3) {
+            toast.error(<FormattedMessage id='toast.viUpdate' />)
+        }
+        else {
             Swal.fire(SwalConfig.errorNotification('notification.doctor-info.textFail'))
         }
     }
 
     handleUpdateDoctorInfo = async () => {
         let SwalConfig = createSwalConfig(this.props.intl)
+        let selectedOptions = this.state;
+        if (selectedOptions?.value === '') {
+            toast.error(<FormattedMessage id='notification.doctor-info.selectedDoctor' />)
+            return;
+        }
         let result = await Swal.fire(SwalConfig.confirmDialog())
         if (result.isConfirmed) {
             let res = await updateDetailDoctorService({
+                language: this.props.language,
                 contentHTML: this.state.contentHTML,
                 contentMarkDown: this.state.contentMarkDown,
                 description: this.state.description,
+                contentHTMLEn: this.state.contentHTMLEn,
+                contentMarkDownEn: this.state.contentMarkDownEn,
+                descriptionEn: this.state.descriptionEn,
                 doctorId: this.state.selectedOptions.value,
                 clinicId: this.state.selectedClinic.value,
                 specialtyId: this.state.selectedSpecialty.value,
@@ -161,15 +207,19 @@ class ManageDoctor extends Component {
                 selectedSpecialty: this.state.selectedSpecialty.value,
                 selectedClinic: this.state.selectedClinic.value,
                 note: this.state.note,
+                noteEn: this.state.nameEn
             })
             if (res && res.errCode === 0) {
                 Swal.fire(SwalConfig.successNotification('notification.doctor-info.textUpdateSuccess'))
                 this.handleSetState();
-            } else if (res && res.errCode === 1) {
+            }
+            else if (res && res.errCode === 1) {
                 toast.error(<FormattedMessage id='toast.missing' />)
-            } else if (res && res.errCode === 2) {
+            }
+            else if (res && res.errCode === 2) {
                 toast.error(<FormattedMessage id='notification.doctor-info.doNotExists' />)
-            } else {
+            }
+            else {
                 Swal.fire(SwalConfig.errorNotification('notification.doctor-info.textUpdateFail'))
             }
         }
@@ -183,28 +233,30 @@ class ManageDoctor extends Component {
             if (res && res.errCode === 0) {
                 Swal.fire(SwalConfig.successNotification('notification.doctor-info.textUpdateSuccess'))
                 this.handleSetState();
-            } else if (res && res.errCode === 1) {
+            }
+            else if (res && res.errCode === 1) {
                 toast.error(<FormattedMessage id='toast.missing' />)
-            } else if (res && res.errCode === 2) {
+            }
+            else if (res && res.errCode === 2) {
                 toast.error(<FormattedMessage id='notification.doctor-info.doNotExists' />)
-            } else {
+            }
+            else {
                 Swal.fire(SwalConfig.errorNotification('notification.doctor-info.textUpdateFail'))
             }
         }
     }
 
     handleChangeSelect = async (selectedOptions) => {
+        let { language } = this.props;
         this.setState({ selectedOptions });
         let { listPrice, listPayment, listProvince, listSpecialty, listClinic } = this.state;
         let response = await getDetailInForDoctor(selectedOptions.value);
-        if (response && response.data && response.data.MarkDown) {
-            let markdown = response.data.MarkDown;
+        if (response && response.data) {
             let note = '',
                 priceId = '', paymentId = '', provinceId = '', specialtyId, clinicId,
                 selectedPrice = '', selectedPayment = '', selectedProvince = '',
                 selectedSpecialty = '', selectedClinic = '';
             if (response.data.Doctor_Infor) {
-                note = response.data.Doctor_Infor.note;
                 // get id value
                 priceId = response.data.Doctor_Infor.priceId;
                 paymentId = response.data.Doctor_Infor.paymentId;
@@ -231,28 +283,29 @@ class ManageDoctor extends Component {
 
             }
             this.setState({
-                contentHTML: markdown.contentHTML,
-                contentMarkDown: markdown.contentMarkDown,
-                description: markdown.description,
-                note: note,
                 selectedPrice: selectedPrice,
                 selectedPayment: selectedPayment,
                 selectedProvince: selectedProvince,
                 selectedSpecialty: selectedSpecialty,
                 selectedClinic: selectedClinic,
             })
+            if (language === LANGUAGES.VI) {
+                this.setState({
+                    contentHTML: response.data.Doctor_Infor?.contentHTML || '',
+                    contentMarkDown: response.data.Doctor_Infor?.contentMarkDown || '',
+                    description: response.data.Doctor_Infor?.description || '',
+                    note: response.data.Doctor_Infor?.note || '',
+                })
+            } else if (language === LANGUAGES.EN) {
+                this.setState({
+                    contentHTMLEn: response.data.Doctor_Infor?.contentHTMLEn || '',
+                    contentMarkDownEn: response.data.Doctor_Infor?.contentMarkDownEn || '',
+                    descriptionEn: response.data.Doctor_Infor?.descriptionEn || '',
+                    noteEn: response.data.Doctor_Infor?.noteEn || '',
+                })
+            }
         } else {
-            this.setState({
-                contentHTML: '',
-                contentMarkDown: '',
-                description: '',
-                note: '',
-                selectedPrice: '',
-                selectedPayment: '',
-                selectedProvince: '',
-                selectedSpecialty: '',
-                selectedClinic: '',
-            })
+            this.handleSetState()
         }
     };
 
@@ -266,17 +319,25 @@ class ManageDoctor extends Component {
         this.setState({
             ...stateCopy,
         }, async () => {
-            await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+            if (this.state.isUpdate) {
+                // await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+                this.handleFilterButton()
+            }
         })
 
     }
 
     handleOnchangeText = (event, id) => {
-        let stateCopy = { ...this.state }
-        stateCopy[id] = event.target.value
+        const { language } = this.props;
+        let stateCopy = { ...this.state };
+        if (language === LANGUAGES.VI) {
+            stateCopy[id] = event.target.value;
+        } else {
+            stateCopy[`${id}En`] = event.target.value;
+        }
         this.setState({
             ...stateCopy
-        })
+        });
     }
 
     numberFormatEn = (value) =>
@@ -341,6 +402,9 @@ class ManageDoctor extends Component {
                 inputData.map((item, index) => {
                     let object = {};
                     object.label = item.name
+                    let labelVi = `${item.name}`
+                    let labelEn = `${item.nameEn}`
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn
                     object.value = item.id;
                     result.push(object);
                 })
@@ -360,10 +424,14 @@ class ManageDoctor extends Component {
         let specialtyId = selectedSpecialty ? selectedSpecialty.value : '';
         let clinicId = selectedClinic ? selectedClinic.value : ''
         await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+        this.setState({
+            selectedOptions: ''
+        })
     }
 
     render() {
         let { isUpdate, selectedOptions } = this.state;
+        let { language } = this.props;
         console.log('check state: ', this.state)
         return (
             <div className='manage-doctor-container'>
@@ -438,7 +506,7 @@ class ManageDoctor extends Component {
                                 <label><FormattedMessage id="menu.manage-doctor.description" /></label>
                                 <textarea className='form-control' rows='4'
                                     onChange={(event) => this.handleOnchangeText(event, 'description')}
-                                    value={this.state.description}
+                                    value={language === LANGUAGES.VI ? this.state.description : this.state.descriptionEn}
                                     placeholder={this.props.intl.formatMessage({ id: 'menu.manage-doctor.description' })}
                                 >
                                 </textarea>
@@ -508,7 +576,7 @@ class ManageDoctor extends Component {
                                 <label><FormattedMessage id="menu.manage-doctor.note" /></label>
                                 <input className='form-control'
                                     onChange={(event) => this.handleOnchangeText(event, 'note')}
-                                    value={this.state.note}
+                                    value={language === LANGUAGES.VI ? this.state.note : this.state.noteEn}
                                     placeholder={this.props.intl.formatMessage({ id: 'menu.manage-doctor.note' })}
                                 />
                             </div>
@@ -519,7 +587,7 @@ class ManageDoctor extends Component {
                         <MdEditor style={{ height: '300px', }}
                             renderHTML={text => mdParser.render(text)}
                             onChange={this.handleEditorChange}
-                            value={this.state.contentMarkDown}
+                            value={language === LANGUAGES.VI ? this.state.contentMarkDown : this.state.contentMarkDownEn}
                         />
                     </div>
                     {!isUpdate &&

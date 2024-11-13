@@ -210,6 +210,22 @@ const getAllPatientAppointment = (email, recordId) => {
 const getDashBoardInfo = (type) => {
     return axios.get(`/api/get-dashboard-info?type=${type}`)
 }
+
+const getSystemCode = (page = 1, limit = 15) => {
+    return axios.get(`/api/get-system-code?page=${page}&limit=${limit}`)
+}
+
+const addSystemCode = (data) => {
+    return axios.post(`/api/add-system-code`, data)
+}
+
+const editSystemCode = (data) => {
+    return axios.post(`/api/edit-system-code`, data)
+}
+
+const deleteSystemCode = (id) => {
+    return axios.delete(`/api/delete-system-code?id=${id}`)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -254,5 +270,9 @@ export {
     postConfirmAppoitment,
     postCancelAppointment,
     getAllPatientAppointment,
-    getDashBoardInfo
+    getDashBoardInfo,
+    getSystemCode,
+    addSystemCode,
+    editSystemCode,
+    deleteSystemCode
 }

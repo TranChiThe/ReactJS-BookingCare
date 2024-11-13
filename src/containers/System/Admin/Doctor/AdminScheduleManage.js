@@ -60,12 +60,14 @@ class ManageSchedule extends Component {
         }
         if (prevProps.language !== this.props.language) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
-            let { resSpecialty } = this.props.allRequiredDoctorInfo
+            let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfo
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, 'SPECIALTY')
+            let dataSelectClinic = this.buildDataInputSelect(resClinic, 'CLINIC')
 
             this.setState({
                 arrDoctor: dataSelect,
                 listSpecialty: dataSelectSpecialty,
+                listClinic: dataSelectClinic,
             })
         }
         if (prevProps.allRequiredDoctorInfo !== this.props.allRequiredDoctorInfo) {
@@ -181,7 +183,9 @@ class ManageSchedule extends Component {
             if (type === "CLINIC") {
                 inputData.map((item, index) => {
                     let object = {};
-                    object.label = item.name
+                    let labelVi = `${item.name}`
+                    let labelEn = `${item.nameEn}`
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn
                     object.value = item.id;
                     result.push(object);
                 })
@@ -200,7 +204,8 @@ class ManageSchedule extends Component {
         this.setState({
             ...stateCopy,
         }, async () => {
-            await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+            // await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+            this.handleFilterButton()
         })
 
     }
@@ -329,6 +334,9 @@ class ManageSchedule extends Component {
         let specialtyId = selectedSpecialty ? selectedSpecialty.value : '';
         let clinicId = selectedClinic ? selectedClinic.value : ''
         await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+        this.setState({
+            selectedOptions: ''
+        })
     }
 
     render() {

@@ -39,10 +39,12 @@ class SearchBar extends Component {
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
-            let { resSpecialty } = this.props.allRequiredDoctorInfo;
+            let { resSpecialty, resClinic } = this.props.allRequiredDoctorInfo;
             let dataSelectSpecialty = this.buildDataInputSelect(resSpecialty, "SPECIALTY");
+            const dataSelectClinic = this.buildDataInputSelect(resClinic, "CLINIC");
             this.setState({
                 listSpecialty: dataSelectSpecialty,
+                listClinic: dataSelectClinic,
             });
         }
 
@@ -209,7 +211,9 @@ class SearchBar extends Component {
             if (type === "CLINIC") {
                 inputData.map((item, index) => {
                     let object = {};
-                    object.label = item.name;
+                    let labelVi = `${item.name}`;
+                    let labelEn = `${item.nameEn}`;
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn;
                     object.value = item.id;
                     result.push(object);
                 });

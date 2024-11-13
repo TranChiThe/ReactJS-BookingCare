@@ -8,7 +8,9 @@ export const adminMenu = [
             {
                 name: 'menu.home.statistical-chart', link: '/system/statistical-chart'
             },
-
+            {
+                name: 'menu.admin.system-code', link: '/system/system-code'
+            },
         ]
     },
     {

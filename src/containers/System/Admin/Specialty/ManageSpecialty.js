@@ -43,6 +43,9 @@ class ManageSpecialty extends Component {
                 selectedSpecialty: '',
                 previewImgURL: ''
             })
+            // if (this.state.selectedSpecialty) {
+            //     this.handleChangeSelectSpecialty(this.state.selectedSpecialty)
+            // }
         }
         if (prevProps.specialtyData !== this.props.specialtyData) {
             let dataSelect = this.buildDataInputSelectSpecialty(this.props.specialtyData)
@@ -73,7 +76,6 @@ class ManageSpecialty extends Component {
                 descriptionHTMLEn: html,
             })
         }
-
     }
 
     handleOnChangeImage = async (event) => {
@@ -102,7 +104,11 @@ class ManageSpecialty extends Component {
     }
 
     handleSaveSpecialty = async () => {
-        let { selectedSpecialty, imageBase64, descriptionHTML, descriptionMarkdown, descriptionHTMLEn, descriptionMarkdownEn } = this.state
+        let { selectedSpecialty, imageBase64, descriptionHTML, descriptionMarkdown, descriptionHTMLEn, descriptionMarkdownEn } = this.state;
+        if (!selectedSpecialty?.value && this.props.language === LANGUAGES.EN) {
+            toast.error(<FormattedMessage id='toast.missingSpecialty' />);
+            return;
+        }
         let SwalConfig = createSwalConfig(this.props.intl)
         let res = await createNewSpecialty({
             language: this.props.language,
@@ -134,6 +140,10 @@ class ManageSpecialty extends Component {
 
     handleUpdateSpecialty = async () => {
         let { selectedSpecialty, imageBase64, descriptionHTML, descriptionMarkdown, descriptionHTMLEn, descriptionMarkdownEn } = this.state
+        if (!selectedSpecialty?.value) {
+            toast.error(<FormattedMessage id='toast.viUpdate' />);
+            return;
+        }
         let SwalConfig = createSwalConfig(this.props.intl)
         let result = await Swal.fire(SwalConfig.confirmDialog())
         if (result.isConfirmed) {

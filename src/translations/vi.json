@@ -49,7 +49,8 @@
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Bài đăng",
             "manage-handbook": "Quản lý bài đăng",
-            "filter": "Lọc"
+            "filter": "Lọc",
+            "system-code": "Quản lý mã hệ thống"
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh",
@@ -165,6 +166,13 @@
         "staff": "Nhân viên",
         "doctor": "Bác sĩ"
     },
+    "system-code": {
+        "keyMap": "Khóa tham chiếu",
+        "type": "Phân loại",
+        "valueEn": "Tên tiếng Anh",
+        "valueVi": "Tên tiếng Việt",
+        "add": "Thêm mã mới"
+    },
     "homepage": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "more-info": "Xem thêm",
@@ -274,7 +282,10 @@
         "error": "Có lỗi xãy ra!",
         "missing": "Thiếu trường dữ liệu",
         "phoneNumber": "Định dạng số điện thoại không hợp lệ. Vui lòng nhập số điện thoại gồm 10 chữ số.",
-        "email": "Email không đúng định dạng"
+        "email": "Email không đúng định dạng",
+        "missingID": "Bạn phải chọn cơ sở y tế cần cập nhật thông tin!",
+        "viUpdate": "Bạn cần cập nhật thông tin với ngôn ngữ Việt Nam trước!",
+        "missingSpecialty": "Bạn cần chọn chuyên khoa trước khi cập nhật thông tin!"
     },
 
     "notification": {
@@ -324,14 +335,16 @@
             "textUpdateSuccess":"Cập nhật thông tin bác sĩ thành công!",
             "textUpdateFail":"Không thể cập nhật thông tin bác sĩ, hãy thử lại!",
             "already":"Thông tin bác sĩ đã tồn tại trong hệ thống, hãy thử lại!",
-            "doNotExists":"Thông tin bác sĩ không tồn tại trong hệ thống, hãy thử lại!"
+            "doNotExists":"Thông tin bác sĩ không tồn tại trong hệ thống, hãy thử lại!",
+            "selectedDoctor": "Bạn cần chọn bác sĩ để thêm thông tin!"
         },
         "clinic-manage":{
             "titleSuccess": "Thêm thông tin phòng khám thành công!",
             "titleFail": "Không thể thêm thông tin phòng khám, hãy thử lại sau!",
             "titleUpdateSuccess": "Đã cập nhật thông tin phòng khám!",
             "titleUpdateFail": "Không thể cập nhật thông tin phòng khám, hãy kiểm tra lại!",
-            "already-clinic":"Phòng khám đã tồn tại trong hệ thống"
+            "already-clinic":"Phòng khám đã tồn tại trong hệ thống",
+            "doNotExists":"Phòng khám không tồn tại trong hệ thống, hãy thử lại!"
         },
         "patient": {
             "already-appoitment": "Bạn đã có cuộc hẹn với bác sĩ trong thời gian này!",
@@ -358,6 +371,14 @@
             "textFail": "Không thể xác nhận, hãy kiểm tra lại!",
             "textCancelSuccess": "Đã hủy lịch hẹn thành công!",
             "textCancelFail": "Không thể hủy lịch hẹn, hãy thử lại!"
+        },
+        "system-code":{
+            "textAddSuccess": "Thêm mã mới thành công!",
+            "textAddFail": "Không thể thêm mã mới, hãy thử lại!",
+            "textEditSuccess": "Cập nhật mã thành công!",
+            "textEditFail": "Không thể cập nhật thông tin, thử lại sau!",
+            "already": "Mã đã tồn tại trong hệ thống!",
+            "doNotExist": "Mã không tồn tại trong hệ thống!"
         }
     } 
 }

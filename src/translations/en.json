@@ -49,7 +49,8 @@
             "manage-specialty": "Manage specialties",
             "handbook": "Handbook",
             "manage-handbook": "Manage handbook",
-            "filter": "Filter"
+            "filter": "Filter",
+            "system-code": "System code management"
         },
         "doctor": {
             "manage-schedule": "Manage doctor's schedule",
@@ -165,6 +166,13 @@
         "staff": "Staff",
         "doctor": "Doctor"
     },
+    "system-code": {
+        "keyMap": "Key map",
+        "type": "Type",
+        "valueEn": "English name",
+        "valueVi": "Vietnamese name",
+        "add": "Add new code"
+    },
     "homepage": {
         "outstanding-doctor": "Outstanding doctor last week",
         "more-info": "See more",
@@ -274,7 +282,10 @@
         "error": "An error occurred!",
         "missing": "Missing input parameter",
         "phoneNumber": "Invalid phone number format. Please enter a 10-digit phone number.",
-        "email": "Invalid email format."
+        "email": "Invalid email format.",
+        "missingID": "You must select the medical facility whose information needs to be updated!",
+        "viUpdate": "You need to update the information with Vietnamese language first!",
+        "missingSpecialty": "You need to select a specialty before updating information!"
     },
 
     "notification": {
@@ -324,14 +335,16 @@
             "textUpdateSuccess":"Doctor information updated successfully!",
             "textUpdateFail":"Unable to update doctor information, please try again!",
             "already":"Doctor information already exists in the system, please try again!",
-            "doNotExists":"Doctor information does not exist in the system, please try again!"
+            "doNotExists":"Doctor information does not exist in the system, please try again!",
+            "selectedDoctor": "You need to select a doctor to add information!"
         },
         "clinic-manage":{
             "titleSuccess": "Added clinic information successfully!",
             "titleFail": "Unable to add clinic information, please try again later!",
             "titleUpdateSuccess": "Clinic information updated!",
             "titleUpdateFail": "Clinic information could not be updated, please check again!",
-            "already-clinic":"The clinic already exists in the system."
+            "already-clinic":"The clinic already exists in the system.",
+            "doNotExists":"The clinic does not exist in the system, please try again!"
 
         },
        "patient": {
@@ -359,6 +372,14 @@
             "textFail": "Unable to confirm, please check again!",
             "textCancelSuccess": "Appointment canceled successfully!",
             "textCancelFail": "Appointment cannot be cancelled, please try again!"
+        },
+        "system-code":{
+            "textAddSuccess": "New code added successfully!",
+            "textAddFail": "New code not added, please try again!",
+            "textEditSuccess": "Code updated successfully!",
+            "textEditFail": "Information not updated, please try again later!",
+            "already": "Code already exists in the system!",
+            "doNotExist": "Code does not exist in the system!"
         }
     } 
 }
