@@ -70,12 +70,19 @@ class ChatBotComponent extends Component {
 
                 const botMessage = {
                     sender: 'bot',
-                    text: response.fulfillmentText,
+                    text: response.fulfillmentText || 'Xin lỗi, tôi không hiểu yêu cầu của bạn.',
                     timestamp: formattedTime
                 };
                 this.props.addMessage(botMessage);
                 this.scrollToBottom();
             } catch (error) {
+                const errorMessage = {
+                    sender: 'bot',
+                    text: 'Đã xảy ra lỗi trong khi xử lý yêu cầu. Vui lòng thử lại.',
+                    timestamp: formattedTime,
+                };
+                this.props.addMessage(errorMessage);
+                this.scrollToBottom();
                 console.error('Error sending message:', error);
             } finally {
                 this.setState({ isLoading: false });
@@ -138,7 +145,7 @@ class ChatBotComponent extends Component {
                             </div>
                         ) : (
                             <div className="messages">
-                                {messages.map((msg, index) => (
+                                {/* {messages.map((msg, index) => (
                                     msg && msg.sender ? (
                                         <div key={index} className={`message ${msg.sender}`}>
                                             {msg.text.split('\n').map((line, i) => (
@@ -148,6 +155,17 @@ class ChatBotComponent extends Component {
                                                 </span>
                                             ))}
                                             <div className="message-time">{msg.timestamp}</div>
+                                        </div>
+                                    ) : null
+                                ))} */}
+                                {messages.map((msg, index) => (
+                                    msg && msg.sender ? (
+                                        <div key={index} className={`message ${msg.sender}`}>
+                                            {typeof msg.text === 'string' && msg.text.split('\n').map((line, i) => (
+                                                <span key={i}>
+                                                    {line}
+                                                </span>
+                                            ))}
                                         </div>
                                     ) : null
                                 ))}

@@ -3,7 +3,7 @@
         "specialty": "Medical specialty",
         "search-doctor": "Find a doctor by specialty",
         "health-facility": "Health facility",
-        "choose-a-clinic": "Choose a clinic",
+        "choose-a-clinic": "Choose a facility",
         "doctor": "Doctor",
         "choose-a-good-doctor": "Choose a good doctor",
         "examination-package": "Examination package",
@@ -24,7 +24,7 @@
         "search": "Find a medical specialist"
     },
     "medicalFacility": {
-        "medical": "Outstanding medical facilities",
+        "medical": "Prominent Healthcare Facility",
         "see-more": "See more"
     },
     "handbook": {
@@ -37,71 +37,73 @@
         },
         "admin": {
             "home": "Home",
-            "user": "Users system",
+            "user": "Doctor",
             "manage-doctor": "Manage doctor information",
-            "manage-admin": "Manage admins",
+            "manage-admin": "Manage admin",
             "crud": "CRUD user",
-            "crud-redux": "Manage accounts",
-            "clinic": "Clinic",
-            "manage-clinic": "Manage clinic",
-            "manage-clinic-list": "Clinic information",
-            "specialty": "Specialties",
-            "manage-specialty": "Manage specialties",
-            "handbook": "Handbook",
-            "manage-handbook": "Manage handbook",
+            "crud-redux": "Account management",
+            "clinic": "Medical facility",
+            "manage-clinic": "Medical facility management",
+            "manage-clinic-list": "Medical facility information",
+            "specialty": "Specialty",
+            "manage-specialty": "Specialty management",
+            "handbook": "Posts",
+            "manage-handbook": "Post management",
             "filter": "Filter",
-            "system-code": "System code management"
+            "system-code": "System code management",
+            "manage-schedule": "Manage appointment schedule",
+            "manage-comment": "Comment Management"
         },
         "doctor": {
-            "manage-schedule": "Manage doctor's schedule",
+            "manage-schedule": "Medical Examination Schedule",
             "schedule": "Schedule",
             "patient": "Patient",
-            "manage-patient-appointment": "Manage patient appointments",
-            "manage-patient-record": "Patient record management",
+            "manage-patient-appointment": "Patient appointment schedule",
+            "manage-patient-record": "Manage patient records",
             "see-more": "See more",
             "busy-schedule": "Register busy schedule"
-        },
+            },
         "manage-doctor": {
             "title": "Manage doctor details",
-            "choose-doctor": "Choose doctor",
-            "description": "Doctor referral information",
+            "choose-doctor": "Select a doctor",
+            "description": "Doctor introduction information",
             "content": "Doctor details",
             "save-infor": "Save information",
             "create-infor": "Create information",
             "price": "Medical examination price",
-            "payment": "Payment methods",
+            "payment": "Payment method",
             "province": "Province",
-            "name-clinic": "Clinic name",
-            "address-clinic": "Clinic address",
+            "name-clinic": "Name of medical facility",
+            "address-clinic": "Address of medical facility",
             "note": "Note",
-            "specialty": "Choose a specialty",
-            "clinic": "Choose a clinic"
+            "specialty": "Select specialty",
+            "clinic": "Select medical facility"
         },
         "manage-statistical": {
-            "manage-statistical": "Managing reports and statistics"
+            "manage-statistical": "Manage reports and statistics"
         },
         "staff":{
             "doctor":"Doctor",
-            "doctor-schedule": "Manage appointment schedule",
+            "doctor-schedule": "Manage medical appointment schedule",
             "patient":"Patient",
-            "patient-appointment": "Appointment management"
+            "patient-appointment": "Manage appointment schedule"
         }
     },
     "admin": {
         "doctor": {
-            "notification-schedule-doctor": "The doctor is not available during this time, please check back!",
-            "appointment-manage": "Manage medical appointment schedule",
+            "notification-schedule-doctor": "The doctor has no appointments during this time, please check again!",
+            "appointment-manage": "Manage Appointment Appointment",
             "confirm": "Confirm",
-            "refuse": "Refuse",
+            "refuse": "Reject",
             "confirmed": "Confirmed",
             "examining": "Examining",
-            "complete": "Complete",
-            "canceled": "Canceled",
+            "complete": "Examination completed",
+            "canceled": "Cancelled",
             "all": "All",
             "appointment-avaiable": "No appointments available"
         },
         "admin": {
-            "notification-schedule": "Doctor's appointment has not been created!",
+            "notification-schedule": "The doctor's appointment has not been created yet!",
             "edit-clinic": "Update information",
             "create-clinic": "Create information",
             "delete": "Delete"
@@ -110,44 +112,44 @@
             "totalAppointment": "Total Appointments",
             "totalRevenue": "Total Revenue",
             "totalPatient": "Total Patients",
-            "newAppointment": "New Appointments",
-            "cancelledAppointment": "Cancelled Appointments",
+            "newAppointment": "New Appointment",
+            "cancelledAppointment": "Cancelled Appointment",
             "filter": "Filter by",
             "week": "Week",
             "month": "Month",
             "year": "Year",
-            "statistics": "Statistical Chart"
+            "statistics": "Statistics Chart"
         },
-        "dashboard": {
+            "dashboard": {
             "user": "Total Users",
-            "doctor": "Doctors",
-            "appointment": "Appointments",
+            "doctor": "Doctor",
+            "appointment": "Appointment",
             "feedback": "Feedback",
-            "admin": "Admin Home"
+            "admin": "Administrative Page"
         }
     },
     "manage-specialty": {
-        "title": "Specialized management",
-        "choose-specialty": "Choose specialty",
+        "title": "Specialty management",
+        "choose-specialty": "Select a specialty",
         "specialty-image:": "Add image",
         "upload-image": "Upload image",
-        "specialty-detail": "Detailed specialist information"
+        "specialty-detail": "Detailed specialty information"
     },
     "manage-clinic": {
-        "clinic-name": "Clinic name",
+        "clinic-name": "Name of medical facility",
         "description": "Introduction",
-        "pro-strength": "Professional strengths",
+        "pro-strength": "Professional strength",
         "equipment": "Equipment",
         "upload-image": "Upload image",
         "address": "Address"
     },
     "manage-user": {
-        "title": "Manage accounts",
-        "add": "Create account",
+        "title": "Account management",
+        "add": "Add new account",
         "email": "Email",
         "password": "Password",
         "full-name": "Full Name",
-        "first-name": "First Name ",
+        "first-name": "First Name",
         "last-name": "Last Name",
         "phone-number": "Phone Number",
         "address": "Address",
@@ -156,15 +158,16 @@
         "role": "Role",
         "avatar": "Avatar",
         "actions": "Actions",
-        "image": "Upload images",
-        "save": "Create account",
-        "edit": "Edit doctors",
-        "save-change": "Save changes",
-        "close": "Close",
+        "image": "Upload image",
+        "save": "Add new account",
+        "edit": "Edit doctor",
+        "save-change": "Save Changes",
+        "close": "Exit",
         "all": "All",
         "admin": "Admin",
         "staff": "Staff",
-        "doctor": "Doctor"
+        "doctor": "Doctor",
+        "record": "Record code"
     },
     "system-code": {
         "keyMap": "Key map",
@@ -174,9 +177,9 @@
         "add": "Add new code"
     },
     "homepage": {
-        "outstanding-doctor": "Outstanding doctor last week",
+        "outstanding-doctor": "Featured Doctor of the Week",
         "more-info": "See more",
-        "specialty-popular": "Popular specialties"
+        "specialty-popular": "Common Medical Specialties"
     },
     "homefooter": {
         "medical-service": "Health services",
@@ -188,9 +191,9 @@
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
-        "choose-doctor": "Choose doctor",
-        "choose-date": "Choose date",
-        "save": "Save infor",
+        "choose-doctor": "Select a doctor",
+        "choose-date": "Select a date",
+        "save": "Save information",
         "search": "View calendar",
         "full-name": "Full Name",
         "schedule": "Schedule",
@@ -200,6 +203,14 @@
         "busy-schedule-title": "Manage your busy schedule",
         "reason": "Reason busy",
         "save-schedule": "Save appointment"
+    },
+    "manage-comment": {
+        "doctor": "Doctor name",
+        "patient": "Patient name",
+        "content": "Content",
+        "date": "Examination date",
+        "start-date": "From date", 
+        "end-date": "To date"
     },
     "patient": {
         "detail-doctor": {
@@ -274,6 +285,17 @@
             "manage-schedule": "Manage medical appointment schedule",
             "cancel": "Cancel appointment",
             "toast": "Incorrect email or record code, please try again!"
+        },
+        "comment": {
+            "title": "Doctor conmment",
+            "confirm": "Confirm",
+            "placehoder": "Enter your comment here....",
+            "empty": "Please enter a comment before submitting!",
+            "comment": "Comment",
+            "patient-comment": "Patient comment",
+            "examination-date": "Examination date",
+            "content": "Content",
+            "notComment": "There are no comments"
         }
     },
 
@@ -380,6 +402,12 @@
             "textEditFail": "Information not updated, please try again later!",
             "already": "Code already exists in the system!",
             "doNotExist": "Code does not exist in the system!"
+        },
+        "comment": {
+            "textSuccess": "Your comment has been submitted!",
+            "textFail": "Unable to comment, please try again!",
+            "deleteSuccess": "Doctor comment deleted successfully!", 
+            "deleteFail": "Comment could not be deleted, please try again!"
         }
     } 
 }

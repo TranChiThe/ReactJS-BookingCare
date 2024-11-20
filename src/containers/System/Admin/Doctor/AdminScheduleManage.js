@@ -79,6 +79,7 @@ class ManageSchedule extends Component {
                 listSpecialty: dataSelectSpecialty,
                 listClinic: dataSelectClinic,
             })
+            this.fetchScheduleData()
         }
         if (prevProps.allDoctors !== this.props.allDoctors) {
             let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
@@ -204,8 +205,10 @@ class ManageSchedule extends Component {
         this.setState({
             ...stateCopy,
         }, async () => {
-            // await this.props.fetchAllDoctorStart(specialtyId, clinicId);
             this.handleFilterButton()
+            this.setState({
+                selectedOption: ''
+            })
         })
 
     }

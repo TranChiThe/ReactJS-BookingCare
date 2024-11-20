@@ -15,7 +15,7 @@ class ScheduleTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentNumber: props.weekNumber || 1,
+            currentNumber: props.weekNumber,
             totalPages: 4,
             daysInWeek: [],
         };
@@ -51,7 +51,7 @@ class ScheduleTable extends Component {
 
     getStartOfWeek(weekNumber) {
         const today = new Date();
-        const mondayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
+        const mondayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();//note
         const firstMonday = new Date(today.setDate(today.getDate() + mondayOffset));
         firstMonday.setHours(0, 0, 0, 0);
         firstMonday.setDate(firstMonday.getDate() + (weekNumber - 1) * 7);
@@ -203,7 +203,7 @@ class ScheduleTable extends Component {
     };
 
     render() {
-        const { rangeTime, dataScheduleForWeek, currentNumber } = this.props;
+        const { rangeTime, dataScheduleForWeek } = this.props;
         let { language } = this.props;
         let { daysInWeek } = this.state
         return (
@@ -238,7 +238,6 @@ class ScheduleTable extends Component {
                                 {dataScheduleForWeek && Array.isArray(dataScheduleForWeek) ? (
                                     dataScheduleForWeek.map((daySchedule, dayIndex) => {
                                         let status = 'empty';
-
                                         if (daysInWeek && daysInWeek.length > dayIndex) {
                                             const timestamp = daysInWeek[dayIndex].getTime();
                                             const date = new Date(timestamp);

@@ -107,18 +107,25 @@ class AppointmentManagement extends Component {
 
     handleConfirmAppointment = async (appointmentId) => {
         let SwalConfig = createSwalConfig(this.props.intl);
-        let result = await Swal.fire(SwalConfig.confirmDialog());
-        if (result.isConfirmed) {
-            let res = await postConfirmAppoitment(appointmentId);
-            if (res && res.errCode === 0) {
-                Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textSuccess'))
-                this.fetchAppointments();
-            } else if (res && res.errCode === 2) {
-                toast.error(<FormattedMessage id='toast.error' />)
-            } else {
-                Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textFail'))
+        let { userInFo } = this.props;
+        if (userInFo.roleId !== 'R2' && this.state.selectedStatus === 'S3') {
+            toast.error(<FormattedMessage id='toast.no-access' />)
+            return;
+        } else {
+            let result = await Swal.fire(SwalConfig.confirmDialog());
+            if (result.isConfirmed) {
+                let res = await postConfirmAppoitment(appointmentId);
+                if (res && res.errCode === 0) {
+                    Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textSuccess'))
+                    this.fetchAppointments();
+                } else if (res && res.errCode === 2) {
+                    toast.error(<FormattedMessage id='toast.error' />)
+                } else {
+                    Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textFail'))
+                }
             }
         }
+
     }
 
     handleCancelAppointment = async (appointmentId) => {
@@ -154,7 +161,7 @@ class AppointmentManagement extends Component {
     }
 
     handleChangeSelect = async (selectedOptions) => {
-        this.setState({ selectedOptions });
+        this.setState({ selectedOptions }, this.fetchAppointments);
     };
 
     buildDataInputSelect = (inputData, type) => {
@@ -179,7 +186,7 @@ class AppointmentManagement extends Component {
         const { selectedStatus, appointments, currentPage, totalPages } = this.state;
         let { language } = this.props;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-        console.log('check state: ', this.getDateTimestamp(this.state.currentDate))
+        let { userInFo } = this.props;
         return (
             <div className="appointment-doctor-list-container">
                 <div className="appointment-management-title">
@@ -257,6 +264,7 @@ class AppointmentManagement extends Component {
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th><FormattedMessage id='manage-user.record' /></th>
                                         <th>Email</th>
                                         <th><FormattedMessage id='manage-user.full-name' /></th>
                                         <th><FormattedMessage id='manage-user.phone-number' /></th>
@@ -276,7 +284,8 @@ class AppointmentManagement extends Component {
                                             .filter(appointment => appointment.statusId === selectedStatus)
                                             .map((appointment, index) => (
                                                 <tr key={appointment.id}>
-                                                    <td>{index + 1}</td>
+                                                    <td>{index + 1 + (this.state.currentPage - 1) * this.state.limit}</td>
+                                                    <td>{appointment?.recordId}</td>
                                                     <td>{appointment.appointmentData.email}</td>
                                                     <td>
                                                         {language === LANGUAGES.EN
@@ -288,6 +297,13 @@ class AppointmentManagement extends Component {
                                                         ? appointment.timeTypeAppointment.valueVi
                                                         : appointment.timeTypeAppointment.valueEn}</td>
                                                     <td>
+                                                        {(selectedStatus !== 'S5' && selectedStatus !== 'S4') &&
+                                                            <button className="btn-edit"
+                                                                onClick={() => this.handleConfirmAppointment(appointment.id)}
+                                                            >
+                                                                <FormattedMessage id="admin.doctor.confirm" />
+                                                            </button>
+                                                        }
                                                         {selectedStatus === 'S2' &&
                                                             <button className="btn-delete"
                                                                 onClick={() => this.handleCancelAppointment(appointment.id)}

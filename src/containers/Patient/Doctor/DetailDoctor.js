@@ -93,9 +93,11 @@ class DetailDoctor extends Component {
                             )}
                     </div>
 
-                    {/* <div className='comment-doctor'>
-                        <Comment />
-                    </div> */}
+                    <div className='comment-doctor'>
+                        <Comment
+                            doctorId={this.props.match?.params?.id}
+                        />
+                    </div>
                     <HomeFooter />
                 </div>
             </React.Fragment>

@@ -3,7 +3,7 @@
         "specialty": "Chuyên khoa",
         "search-doctor": "Tìm bác sĩ theo chuyên khoa",
         "health-facility": "Cơ sở y tế",
-        "choose-a-clinic": "Chọn bệnh viện phòng khám",
+        "choose-a-clinic": "Chọn cơ sở y tế",
         "doctor": "Bác sĩ",
         "choose-a-good-doctor": "Chọn bác sĩ giỏi",
         "examination-package": "Gói khám",
@@ -37,26 +37,28 @@
         },
         "admin": {
             "home": "Trang chủ",
-            "user": "Người dùng",
+            "user": "Bác sĩ",
             "manage-doctor": "Quản lý thông tin bác sĩ",
             "manage-admin": "Quản lý admin",
             "crud": "CRUD user",
             "crud-redux": "Quản lý tài khoản",
-            "clinic": "Phòng khám",
-            "manage-clinic": "Quản lý phòng khám",
-            "manage-clinic-list": "Thông tin phòng khám",
+            "clinic": "Cơ sở y tế",
+            "manage-clinic": "Quản lý cơ sở y tế",
+            "manage-clinic-list": "Thông tin cơ sở y tế",
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Bài đăng",
             "manage-handbook": "Quản lý bài đăng",
             "filter": "Lọc",
-            "system-code": "Quản lý mã hệ thống"
+            "system-code": "Quản lý mã hệ thống",
+            "manage-schedule": "Quản lý lịch khám bệnh",
+            "manage-comment": "Quản lý bình luận"
         },
         "doctor": {
-            "manage-schedule": "Quản lý kế hoạch khám bệnh",
+            "manage-schedule": "Kế hoạch khám bệnh",
             "schedule": "Lịch khám",
             "patient": "Bệnh nhân",
-            "manage-patient-appointment": "Quản lý lịch khám bệnh nhân",
+            "manage-patient-appointment": "Lịch khám bệnh nhân",
             "manage-patient-record": "Quản lý hồ sơ bệnh nhân",
             "see-more": "Xem thêm",
             "busy-schedule": "Đăng ký lịch bận"
@@ -71,18 +73,18 @@
             "price": "Giá khám bệnh",
             "payment": "Phương thức thanh toán",
             "province": "Tỉnh thành",
-            "name-clinic": "Tên phòng khám",
-            "address-clinic": "Địa chỉ phòng khám",
+            "name-clinic": "Tên cơ sở y tế",
+            "address-clinic": "Địa chỉ cơ sở y tế",
             "note": "Ghi chú",
             "specialty": "Chọn chuyên khoa",
-            "clinic": "Chọn phòng khám"
+            "clinic": "Chọn cơ sở y tế"
         },
         "manage-statistical": {
             "manage-statistical": "Quản lý báo cáo và thống kê"
         },
         "staff":{
             "doctor":"Bác sĩ",
-            "doctor-schedule": "Quản lý lịch khám",
+            "doctor-schedule": "Quản lý lịch khám bệnh",
             "patient":"Bệnh nhân",
             "patient-appointment": "Quản lý lịch hẹn"
         }
@@ -134,7 +136,7 @@
         "specialty-detail": "Thông tin chuyên khoa chi tiết "
     },
     "manage-clinic": {
-        "clinic-name": "Tên phòng khám",
+        "clinic-name": "Tên cơ sở y tế",
         "description": "Thông tin giới thiệu",
         "pro-strength": "Thế mạnh chuyên môn",
         "equipment": "Trang thiết bị",
@@ -164,7 +166,8 @@
         "all": "Tất cả",
         "admin": "Quản trị viên",
         "staff": "Nhân viên",
-        "doctor": "Bác sĩ"
+        "doctor": "Bác sĩ",
+        "record": "Mã hồ sơ"
     },
     "system-code": {
         "keyMap": "Khóa tham chiếu",
@@ -200,6 +203,14 @@
         "busy-schedule-title": "Quản lý lịch bận",
         "reason": "Lý do bận",
         "save-schedule": "Lưu lịch khám"
+    },
+    "manage-comment": {
+        "doctor": "Tên bác sĩ",
+        "patient": "Tên bệnh nhân",
+        "content": "Nội dung",
+        "date": "Ngày khám",
+        "start-date": "Từ ngày",
+        "end-date": "Đến ngày"
     },
     "patient": {
         "detail-doctor": {
@@ -274,6 +285,17 @@
             "manage-schedule": "Quản lý lịch khám bệnh",
             "cancel": "Hủy lịch hẹn",
             "toast": "Email hoặc mã hồ sơ không chính xác, hãy thử lại!"
+        },
+        "comment": {
+            "title": "Bình luận bác sĩ",
+            "confirm": "Xác nhận",
+            "placehoder": "Nhập đánh giá của bạn ở đây....",
+            "empty": "Vui lòng nhập bình luận trước khi gửi!",
+            "comment": "Bình luận",
+            "patient-comment": "Bình luận của bệnh nhân",
+            "examination-date": "Ngày khám",
+            "content": "Nội dung",
+            "notComment": "Không có bình luận nào"
         }
         
     },
@@ -339,12 +361,12 @@
             "selectedDoctor": "Bạn cần chọn bác sĩ để thêm thông tin!"
         },
         "clinic-manage":{
-            "titleSuccess": "Thêm thông tin phòng khám thành công!",
-            "titleFail": "Không thể thêm thông tin phòng khám, hãy thử lại sau!",
-            "titleUpdateSuccess": "Đã cập nhật thông tin phòng khám!",
-            "titleUpdateFail": "Không thể cập nhật thông tin phòng khám, hãy kiểm tra lại!",
-            "already-clinic":"Phòng khám đã tồn tại trong hệ thống",
-            "doNotExists":"Phòng khám không tồn tại trong hệ thống, hãy thử lại!"
+            "titleSuccess": "Thêm thông tin cơ sở y tế thành công!",
+            "titleFail": "Không thể thêm thông tin cơ sở y tế, hãy thử lại sau!",
+            "titleUpdateSuccess": "Đã cập nhật thông tin cơ sở y tế!",
+            "titleUpdateFail": "Không thể cập nhật thông tin cơ sở y tế, hãy kiểm tra lại!",
+            "already-clinic":"Cơ sở y tế đã tồn tại trong hệ thống",
+            "doNotExists":"Cơ sở y tế không tồn tại trong hệ thống, hãy thử lại!"
         },
         "patient": {
             "already-appoitment": "Bạn đã có cuộc hẹn với bác sĩ trong thời gian này!",
@@ -379,6 +401,12 @@
             "textEditFail": "Không thể cập nhật thông tin, thử lại sau!",
             "already": "Mã đã tồn tại trong hệ thống!",
             "doNotExist": "Mã không tồn tại trong hệ thống!"
+        }, 
+        "comment": {
+            "textSuccess": "Đã gửi bình luận của bạn!",
+            "textFail": "Không thể bình luận, hãy thử lại!",
+            "deleteSuccess": "Đã xóa bình luận bác sĩ thành công!",
+            "deleteFail": "Không thể xóa bình luận, hãy thử lại!"
         }
     } 
 }

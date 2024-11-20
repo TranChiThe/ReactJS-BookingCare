@@ -1,5 +1,5 @@
 .doctor-detail-container {
-    height: 500px;
+    min-height: 750px;
     background: rgb(231, 231, 238);
     background: linear-gradient(
         90deg,
@@ -33,6 +33,7 @@
             .up {
                 font-size: 20px;
                 font-weight: 600;
+                padding-top: 25px;
             }
             .down {
                 padding-top: 10px;
@@ -84,16 +85,14 @@
         }
     }
     .comment-doctor {
-        height: 100px;
-        background: rgb(152, 152, 232);
-        background: linear-gradient(
-            102deg,
-            rgba(152, 152, 232, 0.8631090487238979) 0%,
-            rgba(102, 150, 187, 1) 0%,
-            rgba(202, 222, 226, 1) 0%,
-            rgba(114, 171, 241, 0.9443155452436195) 38%,
-            rgba(187, 214, 218, 0.9052871148459384) 56%
-        );
-        height: 200px;
+        // background: rgb(152, 152, 232);
+        // background: linear-gradient(
+        //     102deg,
+        //     rgba(152, 152, 232, 0.8631090487238979) 0%,
+        //     rgba(102, 150, 187, 1) 0%,
+        //     rgba(202, 222, 226, 1) 0%,
+        //     rgba(114, 171, 241, 0.9443155452436195) 38%,
+        //     rgba(187, 214, 218, 0.9052871148459384) 56%
+        // );
     }
 }

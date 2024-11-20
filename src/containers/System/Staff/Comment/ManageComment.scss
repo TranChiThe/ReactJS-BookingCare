@@ -19,15 +19,16 @@
     }
 }
 
-.user-redux-container {
+.comment-redux-container {
     font-size: 15px;
     padding: 0 30px;
     background: #f2f2f2;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
-    .user-title {
+    .comment-title {
         text-align: center;
         padding: 15px 0;
         text-transform: uppercase;
@@ -37,6 +38,41 @@
         border-bottom: 2px solid #007bff;
         margin-bottom: 20px;
     }
+
+    .right-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 20px;
+        .seleted-date-start,
+        .seleted-date-end,
+        .selected-doctor {
+            align-items: center;
+            cursor: pointer;
+            justify-content: left;
+            padding-bottom: 20px;
+            width: 250px;
+            .form-control {
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                padding: 8px;
+                font-size: 16px;
+                box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition:
+                    border-color 0.3s,
+                    box-shadow 0.3s;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+                &:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+                    outline: none;
+                }
+            }
+        }
+    }
+
     .control-row {
         display: flex;
         align-items: center;
@@ -46,11 +82,11 @@
             width: 140px;
         }
     }
-    .user-redux-body {
+    .comment-redux-body {
         background-color: #f2f2f2;
         background: transparent;
 
-        .user-manage-table {
+        .comment-manage-table {
             margin: 20px 0;
         }
     }
@@ -63,6 +99,7 @@
     color: #333;
     border-radius: 8px;
     overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
     th,
     td {
@@ -114,7 +151,7 @@
     }
 }
 
-.modal-user-container {
+.modal-comment-container {
     padding-top: 80px;
     .modal-content {
         .modal-header {
@@ -135,7 +172,7 @@
         }
     }
 
-    .modal-user-body {
+    .modal-comment-body {
         display: flex;
         gap: 15px;
         flex-wrap: wrap;

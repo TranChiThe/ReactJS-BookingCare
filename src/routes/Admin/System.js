@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
-import UserRedux from '../../containers/System/Admin/UserRedux';
+import UserRedux from '../../containers/System/Admin/Account/UserRedux';
 import ManageDoctor from '../../containers/System/Admin/ManageDoctor';
 import Header from '../../containers/Header/Header';
 import ManageSpecialty from '../../containers/System/Admin/Specialty/ManageSpecialty';
@@ -10,6 +10,8 @@ import ManageClinicInfo from '../../containers/System/Admin/Clinic/ManageClinicI
 import StatisticalChart from '../../containers/System/Admin/Home/Char/StatisticalChart'
 import AdminDashboard from '../../containers/System/Admin/Home/DashBoard/AdminDashboard'
 import ManageSystemCode from '../../containers/System/Admin/SystemCode/ManageSystemCode'
+import PatientAppoinment from '../../containers/System/Admin/Patient/PatientAppoinment';
+import Comment from '../../containers/System/Staff/Comment/ManageComment';
 class System extends Component {
     render() {
         const { systemMenuPath, isLoggedIn, roleId } = this.props;
@@ -25,6 +27,8 @@ class System extends Component {
                                 <Route path="/system/system-code" component={ManageSystemCode} />
                                 <Route path="/system/manage-user" component={UserRedux} />
                                 <Route path="/system/manage-doctor" component={ManageDoctor} />
+                                <Route path="/system/manage-patient-appointment" component={PatientAppoinment} />
+                                <Route path="/system/manage-patient-comment" component={Comment} />
                                 <Route path="/system/manage-specialty" component={ManageSpecialty} />
                                 <Route path="/system/manage-clinic" component={ManageClinic} />
                                 <Route path="/system/manage-clinic-information" component={ManageClinicInfo} />

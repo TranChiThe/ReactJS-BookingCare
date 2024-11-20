@@ -226,6 +226,23 @@ const editSystemCode = (data) => {
 const deleteSystemCode = (id) => {
     return axios.delete(`/api/delete-system-code?id=${id}`)
 }
+
+const handlePostComment = (data) => {
+    return axios.post(`/api/post-comment`, data)
+}
+
+const getDoctorComment = (doctorId, page, limit) => {
+    return axios.get(`/api/get-doctor-comment?doctorId=${doctorId}&page=${page}&limit${limit}`)
+}
+
+const getAllDoctorCommentByDate = (doctorId, startDate, endDate, page, limit) => {
+    return axios.get(`/api/get-all-doctor-comment-by-date?doctorId=${doctorId}&startDate=${startDate}&endDate=${endDate}&page=${page}&limit=${limit}`)
+}
+
+const deleteDoctorComment = (id) => {
+    return axios.delete(`/api/delete-doctor-comment?id=${id}`)
+}
+
 export {
     handleLoginApi,
     getAllUsers,
@@ -274,5 +291,10 @@ export {
     getSystemCode,
     addSystemCode,
     editSystemCode,
-    deleteSystemCode
+    deleteSystemCode,
+    handlePostComment,
+    getDoctorComment,
+    getAllDoctorCommentByDate,
+    deleteDoctorComment,
+
 }

@@ -6,6 +6,7 @@ import AdminScheduleManage from '../../containers/System/Admin/Doctor/AdminSched
 import ManageDoctor from '../../containers/System/Admin/ManageDoctor';
 import StatisticalChart from '../../containers/System/Admin/Home/Char/StatisticalChart';
 import AppointmentManagement from '../../containers/System/Staff/Patient/AppointmentManagement ';
+import Comment from '../../containers/System/Staff/Comment/ManageComment';
 class StaffManagement extends Component {
     render() {
         const { isLoggedIn, roleId } = this.props;
@@ -20,6 +21,7 @@ class StaffManagement extends Component {
                                 <Route path="/staff-manage/doctor-schedule" exact component={AdminScheduleManage} />
                                 <Route path="/staff-manage/manage-doctor-infomation" exact component={ManageDoctor} />
                                 <Route path="/staff-manage/manage-patient-appointment" component={AppointmentManagement} />
+                                <Route path="/staff-manage/manage-patient-comment" component={Comment} />
                                 <Route component={() => { return (<Redirect to='/unauthorized' />) }} />
                             </Switch>
                         </div>

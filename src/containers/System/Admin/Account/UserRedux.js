@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import 'react-image-lightbox/style.css';
 import { connect } from 'react-redux';
-import * as actions from '../../../store/actions';
+import * as actions from '../../../../store/actions';
 import UserModalRedux from './UserModalRedux';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { LANGUAGES, CRUD_ACTIONS } from '../../../utils';
-import Pagination from '../../../components/Pagination/Pagination';
+import { LANGUAGES, CRUD_ACTIONS } from '../../../../utils';
+import Pagination from '../../../../components/Pagination/Pagination';
 import Select from 'react-select'
 import Swal from 'sweetalert2';
-import createSwalConfig from '../../../components/NotificationConfig/SwalConfig';
-import './UserRedux.scss'
+import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig';
 import { toast } from 'react-toastify';
+import './UserRedux.scss'
 
 const roleOptions = [
     { value: '', label: <FormattedMessage id="manage-user.all" defaultMessage="All" /> },
@@ -186,7 +186,6 @@ class UserRedux extends Component {
 
                                                 return (
                                                     <tr className="" key={index}>
-                                                        {/* <td>{index + 1}</td> */}
                                                         <td>{index + 1 + (this.state.currentPage - 1) * this.state.limit}</td>
                                                         <td>{item.email}</td>
                                                         <td>{this.props.language === LANGUAGES.VI ? positionVi : positionEn}</td>

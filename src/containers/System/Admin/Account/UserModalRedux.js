@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { emitter } from '../../../utils/emitter';
-import * as actions from '../../../store/actions';
-import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../utils';
+import { emitter } from '../../../../utils/emitter';
+import * as actions from '../../../../store/actions';
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from '../../../../utils';
 import { toast } from 'react-toastify'
 import _ from 'lodash';
 import Swal from 'sweetalert2';
-import createSwalConfig from '../../../components/NotificationConfig/SwalConfig'
+import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig'
 import { injectIntl } from 'react-intl';
 import './UserModalRedux.scss';
 

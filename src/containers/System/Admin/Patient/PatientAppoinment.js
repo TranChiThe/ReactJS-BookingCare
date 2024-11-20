@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 import createSwalConfig from '../../../../components/NotificationConfig/SwalConfig'
 import { toast } from 'react-toastify';
 import Select from 'react-select'
-import './AppointmentManagement.scss';
+import * as actions from '../../../../store/actions'
+import './PatientAppoinment.scss';
 
 const statusOptions = [
     { value: 'S2', label: <FormattedMessage id="admin.doctor.confirmed" defaultMessage="Confirmed" /> },
@@ -19,7 +20,7 @@ const statusOptions = [
 
 ];
 
-class AppointmentManagement extends Component {
+class PatientAppointment extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,25 +32,41 @@ class AppointmentManagement extends Component {
             searchTerm: '',
             currentDate: this.getDateTimestamp(new Date()),
             selectedFilter: { value: 'S2', label: <FormattedMessage id="admin.doctor.confirmed" defaultMessage="Confirmed" /> },
-
+            selectedOptions: '',
+            arrDoctor: [],
         };
     }
 
     async componentDidMount() {
         await this.fetchAppointments();
+        this.props.fetchAllDoctorStart('', '');
+        this.props.getAllRequiredDoctorInfo();
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevState.selectedStatus !== this.state.selectedStatus) {
             this.fetchAppointments()
         }
+        if (prevProps.allDoctors !== this.props.allDoctors) {
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
+            this.setState({
+                arrDoctor: dataSelect,
+            })
+        }
+        if (prevProps.language !== this.props.language) {
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors, 'USERS')
+            this.setState({
+                arrDoctor: dataSelect,
+
+            })
+        }
     }
 
     fetchAppointments = async () => {
         try {
             let doctorId = this.props.userInFo.id
-            let { selectedStatus, currentPage, limit, currentDate, searchTerm } = this.state
-            const res = await getPatientAppointment(doctorId, selectedStatus, currentDate, searchTerm, currentPage, limit);
+            let { selectedStatus, currentPage, limit, currentDate, searchTerm, selectedOptions } = this.state
+            const res = await getPatientAppointment(selectedOptions?.value, selectedStatus, currentDate, searchTerm, currentPage, limit);
             if (res && res.errCode === 0) {
                 this.setState({
                     appointments: res.data,
@@ -90,18 +107,25 @@ class AppointmentManagement extends Component {
 
     handleConfirmAppointment = async (appointmentId) => {
         let SwalConfig = createSwalConfig(this.props.intl);
-        let result = await Swal.fire(SwalConfig.confirmDialog());
-        if (result.isConfirmed) {
-            let res = await postConfirmAppoitment(appointmentId);
-            if (res && res.errCode === 0) {
-                Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textSuccess'))
-                this.fetchAppointments();
-            } else if (res && res.errCode === 2) {
-                toast.error(<FormattedMessage id='toast.error' />)
-            } else {
-                Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textFail'))
+        let { userInFo } = this.props;
+        if (userInFo.roleId !== 'R2' && this.state.selectedStatus === 'S3') {
+            toast.error(<FormattedMessage id='toast.no-access' />)
+            return;
+        } else {
+            let result = await Swal.fire(SwalConfig.confirmDialog());
+            if (result.isConfirmed) {
+                let res = await postConfirmAppoitment(appointmentId);
+                if (res && res.errCode === 0) {
+                    Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textSuccess'))
+                    this.fetchAppointments();
+                } else if (res && res.errCode === 2) {
+                    toast.error(<FormattedMessage id='toast.error' />)
+                } else {
+                    Swal.fire(SwalConfig.successNotification('notification.appointment-doctor.textFail'))
+                }
             }
         }
+
     }
 
     handleCancelAppointment = async (appointmentId) => {
@@ -130,19 +154,41 @@ class AppointmentManagement extends Component {
     handleFilterChange = (selectedFilterOption) => {
         this.setState({
             selectedFilter: selectedFilterOption,
-            selectedStatus: selectedFilterOption.value
+            selectedStatus: selectedFilterOption?.value
         }, () => {
             this.fetchAppointments();
         });
+    }
+
+    handleChangeSelect = async (selectedOptions) => {
+        this.setState({ selectedOptions }, this.fetchAppointments);
+    };
+
+    buildDataInputSelect = (inputData, type) => {
+        let result = [];
+        let { language } = this.props;
+        if (inputData && inputData.length > 0) {
+            if (type === "USERS") {
+                inputData.map((item, index) => {
+                    let object = {};
+                    let labelVi = `${item.lastName} ${item.firstName}`
+                    let labelEn = `${item.firstName} ${item.lastName}`
+                    object.label = language === LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.id;
+                    result.push(object);
+                })
+            }
+        }
+        return result;
     }
 
     render() {
         const { selectedStatus, appointments, currentPage, totalPages } = this.state;
         let { language } = this.props;
         let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
-        console.log('check state: ', this.getDateTimestamp(this.state.currentDate))
+        console.log('check state: ', this.state)
         return (
-            <div className="appointment-doctor-manage-list-container">
+            <div className="appointment-doctor-list-container">
                 <div className="appointment-management-title">
                     <FormattedMessage id='admin.doctor.appointment-manage' />
                 </div>
@@ -164,8 +210,8 @@ class AppointmentManagement extends Component {
                         />
                     </div>
                 </div>
-                <div className='doctor-menu'>
-                    <div className="status-buttons">
+                <div className='staff-menu'>
+                    <div className="staff-status-buttons">
                         <button
                             className={`status-button ${selectedStatus === 'S2' ? 'active' : ''}`}
                             onClick={() => this.handleStatusChange('S2')}
@@ -190,16 +236,25 @@ class AppointmentManagement extends Component {
                         >
                             <FormattedMessage id='admin.doctor.canceled' />
                         </button>
-
                     </div>
-                    <div className='col-2 form-group seleted-date'>
-                        <DatePicker
-                            onChange={this.handleOnchangeDatePicker}
-                            className='form-control'
-                            selected={this.state.currentDate}
-                            minDate={yesterday}
-                            placeholder={this.props.intl.formatMessage({ id: 'manage-schedule.choose-date' })}
-                        />
+                    <div className='right-menu'>
+                        <div className='col-6 selected-doctor'>
+                            <Select
+                                placeholder={<FormattedMessage id="menu.manage-doctor.choose-doctor" />}
+                                value={this.state.selectedOptions}
+                                onChange={this.handleChangeSelect}
+                                options={this.state.arrDoctor}
+                            />
+                        </div>
+                        <div className='col-6 seleted-date'>
+                            <DatePicker
+                                onChange={this.handleOnchangeDatePicker}
+                                className='form-control'
+                                selected={this.state.currentDate}
+                                minDate={yesterday}
+                                placeholder={this.props.intl.formatMessage({ id: 'manage-schedule.choose-date' })}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="appointment-doctor-list-body">
@@ -231,16 +286,16 @@ class AppointmentManagement extends Component {
                                                 <tr key={appointment.id}>
                                                     <td>{index + 1 + (this.state.currentPage - 1) * this.state.limit}</td>
                                                     <td>{appointment?.recordId}</td>
-                                                    <td>{appointment.appointmentData.email}</td>
+                                                    <td>{appointment.appointmentData?.email}</td>
                                                     <td>
                                                         {language === LANGUAGES.EN
-                                                            ? `${appointment.appointmentData.firstName} ${appointment.appointmentData.lastName}`
-                                                            : `${appointment.appointmentData.lastName} ${appointment.appointmentData.firstName}`}
+                                                            ? `${appointment.appointmentData?.firstName} ${appointment.appointmentData?.lastName}`
+                                                            : `${appointment.appointmentData?.lastName} ${appointment.appointmentData?.firstName}`}
                                                     </td>
-                                                    <td>{appointment.appointmentData.phoneNumber}</td>
+                                                    <td>{appointment.appointmentData?.phoneNumber}</td>
                                                     <td>{language === LANGUAGES.VI
-                                                        ? appointment.timeTypeAppointment.valueVi
-                                                        : appointment.timeTypeAppointment.valueEn}</td>
+                                                        ? appointment.timeTypeAppointment?.valueVi
+                                                        : appointment.timeTypeAppointment?.valueEn}</td>
                                                     <td>
                                                         {(selectedStatus !== 'S5' && selectedStatus !== 'S4') &&
                                                             <button className="btn-edit"
@@ -278,13 +333,17 @@ class AppointmentManagement extends Component {
 const mapStateToProps = (state) => {
     return {
         language: state.app.language,
-        userInFo: state.user.userInFo
+        userInFo: state.user.userInFo,
+        allDoctors: state.admin.allDoctors,
+        allRequiredDoctorInfo: state.admin.allRequiredDoctorInfo,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        fetchAllDoctorStart: (specialtyId, clinicId) => dispatch(actions.fetchAllDoctorStart(specialtyId, clinicId)),
+        getAllRequiredDoctorInfo: () => dispatch(actions.fetchAllRequiredDoctorStart()),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(AppointmentManagement));
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(PatientAppointment));

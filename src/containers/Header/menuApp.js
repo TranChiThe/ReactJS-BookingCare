@@ -9,6 +9,9 @@ export const adminMenu = [
                 name: 'menu.home.statistical-chart', link: '/system/statistical-chart'
             },
             {
+                name: 'menu.admin.crud-redux', link: '/system/manage-user'
+            },
+            {
                 name: 'menu.admin.system-code', link: '/system/system-code'
             },
         ]
@@ -16,18 +19,26 @@ export const adminMenu = [
     {
         name: 'menu.admin.user',
         menus: [
-            {
-                name: 'menu.admin.crud-redux', link: '/system/manage-user'
-            },
+
             {
                 name: 'menu.admin.manage-doctor', link: '/system/manage-doctor'
             },
             {
-                name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule'
+                name: 'menu.admin.manage-schedule', link: '/doctor/manage-schedule'
             },
         ]
     },
-
+    {
+        name: 'menu.staff.patient',
+        menus: [
+            {
+                name: 'menu.staff.patient-appointment', link: '/system/manage-patient-appointment'
+            },
+            {
+                name: 'menu.admin.manage-comment', link: '/system/manage-patient-comment'
+            },
+        ]
+    },
     {
         name: 'menu.admin.clinic',
         menus: [
@@ -44,6 +55,7 @@ export const adminMenu = [
             },
         ]
     },
+
 ];
 
 export const doctorMenu = [
@@ -99,6 +111,9 @@ export const staffMenu = [
         menus: [
             {
                 name: 'menu.staff.patient-appointment', link: '/staff-manage/manage-patient-appointment'
+            },
+            {
+                name: 'menu.admin.manage-comment', link: '/staff-manage/manage-patient-comment'
             },
         ]
     },

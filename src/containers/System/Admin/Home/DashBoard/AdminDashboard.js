@@ -14,7 +14,7 @@ class AdminDashboard extends Component {
             totalPatient: 0,
             totalFeedBack: 0,
             totalAppointment: 0,
-
+            totalComment: 0
         }
     }
 
@@ -31,21 +31,24 @@ class AdminDashboard extends Component {
         let doctor = await getDashBoardInfo('doctor');
         let patient = await getDashBoardInfo('patient');
         let appointment = await getDashBoardInfo('appointment');
+        let comment = await getDashBoardInfo('comment');
         if ((user && user.errCode === 0) ||
             (doctor && doctor.errCode === 0) ||
             (patient && patient.errCode === 0) ||
-            (appointment && appointment.errCode === 0)) {
+            (appointment && appointment.errCode === 0) ||
+            (comment && comment.errCode === 0)) {
             this.setState({
                 totalUser: user.data.userCount + patient.data.patientCount,
                 totalDoctor: doctor.data.doctorCount,
-                totalAppointment: appointment.data.appointmentCount
+                totalAppointment: appointment.data.appointmentCount,
+                totalComment: comment.data.commentCount,
             })
         }
     }
 
 
     render() {
-        let { totalUser, totalDoctor, totalAppointment } = this.state
+        let { totalUser, totalDoctor, totalAppointment, totalComment } = this.state
         return (
             <React.Fragment>
                 <div className="admin-dashboard">
@@ -80,7 +83,7 @@ class AdminDashboard extends Component {
                                 <h2>
                                     <FormattedMessage id='admin.dashboard.feedback' />
                                 </h2>
-                                <p>80</p>
+                                <p>{totalComment}</p>
                             </div>
                         </div>
                         <div className="chart-container">

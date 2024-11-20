@@ -4,7 +4,7 @@ import { LANGUAGES } from "../../../utils";
 import { FormattedMessage, injectIntl } from "react-intl";
 import HomeHeader from "../../HomePage/HomeHeader";
 import HomeFooter from "../../HomePage/HomeFooter";
-import { getAllPatientAppointment, postCancelAppointment } from "../../../services/userService";
+import { getAllPatientAppointment, postCancelAppointment, handlePostComment } from "../../../services/userService";
 import Swal from "sweetalert2";
 import createSwalConfig from "../../../components/NotificationConfig/SwalConfig";
 import { toast } from "react-toastify";
@@ -14,11 +14,12 @@ class Support extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            recordId: '',
+            email: 'tcthe13062002@gmail.com',
+            recordId: '1731824587458',
             appointments: [],
-            emailError: '',
-            emailErrorTimeout: null
+            comment: '',
+            doctorId: '',
+            patientId: ''
         };
     }
 
@@ -45,7 +46,7 @@ class Support extends Component {
                 const res = await getAllPatientAppointment(email, recordId);
                 if (res && res.errCode === 0) {
                     this.setState({
-                        appointments: res.appointment
+                        appointments: res.appointment,
                     });
                 } else if (res && res.errCode === 2 || recordId === '') {
                     toast.error(<FormattedMessage id='patient.support.toast' />)
@@ -96,6 +97,51 @@ class Support extends Component {
         await this.fetchAppointments();
     }
 
+    handleAppointmentSuccess = (event) => {
+        event.preventDefault();
+        const SwalConfig = createSwalConfig(this.props.intl);
+        Swal.fire({
+            title: this.props.intl.formatMessage({ id: 'patient.comment.title' }),
+            html: `
+            <textarea id="commentInput" class="swal2-input custom-textarea" placeholder="Enter your comment" rows="6"></textarea>
+            `,
+            confirmButtonText: this.props.intl.formatMessage({ id: 'patient.comment.confirm' }),
+            showCancelButton: true,
+            cancelButtonText: this.props.intl.formatMessage({ id: 'notification.cancel' }),
+            preConfirm: () => {
+                const comment = document.getElementById('commentInput').value;
+                if (!comment) {
+                    Swal.showValidationMessage(this.props.intl.formatMessage({ id: 'patient.comment.empty' }));
+                }
+                return comment;
+            }
+        }).then(result => {
+            if (result.isConfirmed) {
+                const comment = result.value;
+                this.handleSaveComment(comment);
+            }
+        });
+    };
+
+    handleSaveComment = async (comment) => {
+        const SwalConfig = createSwalConfig(this.props.intl);
+        let { appointments } = this.state;
+        let date = new Date();
+        date.setHours(0, 0, 0, 0);
+        let datetimeStamp = date.getTime();
+        let res = await handlePostComment({
+            doctorId: appointments[0]?.doctorId || '',
+            patientId: appointments[0]?.patientId || '',
+            content: comment,
+            date: datetimeStamp,
+            examinationDate: appointments[0]?.date || ''
+        })
+        if (res && res.errCode === 0) {
+            Swal.fire(SwalConfig.successNotification('notification.comment.textSuccess'))
+        } else {
+            Swal.fire(SwalConfig.errorNotification('notification.comment.textFail'))
+        }
+    }
 
     render() {
         let { email, recordId, appointments } = this.state;
@@ -202,6 +248,14 @@ class Support extends Component {
                                                 onClick={(event) => this.handleCancelAppointment(appointment.id, event)}
                                             >
                                                 <FormattedMessage id='patient.support.cancel' />
+                                            </button>
+                                        }
+                                        {appointment.statusId === 'S4' &&
+                                            <button
+                                                className="btn-comment"
+                                                onClick={(event) => this.handleAppointmentSuccess(event)}
+                                            >
+                                                <FormattedMessage id='patient.comment.comment' />
                                             </button>
                                         }
                                     </div>
