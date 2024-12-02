@@ -47,6 +47,8 @@ class ManageDoctor extends Component {
             clinicId: '',
             specialtyId: '',
             isUpdate: false,
+            filterSpecialty: '',
+            filterClinic: ''
         }
     }
 
@@ -130,7 +132,7 @@ class ManageDoctor extends Component {
             selectedSpecialty: '',
             selectedClinic: '',
             note: '',
-            ontentMarkDownEn: '',
+            contentMarkDownEn: '',
             contentHTMLEn: '',
             descriptionEn: '',
             noteEn: ''
@@ -285,7 +287,6 @@ class ManageDoctor extends Component {
                 selectedClinic = listClinic.find(item => {
                     return item && item.value === clinicId
                 })
-
             }
             this.setState({
                 selectedPrice: selectedPrice,
@@ -315,9 +316,6 @@ class ManageDoctor extends Component {
     };
 
     handleOnchangeSelectDoctorInfo = async (selectedOption, name) => {
-        let { selectedSpecialty, selectedClinic } = this.state
-        let specialtyId = selectedSpecialty ? selectedSpecialty.value : '';
-        let clinicId = selectedClinic ? selectedClinic.value : ''
         let stateName = name.name;
         let stateCopy = { ...this.state };
         stateCopy[stateName] = selectedOption;
@@ -325,11 +323,22 @@ class ManageDoctor extends Component {
             ...stateCopy,
         }, async () => {
             if (this.state.isUpdate) {
-                // await this.props.fetchAllDoctorStart(specialtyId, clinicId);
+                // this.handleFilterButton()
+            }
+        })
+    }
+
+    handleChangeFilter = async (selectedFilter, name) => {
+        let stateName = name.name;
+        let stateCopy = { ...this.state };
+        stateCopy[stateName] = selectedFilter;
+        this.setState({
+            ...stateCopy,
+        }, async () => {
+            if (this.state.isUpdate) {
                 this.handleFilterButton()
             }
         })
-
     }
 
     handleOnchangeText = (event, id) => {
@@ -425,13 +434,10 @@ class ManageDoctor extends Component {
     }
 
     handleFilterButton = async () => {
-        let { selectedSpecialty, selectedClinic } = this.state
-        let specialtyId = selectedSpecialty ? selectedSpecialty.value : '';
-        let clinicId = selectedClinic ? selectedClinic.value : ''
+        let { filterSpecialty, filterClinic } = this.state
+        let specialtyId = filterSpecialty ? filterSpecialty.value : '';
+        let clinicId = filterClinic ? filterClinic.value : ''
         await this.props.fetchAllDoctorStart(specialtyId, clinicId);
-        this.setState({
-            selectedOptions: ''
-        })
     }
 
     render() {
@@ -467,20 +473,20 @@ class ManageDoctor extends Component {
                                 <div className='selected-item'>
                                     <Select
                                         placeholder={<FormattedMessage id="menu.manage-doctor.specialty" />}
-                                        value={this.state.selectedSpecialty}
-                                        onChange={this.handleOnchangeSelectDoctorInfo}
+                                        value={this.state.filterSpecialty}
+                                        onChange={this.handleChangeFilter}
                                         options={this.state.listSpecialty}
-                                        name="selectedSpecialty"
+                                        name="filterSpecialty"
                                         isClearable
                                     />
                                 </div>
                                 <div className='selected-item'>
                                     <Select
                                         placeholder={<FormattedMessage id="menu.manage-doctor.clinic" />}
-                                        value={this.state.selectedClinic}
-                                        onChange={this.handleOnchangeSelectDoctorInfo}
+                                        value={this.state.filterClinic}
+                                        onChange={this.handleChangeFilter}
                                         options={this.state.listClinic}
-                                        name="selectedClinic"
+                                        name="filterClinic"
                                         isClearable
                                     />
                                 </div>

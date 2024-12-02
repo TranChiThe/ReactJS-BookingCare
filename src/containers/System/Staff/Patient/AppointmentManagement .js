@@ -185,7 +185,7 @@ class AppointmentManagement extends Component {
     render() {
         const { selectedStatus, appointments, currentPage, totalPages } = this.state;
         let { language } = this.props;
-        let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+        // let yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
         let { userInFo } = this.props;
         return (
             <div className="appointment-doctor-list-container">
@@ -251,7 +251,7 @@ class AppointmentManagement extends Component {
                                 onChange={this.handleOnchangeDatePicker}
                                 className='form-control'
                                 selected={this.state.currentDate}
-                                minDate={yesterday}
+                                // minDate={yesterday}
                                 placeholder={this.props.intl.formatMessage({ id: 'manage-schedule.choose-date' })}
                             />
                         </div>
@@ -265,10 +265,13 @@ class AppointmentManagement extends Component {
                                     <tr>
                                         <th></th>
                                         <th><FormattedMessage id='manage-user.record' /></th>
-                                        <th>Email</th>
-                                        <th><FormattedMessage id='manage-user.full-name' /></th>
-                                        <th><FormattedMessage id='manage-user.phone-number' /></th>
+                                        <th><FormattedMessage id='manage-appointment.fullName' /></th>
+                                        {/* <th><FormattedMessage id='manage-appointment.phoneNumber' /></th> */}
+                                        <th><FormattedMessage id='manage-appointment.email' /></th>
+                                        <th><FormattedMessage id='manage-appointment.patientName' /></th>
+                                        <th><FormattedMessage id='manage-appointment.phone' /></th>
                                         <th><FormattedMessage id='manage-schedule.schedule' /></th>
+                                        <th><FormattedMessage id='manage-appointment.reason' /></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -286,6 +289,8 @@ class AppointmentManagement extends Component {
                                                 <tr key={appointment.id}>
                                                     <td>{index + 1 + (this.state.currentPage - 1) * this.state.limit}</td>
                                                     <td>{appointment?.recordId}</td>
+                                                    <td>{appointment?.fullName}</td>
+                                                    {/* <td>{appointment?.phoneNumber}</td> */}
                                                     <td>{appointment.appointmentData.email}</td>
                                                     <td>
                                                         {language === LANGUAGES.EN
@@ -296,6 +301,7 @@ class AppointmentManagement extends Component {
                                                     <td>{language === LANGUAGES.VI
                                                         ? appointment.timeTypeAppointment.valueVi
                                                         : appointment.timeTypeAppointment.valueEn}</td>
+                                                    <td>{appointment?.reason}</td>
                                                     <td>
                                                         {(selectedStatus !== 'S5' && selectedStatus !== 'S4') &&
                                                             <button className="btn-edit"

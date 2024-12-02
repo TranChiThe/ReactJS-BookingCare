@@ -2,6 +2,7 @@ import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import axios from '../../axios';
 import * as actions from '../../store/actions';
+import { withRouter } from 'react-router';
 import './ChatBotComponent.scss';
 
 class ChatBotComponent extends Component {
@@ -64,7 +65,7 @@ class ChatBotComponent extends Component {
 
         setTimeout(async () => {
             try {
-                const response = await axios.post('http://localhost:8080/webhook', {
+                const response = await axios.post('http://localhost:8080/chat', {
                     query: input,
                 });
 
@@ -115,6 +116,10 @@ class ChatBotComponent extends Component {
         this.props.clearMessages();
     };
 
+    handleLinkClick = (url) => {
+        this.props.history.push(url); // Chuyển hướng với React Router
+    };
+
     render() {
         const { input, isChatOpen, isLoading, hasStarted } = this.state;
         const { messages = [] } = this.props;
@@ -148,27 +153,37 @@ class ChatBotComponent extends Component {
                                 {/* {messages.map((msg, index) => (
                                     msg && msg.sender ? (
                                         <div key={index} className={`message ${msg.sender}`}>
-                                            {msg.text.split('\n').map((line, i) => (
-                                                <span key={i}>
-                                                    {line}
-                                                    <br />
+                                            {msg.text.includes('http') ? (
+                                                <span
+                                                    onClick={() => this.handleLinkClick('/detail-specialty/SPC1')}
+                                                    className="chat-link"
+                                                >
+                                                    Nhấn để xem chi tiết
                                                 </span>
-                                            ))}
-                                            <div className="message-time">{msg.timestamp}</div>
+                                            ) : (
+                                                msg.text
+                                            )}
                                         </div>
                                     ) : null
                                 ))} */}
                                 {messages.map((msg, index) => (
                                     msg && msg.sender ? (
                                         <div key={index} className={`message ${msg.sender}`}>
-                                            {typeof msg.text === 'string' && msg.text.split('\n').map((line, i) => (
-                                                <span key={i}>
-                                                    {line}
+                                            {msg.text.includes('/detail') ? (
+                                                <span
+                                                    onClick={() => this.handleLinkClick(msg.text)}
+                                                    className="chat-link"
+                                                    style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                                                >
+                                                    Nhấn để xem chi tiết
                                                 </span>
-                                            ))}
+                                            ) : (
+                                                msg.text
+                                            )}
                                         </div>
                                     ) : null
                                 ))}
+
                                 {isLoading && (
                                     <div className="loading-indicator">
                                         <div className="dot"></div>
@@ -212,4 +227,4 @@ const mapDispatchToProps = dispatch => ({
     loadMessages: () => dispatch(actions.loadMessages()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatBotComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ChatBotComponent));

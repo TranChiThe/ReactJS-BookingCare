@@ -14,8 +14,8 @@ class Support extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'tcthe13062002@gmail.com',
-            recordId: '1731824587458',
+            email: '',
+            recordId: '',
             appointments: [],
             comment: '',
             doctorId: '',
@@ -146,6 +146,7 @@ class Support extends Component {
     render() {
         let { email, recordId, appointments } = this.state;
         let { language } = this.props;
+        console.log('check state: ', this.state)
         return (
             <>
                 <HomeHeader />

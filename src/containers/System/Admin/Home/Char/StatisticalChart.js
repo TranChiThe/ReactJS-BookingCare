@@ -30,29 +30,13 @@ class StatisticalChart extends Component {
         const { selectedFilter, selectedMonth, selectedYear } = this.state;
         let res = await getCountPatientByTime(selectedFilter, selectedMonth, selectedYear);
         if (res && res.errCode === 0) {
-            this.setState({ patientData: res.data });
+            this.setState({
+                patientData: res.data,
+            });
         } else {
             this.setState({ patientData: [] });
         }
     }
-
-    // getAppointmentByTime = async () => {
-    //     const { selectedMonth, selectedYear } = this.state;
-    //     let totalAppointment = await getAppointmentByTime("S1", selectedMonth, selectedYear);
-    //     let newAppointment = await getAppointmentByTime("S2", selectedMonth, selectedYear);
-    //     let cancelledAppointment = await getAppointmentByTime("S5", selectedMonth, selectedYear)
-    //     let totalRevenue = await getAppointmentByTime("S4", selectedMonth, selectedYear)
-    //     if (totalAppointment && totalAppointment.errCode === 0 ||
-    //         newAppointment && newAppointment.errCode === 0 ||
-    //         cancelledAppointment && cancelledAppointment.errCode === 0) {
-    //         this.setState({
-    //             totalAppointment: totalAppointment.data.appointmentCount,
-    //             newAppointment: newAppointment.data.appointmentCount,
-    //             cancelledAppointment: cancelledAppointment.data.appointmentCount,
-    //             totalRevenue: totalRevenue.data.totalRevenue
-    //         });
-    //     }
-    // }
 
     getAppointmentByTime = async () => {
         const { selectedMonth, selectedYear } = this.state;
@@ -65,26 +49,38 @@ class StatisticalChart extends Component {
         let newAppointment = 0;
         let cancelledAppointment = 0;
         let totalRevenue = 0;
+        let totalPatient = 0;
         results.forEach((res, index) => {
             if (res && res.errCode === 0) {
                 switch (statusIds[index]) {
                     case "S1":
                         totalAppointment += res.data.appointmentCount;
+                        // totalPatient = res.data.totalPatient
                         break;
                     case "S2":
                         newAppointment += res.data.appointmentCount;
                         totalAppointment += res.data.appointmentCount;
+                        // totalPatient = res.data?.totalPatient
+
                         break;
                     case "S3":
                         totalAppointment += res.data.appointmentCount;
+                        // totalPatient = res.data?.totalPatient
+                        totalPatient += res.data.totalPatient;
+
                         break;
                     case "S4":
                         totalRevenue += res.data.totalRevenue;
                         totalAppointment += res.data.appointmentCount;
+                        // totalPatient = res.data?.totalPatient
+                        totalPatient += res.data.totalPatient;
+
                         break;
                     case "S5":
                         cancelledAppointment += res.data.appointmentCount;
                         totalAppointment += res.data.appointmentCount;
+                        // totalPatient = res.data?.totalPatient
+
                         break;
                     default:
                         break;
@@ -92,12 +88,12 @@ class StatisticalChart extends Component {
             }
         });
 
-        // Cập nhật lại state với các giá trị mới
         this.setState({
             totalAppointment,
             newAppointment,
             cancelledAppointment,
-            totalRevenue
+            totalRevenue,
+            totalPatient
         });
     }
 
@@ -131,8 +127,9 @@ class StatisticalChart extends Component {
     render() {
         const months = Array.from({ length: 12 }, (_, i) => i + 1);
         const years = Array.from({ length: 10 }, (_, i) => 2024 + i);
-        const { totalAppointment, totalPatient, cancelledAppointment, newAppointment, totalRevenue } = this.state;
-
+        const { totalAppointment, cancelledAppointment, newAppointment, totalRevenue } = this.state;
+        let totalPatient = this.state.totalPatient
+        console.log('check state:', this.state)
         return (
             <div className="dashboard-container">
                 <div className='dashboard-title'>
@@ -164,7 +161,7 @@ class StatisticalChart extends Component {
                             <div className="metric-title">
                                 <FormattedMessage id='admin.staff.totalPatient' />
                             </div>
-                            <div className="metric-value">{newAppointment}</div>
+                            <div className="metric-value">{totalPatient}</div>
                         </div>
                         <div className="metric-box">
                             <div className="metric-title">

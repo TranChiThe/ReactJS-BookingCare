@@ -21,7 +21,7 @@ class ManageSystemCode extends Component {
             arrCodes: [],
             currentPage: 1,
             totalPages: 1,
-            limit: 15,
+            limit: 10,
             isOpenModalCode: false,
             isEditModal: false,
             selectedItem: '',

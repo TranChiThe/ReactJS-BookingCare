@@ -70,8 +70,8 @@ class MixedChart extends Component {
             if (selectedFilter === 'weekly') {
                 let weeksData = data.weeklyCounts ? data.weeklyCounts : []
                 chartData.labels = ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4', 'Tuần 5'];
-                chartData.datasets[0].data = weeksData;
-                chartData.datasets[1].data = weeksData.map((value) => value * 1.02);
+                chartData.datasets[0].data = weeksData.map((item) => item.patientCounts);
+                chartData.datasets[1].data = weeksData.map((item) => item.appointmentCounts);
             }
             else if (selectedFilter === 'monthly') {
                 let monthsData = data.monthlyCounts ? data.monthlyCounts : []
@@ -80,8 +80,8 @@ class MixedChart extends Component {
                     'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10',
                     'Tháng 11', 'Tháng 12'
                 ];
-                chartData.datasets[0].data = monthsData;
-                chartData.datasets[1].data = monthsData.map((value) => value * 1.02);
+                chartData.datasets[0].data = monthsData.map((item) => item.patientCounts);
+                chartData.datasets[1].data = monthsData.map((item) => item.appointmentCounts);
             }
             else if (selectedFilter === 'yearly') {
                 let yearsData = data.yearlyCounts ? data.yearlyCounts : []

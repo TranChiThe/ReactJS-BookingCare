@@ -27,7 +27,7 @@ class VerifyEmail extends Component {
             let timeType = urlParams.get('timeType');
             let res = await postVerifyBookAppointment({
                 token: token,
-                // doctorId: doctorId
+                doctorId: doctorId,
                 patientId: patientId,
                 date: date,
                 timeType: timeType

@@ -38,7 +38,7 @@
         "admin": {
             "home": "Home",
             "user": "Doctor",
-            "manage-doctor": "Manage doctor information",
+            "manage-doctor": "Doctor information Management",
             "manage-admin": "Manage admin",
             "crud": "CRUD user",
             "crud-redux": "Account management",
@@ -51,7 +51,7 @@
             "manage-handbook": "Post management",
             "filter": "Filter",
             "system-code": "System code management",
-            "manage-schedule": "Manage appointment schedule",
+            "manage-schedule": "Medical appointment management",
             "manage-comment": "Comment Management"
         },
         "doctor": {
@@ -84,20 +84,20 @@
         },
         "staff":{
             "doctor":"Doctor",
-            "doctor-schedule": "Manage medical appointment schedule",
+            "doctor-schedule": "Medical appointment management",
             "patient":"Patient",
-            "patient-appointment": "Manage appointment schedule"
+            "patient-appointment": "appointment schedule management"
         }
     },
     "admin": {
         "doctor": {
             "notification-schedule-doctor": "The doctor has no appointments during this time, please check again!",
-            "appointment-manage": "Manage Appointment Appointment",
+            "appointment-manage": "Appointment Management",
             "confirm": "Confirm",
             "refuse": "Reject",
             "confirmed": "Confirmed",
             "examining": "Examining",
-            "complete": "Examination completed",
+            "complete": "Completed",
             "canceled": "Cancelled",
             "all": "All",
             "appointment-avaiable": "No appointments available"
@@ -212,6 +212,15 @@
         "start-date": "From date", 
         "end-date": "To date"
     },
+    "manage-appointment": {
+        "fullName": "Booker infomation",
+        "phoneNumber": "Booker phone number",
+        "patientName": "Patient fullname",
+        "phone": "Patient phone number",
+        "email": "Patient email",
+        "reason": "Reason"
+
+    },
     "patient": {
         "detail-doctor": {
             "schedule": "Schedule",
@@ -282,7 +291,7 @@
             "patientInfo": "Patient Information",
             "email": "Enter your email address...",
             "record": "Enter your record code...",   
-            "manage-schedule": "Manage medical appointment schedule",
+            "manage-schedule": "Manage appointment schedule",
             "cancel": "Cancel appointment",
             "toast": "Incorrect email or record code, please try again!"
         },

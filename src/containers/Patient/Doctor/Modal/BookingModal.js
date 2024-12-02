@@ -242,7 +242,9 @@ class BookingModal extends Component {
             address: '',
             reason: '',
             birthday: '',
-            selectedGender: ''
+            selectedGender: '',
+            fullName: '',
+            relativesPhoneNumber: '',
         });
     }
 

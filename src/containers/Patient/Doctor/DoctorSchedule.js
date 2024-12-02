@@ -23,19 +23,6 @@ class DoctorSchedule extends Component {
         }
     }
 
-    // async componentDidMount() {
-    //     let allDays = this.getArrDays(this.props.language);
-    //     this.setState({
-    //         allDays: allDays,
-    //     })
-    //     if (this.props.doctorIdFromParent) {
-    //         let allDays = this.getArrDays(this.props.language)
-    //         let res = await getScheduleDoctorByDate(this.props.doctorIdFromParent, allDays[0].value);
-    //         this.setState({
-    //             allAvailableTime: res.data ? res.data : []
-    //         })
-    //     }
-    // }
     async componentDidMount() {
         this.updateDays();
         if (this.props.doctorIdFromParent) {
@@ -67,7 +54,7 @@ class DoctorSchedule extends Component {
             const res = await getScheduleDoctorByDate(doctorIdFromParent, firstDay);
             this.setState({
                 allAvailableTime: res.data || [],
-                selectedDate: firstDay // Gán ngày đầu tiên làm giá trị mặc định
+                selectedDate: firstDay
             });
         } catch (error) {
             console.error("Error fetching schedule:", error);

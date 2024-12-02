@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Select from 'react-select';
 import { LANGUAGES } from '../../../utils';
 import { FormattedMessage } from 'react-intl';
 import { getExtraInfoDoctorById } from '../../../services/userService'

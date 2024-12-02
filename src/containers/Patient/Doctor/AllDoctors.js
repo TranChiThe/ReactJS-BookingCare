@@ -64,7 +64,7 @@ class AllDoctors extends Component {
                                         </div>
                                         <div className='content-right'>
                                             <div className='doctor-info'>
-                                                {this.renderDoctorName(doctor)}
+                                                {this.renderDoctorName(doctor)} -
                                             </div>
                                             <div className='doctor-info'>
                                                 <SpecialtyInfo specialtyIdFromParent={doctor.Doctor_Infor.specialtyId} />

@@ -212,6 +212,14 @@
         "start-date": "Từ ngày",
         "end-date": "Đến ngày"
     },
+    "manage-appointment": {
+        "fullName": "Thông tin người đặt",
+        "phoneNumber": "SDT người đặt",
+        "patientName": "Họ tên bệnh nhân",
+        "phone": "SDT bệnh nhân",
+        "email": "Email bệnh nhân",
+        "reason": "Lý do khám"
+    },
     "patient": {
         "detail-doctor": {
             "schedule": "Lịch khám",
